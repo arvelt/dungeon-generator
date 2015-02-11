@@ -52,23 +52,25 @@ class Dungeon:
     def dichotomous_split(self, room_size, row_index, col_index, count):
         begin_row = room_size.get('start_row')
         begin_col = room_size.get('start_col')
-        target_row = room_size.get('end_row')
-        target_col = room_size.get('end_col')
+        end_row = room_size.get('end_row')
+        end_col = room_size.get('end_col')
 
         if (count % 2 == 0):
-            target_row = (target_row - begin_row) / 2
+            target_row = end_row / 2
+            end_row = target_row
             if (row_index == target_row):
                 self.dungeon[row_index][col_index] = 1
         else :
-            target_col = (target_col - begin_col) / 2
+            target_col = end_col / 2
+            end_col = target_col
             if (col_index == target_col):
                 self.dungeon[row_index][col_index] = 1
 
         return {
             'start_row': begin_row,
             'start_col': begin_col,
-            'end_row': target_row,
-            'end_col': target_col
+            'end_row': end_row,
+            'end_col': end_col
         }
 
 
