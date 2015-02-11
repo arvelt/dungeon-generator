@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+import random, math
+
 class Dungeon:
     max_row = 32
     max_col = 32
@@ -19,9 +21,16 @@ class Dungeon:
             'end_row': self.max_row,
             'end_col': self.max_col
         }
-        self.fill_range(room_size)
 
-    def fill_range(self, room_size, count = 0):
+        probability = math.floor(random.random() * 100)
+        if probability < 50:
+            count = 0
+        else:
+            count = 1
+
+        self.fill_range(room_size, count)
+
+    def fill_range(self, room_size, count):
         start_row = room_size.get('start_row')
         start_col = room_size.get('start_col')
         end_row = room_size.get('end_row')
