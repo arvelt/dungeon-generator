@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-import random, math
+import random, math, pprint
 
 class Tile:
     TILE = 0
@@ -54,15 +54,15 @@ class Dungeon:
         else:
             state = 1
 
-        self.fill_range(room_size, count, state)
+        self.dichotomous_split(room_size, count, state)
 
-    def fill_range(self, room_size, count, state):
+    def dichotomous_split(self, room_size, count, state):
         start_row = room_size.get('start_row')
         start_col = room_size.get('start_col')
         end_row = room_size.get('end_row')
         end_col = room_size.get('end_col')
 
-        new_size = self.dichotomous_split(room_size, count, state)
+        new_size = self.get_new_size(room_size, count, state)
 
         for row_index, row in enumerate(self.dungeon[start_row:end_row]):
             for col_index, col in enumerate(row[start_col:end_col]):
@@ -72,15 +72,13 @@ class Dungeon:
                     self.dungeon[row_index][col_index].kind = Tile.PARTING_LINE
 
         count = count + 1
-        rest_row = new_size.get('end_row') - new_size.get('start_row')
-        rest_col = new_size.get('end_col') - new_size.get('start_col')
 
-        if (rest_row < self.min_size and rest_col < self.min_size):
+        if new_size.get('room_size') < self.min_size:
             return
         else:
-            self.fill_range(new_size, count, state)
+            self.dichotomous_split(new_size, count, state)
 
-    def dichotomous_split(self, room_size, count, state):
+    def get_new_size(self, room_size, count, state):
         begin_row = room_size.get('start_row')
         begin_col = room_size.get('start_col')
         end_row = room_size.get('end_row')
@@ -99,13 +97,16 @@ class Dungeon:
             target_col = height / 2
             end_col = target_col
 
+        room_size = max(end_row - begin_row, end_col - begin_col)
+
         return {
             'start_row': begin_row,
             'start_col': begin_col,
             'end_row': end_row,
             'end_col': end_col,
             'target_row': target_row,
-            'target_col': target_col
+            'target_col': target_col,
+            'room_size': room_size
         }
 
 
