@@ -53,7 +53,7 @@ class Dungeon:
 
         probability = math.floor(random.random() * 100)
         if probability < 50:
-            state = 0
+            state = 1
         else:
             state = 1
 
@@ -70,10 +70,15 @@ class Dungeon:
             return
 
         if new_size.get('target_col') is None:
-            for col in self.dungeon[new_size.get('target_row')]:
-                if col.kind == Tile.PARTING_LINE:
-                    break
-                col.kind = Tile.PARTING_LINE
+            try:
+                for row_index, row in enumerate(self.dungeon):
+                    if row_index == new_size.get('target_row'):
+                        for col in row:
+                            if col.kind == Tile.PARTING_LINE:
+                                raise ROOPEND
+                            col.kind = Tile.PARTING_LINE
+            except ROOPEND:
+                pass
 
         if new_size.get('target_row') is None:
             try:
