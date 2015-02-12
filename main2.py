@@ -63,6 +63,8 @@ class Dungeon:
         end_col = room_size.get('end_col')
 
         new_size = self.get_new_size(room_size, count, state)
+        if new_size.get('room_size') < self.min_size:
+            return
 
         for row_index, row in enumerate(self.dungeon[start_row:end_row]):
             for col_index, col in enumerate(row[start_col:end_col]):
@@ -72,11 +74,7 @@ class Dungeon:
                     self.dungeon[row_index][col_index].kind = Tile.PARTING_LINE
 
         count = count + 1
-
-        if new_size.get('room_size') < self.min_size:
-            return
-        else:
-            self.dichotomous_split(new_size, count, state)
+        self.dichotomous_split(new_size, count, state)
 
     def get_new_size(self, room_size, count, state):
         begin_row = room_size.get('start_row')
@@ -97,7 +95,7 @@ class Dungeon:
             target_col = height / 2
             end_col = target_col
 
-        room_size = max(end_row - begin_row, end_col - begin_col)
+        room_size = max(width, height)
 
         return {
             'start_row': begin_row,
