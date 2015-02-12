@@ -1,6 +1,9 @@
 # -*- coding: UTF-8 -*-
 import random, math, pprint
 
+class ROOPEND(Exception):
+    pass
+
 class Tile:
     TILE = 0
     WALL = 2
@@ -66,12 +69,29 @@ class Dungeon:
         if new_size.get('room_size') < self.min_size:
             return
 
-        for row_index, row in enumerate(self.dungeon[start_row:end_row]):
-            for col_index, col in enumerate(row[start_col:end_col]):
-                if (row_index == new_size.get('target_row') and new_size.get('target_col') is None):
-                    self.dungeon[row_index][col_index].kind = Tile.PARTING_LINE
-                if (col_index == new_size.get('target_col') and new_size.get('target_row') is None):
-                    self.dungeon[row_index][col_index].kind = Tile.PARTING_LINE
+        if new_size.get('target_col') is None:
+            for col in self.dungeon[new_size.get('target_row')]:
+                if col.kind == Tile.PARTING_LINE:
+                    break
+                col.kind = Tile.PARTING_LINE
+
+        if new_size.get('target_row') is None:
+            try:
+                for row in self.dungeon:
+                    for col_index, col in enumerate(row):
+                        if col_index == new_size.get('target_col'):
+                            if col.kind == Tile.PARTING_LINE:
+                                raise ROOPEND
+                            col.kind = Tile.PARTING_LINE
+            except ROOPEND:
+                pass
+
+        # for row_index, row in enumerate(self.dungeon[start_row:end_row]):
+        #     for col_index, col in enumerate(row[start_col:end_col]):
+        #         if (row_index == new_size.get('target_row') and new_size.get('target_col') is None):
+        #             self.dungeon[row_index][col_index].kind = Tile.PARTING_LINE
+        #         if (col_index == new_size.get('target_col') and new_size.get('target_row') is None):
+        #             self.dungeon[row_index][col_index].kind = Tile.PARTING_LINE
 
         count = count + 1
         self.dichotomous_split(new_size, count, state)
@@ -86,14 +106,24 @@ class Dungeon:
         height = end_col - begin_col
 
         if (count % 2 == 0):
-            target_row = width / 2
-            target_col = None
-            end_row = target_row
+            if state == 0:
+                target_row = width / 2
+                target_col = None
+                end_row = target_row
+            else:
+                target_row = begin_row + width / 2
+                target_col = None
+                begin_row = target_row
 
         else :
-            target_row = None
-            target_col = height / 2
-            end_col = target_col
+            if state == 0:
+                target_row = None
+                target_col = height / 2
+                end_col = target_col
+            else:
+                target_row = None
+                target_col = begin_col + height / 2
+                begin_col = target_col
 
         room_size = max(width, height)
 
