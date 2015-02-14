@@ -1,85 +1,159 @@
 # -*- coding: UTF-8 -*-
-import random, math, pprint
+import random, math, pprint, pytest
 
 class ROOPEND(Exception):
     pass
 
 
-class Tile:
-    TILE = 0
-    WALL = 2
-    WAY = 5
-    PARTING_LINE = 1
-
-    kind = TILE
-    x = 0
-    y = 0
-    max_row = 0
-    max_col = 0
-
-    def __init__(self, x, y, max_row, max_col):
+class Rect(object):
+    def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
-        self.max_row = max_row
-        self.max_col = max_col
+        self.width = width
+        self.height = height
+        self.ax = x + width -1
+        self.ay = y + height -1
 
-
-class Rooms():
-    rooms = []
-
-    def add_room(room):
-        self.append(room)
-
-
-class Room():
-    x = 0
-    y = 0
-    width = 0
-    height = 0
-
-    def __init__(self, ax, ay, bx, by):
-        self.x = ax
-        self.y = ay
-        self.width = bx - ax
-        self.height = by - ay
-
-    def to_string(self):
-        print {
+    def __str__(self):
+        return str({
             'x': self.x,
             'y': self.y,
             'width': self.width,
             'heigth': self.height,
-        }
-
-class Islands():
-    islands = []
-
-    def add_island(island):
-        self.append(island)
+        })
 
 
-class Island(Room):
+class Tile(object):
+    DEFAULT = 0
+    WALL = 2
+    WAY = 5
+    PARTING_LINE = 1
+
+    def __init__(self, x, y, kind = None):
+        self.x = x
+        self.y = y
+        if kind is None:
+            self.kind = self.DEFAULT
+        else:
+            self.kind = kind
+
+    def __str__(self):
+        return str(self.kind)
+
+
+class Frames(object):
+    frames = ''
+
+    def __init__(self):
+        self.frames = []
+
+    def add_frame(self, frame):
+        self.frames.append(frame)
+
+    def __str__(self):
+        return str([str(frame) for frame in self.frames])
+
+    def to_map(self, x, y, ax, ay):
+        floor = ''
+        for row in range(x, ax + 1):
+            line = ''
+            for col in range(y, ay + 1):
+                for frame in self.frames:
+                    if frame.has_coordinate(row, col):
+                        tile = frame.get_tile(row, col)
+                        line = line + str(tile)
+                        break
+            floor = floor + line + '\n'
+        return floor
+
+
+class Frame(Rect):
+    tiles = ''
+
+    def __init__(self, x, y, width, height, tmp_kind = None):
+        super(Frame, self).__init__(x, y, width, height)
+        self.tiles = []
+        self.fill_tiles(tmp_kind)
+
+    def fill_tiles(self, tmp_kind):
+        for row in range(self.x, self.ax + 1):
+            for col in range(self.y, self.ay + 1):
+                self.tiles.append(Tile(row , col, tmp_kind))
+
+    def get_tile(self, x, y):
+        for tile in self.tiles:
+            if tile.x == x and tile.y == y:
+                return tile
+        else:
+            return None
+
+    def has_coordinate(self, x, y):
+        if (self.x <= x and x <= self.x + self.width - 1) and \
+            (self.y <= y and y <= self.y + self.height - 1):
+            return True
+        else:
+            return False
+
+
+class OuterFrame(Rect):
+    frames = ''
+
+    def __init__(self, width, height):
+        super(OuterFrame, self).__init__(1, 1, width, height)
+        self.frames = Frames()
+        self.iniatilze()
+
+    def iniatilze(self):
+        room_nomber = 4
+        row_split = room_nomber / 2
+        col_split = room_nomber / 2
+
+        row_adding = self.width/2
+        col_adding = self.height/2
+
+        one = Frame(self.x, self.y, row_adding, col_adding, 1)
+        two = Frame(self.x + row_adding, self.y, row_adding, col_adding, 2)
+        three = Frame(self.x, self.y+col_adding, row_adding, col_adding, 3)
+        four = Frame(self.x+row_adding, self.y+col_adding, row_adding, col_adding, 4)
+
+        self.frames.add_frame(one)
+        self.frames.add_frame(two)
+        self.frames.add_frame(three)
+        self.frames.add_frame(four)
+
+    def __str__(self):
+        return str(self.frames)
+
+    def to_map(self):
+        return self.frames.to_map(self.x, self.y, self.ax, self.ay)
+
+
+class Rooms(object):
+    rooms = []
+
+    def add_romms(room):
+        self.append(room)
+
+
+class Room(Frame):
     pass
 
 
 class Dungeon:
-    max_row = 32
-    max_col = 32
-    min_size = 10
-    dungeon = [[Tile(row, col, max_row, max_col) for col in xrange(max_col)] for row in xrange(max_row)]
-    rooms = 0
+    row_size = 10
+    col_size = 10
 
     def __init__(self):
-        self.rooms = Room(0, 0, self.max_row, self.max_col)
-        self.rooms.to_string()
+        self.dungeon = OuterFrame(self.row_size, self.col_size)
 
 
-    def to_string(self):
-        for row in self.dungeon:
-            print ''.join([str(col.kind) for col in row])
+    def __str__(self):
+        return str(self.dungeon)
+
+    def to_map(self):
+        return self.dungeon.to_map()
 
 
-
-
-dungeon = Dungeon()
-dungeon.to_string()
+if __name__ == '__main__':
+    dungeon = Dungeon()
+    print dungeon.to_map()
