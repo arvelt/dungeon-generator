@@ -164,7 +164,6 @@ class OuterFrame(Rect):
         room_generator = RoomGenerator(self.width, self.height, self.config)
         sizes = room_generator.get_room_sizes()
         for index, size in enumerate(sizes):
-            print size
             room = Room(size.get('x'), size.get('y'), size.get('width'), size.get('height'))
             self.rooms.add_room(room)
 
@@ -202,8 +201,8 @@ class RoomGenerator(Rect):
 
 
 class Dungeon:
-    row_size = 64
-    col_size = 64
+    row_size = 32
+    col_size = 32
 
     def __init__(self, config=None):
         self.dungeon = OuterFrame(self.row_size, self.col_size, config)
