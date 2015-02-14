@@ -1,96 +1,222 @@
 # -*- coding: UTF-8 -*-
-import random, math
+import random, math, pprint, pytest
 
-class Dungeon:
-    max_row = 32
-    max_col = 32
-    min_size = 10
-    dungeon = [[0 for col in xrange(max_col)] for row in xrange(max_row)]
+class ROOPEND(Exception):
+    pass
+
+
+class Rect(object):
+    """ Shape for map base.
+        All unit of member value is squares, not coordinate.
+    """
+
+    def __init__(self, x, y, width, height):
+        """
+        arguments:
+        x -- potision x
+        y -- potision y
+        width -- shape width
+        height -- shape height
+        """
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.ax = x + width -1
+        self.ay = y + height -1
+
+    def __str__(self):
+        return str({
+            'x': self.x,
+            'y': self.y,
+            'width': self.width,
+            'heigth': self.height,
+        })
+
+
+class Tile(object):
+    DEFAULT = 0
+    WALL = 2
+    WAY = 5
+    PARTING_LINE = 1
+
+    def __init__(self, x, y, kind = None):
+        self.x = x
+        self.y = y
+        if kind is None:
+            self.kind = self.DEFAULT
+        else:
+            self.kind = kind
+
+    def __str__(self):
+        return str(self.kind)
+
+
+class Frames(object):
+    frames = ''
 
     def __init__(self):
-        self.split_space()
+        self.frames = []
 
-    def to_string(self):
-        for row in self.dungeon:
-            print ''.join([str(col) for col in row])
+    def add_frame(self, frame):
+        self.frames.append(frame)
 
-    def split_space(self):
-        room_size = {
-            'start_row': 0,
-            'start_col': 0,
-            'end_row': self.max_row,
-            'end_col': self.max_col
-        }
+    def __str__(self):
+        return str([str(frame) for frame in self.frames])
 
-        probability = math.floor(random.random() * 100)
-        if probability < 50:
-            count = 0
+    def to_map(self, x, y, ax, ay):
+        floor = ''
+        for row in range(x, ax + 1):
+            line = ''
+            for col in range(y, ay + 1):
+                for frame in self.frames:
+                    if frame.has_coordinate(row, col):
+                        tile = frame.get_tile(row, col)
+                        line = line + str(tile)
+                        break
+            floor = floor + line + '\n'
+        return floor
+
+
+class Frame(Rect):
+    tiles = ''
+
+    def __init__(self, x, y, width, height, tmp_kind = None):
+        super(Frame, self).__init__(x, y, width, height)
+        self.tiles = []
+        self.fill_tiles(tmp_kind)
+
+    def fill_tiles(self, tmp_kind):
+        for row in range(self.x, self.ax + 1):
+            for col in range(self.y, self.ay + 1):
+                self.tiles.append(Tile(row , col, tmp_kind))
+
+    def get_tile(self, x, y):
+        for tile in self.tiles:
+            if tile.x == x and tile.y == y:
+                return tile
         else:
-            count = 1
+            return None
 
-        probability = math.floor(random.random() * 100)
-        if probability < 50:
-            state = 0
+    def has_coordinate(self, x, y):
+        if (self.x <= x and x <= self.x + self.width - 1) and \
+            (self.y <= y and y <= self.y + self.height - 1):
+            return True
         else:
-            state = 1
+            return False
 
-        self.fill_range(room_size, count, state)
 
-    def fill_range(self, room_size, count, state):
-        start_row = room_size.get('start_row')
-        start_col = room_size.get('start_col')
-        end_row = room_size.get('end_row')
-        end_col = room_size.get('end_col')
+class OuterFrame(Rect):
+    frames = ''
 
-        for row_index, row in enumerate(self.dungeon[start_row:end_row]):
-            for col_index, col in enumerate(row[start_col:end_col]):
-                new_size = self.dichotomous_split(room_size, row_index, col_index, count, state)
-
-        count = count + 1
-        rest_row = new_size.get('end_row') - new_size.get('start_row')
-        rest_col = new_size.get('end_col') - new_size.get('start_col')
-
-        if (rest_row < self.min_size and rest_col < self.min_size):
-            return
+    def __init__(self, width, height, config=None):
+        super(OuterFrame, self).__init__(1, 1, width, height)
+        self.frames = Frames()
+        if config is not None:
+            self.config = config
         else:
-            self.fill_range(new_size, count, state)
+            self.config = self.default_config
+        self.split_frames()
 
-    def dichotomous_split(self, room_size, row_index, col_index, count, state):
-        begin_row = room_size.get('start_row')
-        begin_col = room_size.get('start_col')
-        end_row = room_size.get('end_row')
-        end_col = room_size.get('end_col')
-
-        width = end_row - begin_row
-        height = end_col - begin_col
-
-        if (count % 2 == 0):
-            target_row = begin_row + width / 2
-            if state == 0:
-                begin_row = target_row
-            else:
-                end_row = target_row
-
-            if (row_index == target_row):
-                self.dungeon[row_index][col_index] = 1
-
-        else :
-            target_col = begin_col + height / 2
-            if state == 0:
-                begin_col = target_col
-            else:
-                end_col = target_col
-
-            if (col_index == target_col):
-                self.dungeon[row_index][col_index] = 1
-
+    @property
+    def default_config(self):
         return {
-            'start_row': begin_row,
-            'start_col': begin_col,
-            'end_row': end_row,
-            'end_col': end_col
+            'room_number' : 4
         }
 
+    def split_frames(self):
+        frame_spliter = FrameSpliter(self.width, self.height, self.config)
+        sizes = frame_spliter.get_frame_size()
 
-dungeon = Dungeon()
-dungeon.to_string()
+        for index, size in enumerate(sizes):
+            frame = Frame(size.get('x'), size.get('y'), size.get('width'), size.get('height'), index)
+            self.frames.add_frame(frame)
+
+    def __str__(self):
+        return str(self.frames)
+
+    def to_map(self):
+        return self.frames.to_map(self.x, self.y, self.ax, self.ay)
+
+class FrameSpliter(Rect):
+    def __init__(self, width, height, config):
+        super(FrameSpliter, self).__init__(1, 1, width, height)
+        self.room_number = config.get('room_number', 4)
+
+    def four_frame(self):
+        room_number = self.room_number
+        row_split = room_number / 2
+        col_split = room_number / 2
+
+        row_adding = self.width / row_split
+        col_adding = self.height / row_split
+
+        room_sizes = []
+        room_sizes.append({
+            'x': self.x,
+            'y': self.y,
+            'width': row_adding,
+            'height': col_adding
+        })
+
+        room_sizes.append({
+            'x': self.x + row_adding,
+            'y': self.y,
+            'width': row_adding,
+            'height': col_adding
+        })
+
+        room_sizes.append({
+            'x': self.x,
+            'y': self.y + col_adding,
+            'width': row_adding,
+            'height': col_adding
+        })
+
+        room_sizes.append({
+            'x': self.x + row_adding,
+            'y': self.y + col_adding,
+            'width': row_adding,
+            'height': col_adding
+        })
+
+        return room_sizes
+
+    def get_frame_size(self):
+        if self.room_number == 4:
+            return self.four_frame()
+
+
+
+class Rooms(object):
+    rooms = []
+
+    def add_romms(room):
+        self.append(room)
+
+
+class Room(Frame):
+    pass
+
+
+class Dungeon:
+    row_size = 10
+    col_size = 10
+
+    def __init__(self, config=None):
+        self.dungeon = OuterFrame(self.row_size, self.col_size, config)
+
+
+    def __str__(self):
+        return str(self.dungeon)
+
+    def to_map(self):
+        return self.dungeon.to_map()
+
+
+if __name__ == '__main__':
+    config = {
+        'room_number' : 6
+    }
+    dungeon = Dungeon()
+    print dungeon.to_map()
