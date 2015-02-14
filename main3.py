@@ -98,34 +98,83 @@ class Frame(Rect):
 class OuterFrame(Rect):
     frames = ''
 
-    def __init__(self, width, height):
+    def __init__(self, width, height, config=None):
         super(OuterFrame, self).__init__(1, 1, width, height)
         self.frames = Frames()
-        self.iniatilze()
+        if config is not None:
+            self.config = config
+        else:
+            self.config = self.default_config
+        self.split_frames()
 
-    def iniatilze(self):
-        room_nomber = 4
-        row_split = room_nomber / 2
-        col_split = room_nomber / 2
+    @property
+    def default_config(self):
+        return {
+            'room_number' : 4
+        }
 
-        row_adding = self.width/2
-        col_adding = self.height/2
+    def split_frames(self):
+        frame_spliter = FrameSpliter(self.width, self.height, self.config)
+        sizes = frame_spliter.get_frame_size()
 
-        one = Frame(self.x, self.y, row_adding, col_adding, 1)
-        two = Frame(self.x + row_adding, self.y, row_adding, col_adding, 2)
-        three = Frame(self.x, self.y+col_adding, row_adding, col_adding, 3)
-        four = Frame(self.x+row_adding, self.y+col_adding, row_adding, col_adding, 4)
-
-        self.frames.add_frame(one)
-        self.frames.add_frame(two)
-        self.frames.add_frame(three)
-        self.frames.add_frame(four)
+        for index, size in enumerate(sizes):
+            frame = Frame(size.get('x'), size.get('y'), size.get('width'), size.get('height'), index)
+            self.frames.add_frame(frame)
 
     def __str__(self):
         return str(self.frames)
 
     def to_map(self):
         return self.frames.to_map(self.x, self.y, self.ax, self.ay)
+
+class FrameSpliter(Rect):
+    def __init__(self, width, height, config):
+        super(FrameSpliter, self).__init__(1, 1, width, height)
+        self.room_number = config.get('room_number', 4)
+
+    def four_frame(self):
+        room_number = self.room_number
+        row_split = room_number / 2
+        col_split = room_number / 2
+
+        row_adding = self.width / row_split
+        col_adding = self.height / row_split
+
+        room_sizes = []
+        room_sizes.append({
+            'x': self.x,
+            'y': self.y,
+            'width': row_adding,
+            'height': col_adding
+        })
+
+        room_sizes.append({
+            'x': self.x + row_adding,
+            'y': self.y,
+            'width': row_adding,
+            'height': col_adding
+        })
+
+        room_sizes.append({
+            'x': self.x,
+            'y': self.y + col_adding,
+            'width': row_adding,
+            'height': col_adding
+        })
+
+        room_sizes.append({
+            'x': self.x + row_adding,
+            'y': self.y + col_adding,
+            'width': row_adding,
+            'height': col_adding
+        })
+
+        return room_sizes
+
+    def get_frame_size(self):
+        if self.room_number == 4:
+            return self.four_frame()
+
 
 
 class Rooms(object):
@@ -143,8 +192,8 @@ class Dungeon:
     row_size = 10
     col_size = 10
 
-    def __init__(self):
-        self.dungeon = OuterFrame(self.row_size, self.col_size)
+    def __init__(self, config=None):
+        self.dungeon = OuterFrame(self.row_size, self.col_size, config)
 
 
     def __str__(self):
@@ -155,5 +204,8 @@ class Dungeon:
 
 
 if __name__ == '__main__':
+    config = {
+        'room_number' : 6
+    }
     dungeon = Dungeon()
     print dungeon.to_map()
