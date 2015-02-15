@@ -212,8 +212,11 @@ class RoomGenerator(Rect):
 
 
 class SizeDuplicateChecker(object):
-    def __init__(self):
-        self.sizes = []
+    def __init__(self, test_list=None):
+        if test_list is None:
+            self.sizes = []
+        else:
+            self.sizes = test_list
 
     def prove_available_size(self, size):
         x = size.get('x')
@@ -221,25 +224,25 @@ class SizeDuplicateChecker(object):
         width = size.get('width')
         height = size.get('height')
 
-        if self.__is_contain(x, y, width, height):
+        if self._is_contain(x, y, width, height):
             return False
         else:
             self.sizes.append(size)
             return True
 
-    def __is_contain(self, x, y, width, height):
+    def _is_contain(self, x, y, width, height):
         ax = x
         ay = y
-        bx = x + width
-        by = y + height
+        bx = x + width - 1
+        by = y + height - 1
 
         for size in self.sizes:
             cx = size.get('x')
             cy = size.get('y')
-            dx = size.get('width') + cx
-            dy = size.get('height') + cy
+            dx = size.get('width') + cx - 1
+            dy = size.get('height') + cy - 1
 
-            if ax < dx and cx < bx and ay < dy and cy < by:
+            if ax <= dx and cx <= bx and ay <= dy and cy <= by:
                 return True
                 break
         else:
