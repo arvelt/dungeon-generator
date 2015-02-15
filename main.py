@@ -179,7 +179,7 @@ class RoomGenerator(Rect):
     """
     def __init__(self, width, height, config):
         super(RoomGenerator, self).__init__(1, 1, width, height)
-        self.room_number = config.get('room_number', 4)
+        self.room_number = config.get('room_number', 1)
         self.checker = SizeDuplicateChecker()
 
     def get_room_sizes(self):
@@ -199,8 +199,8 @@ class RoomGenerator(Rect):
         return size
 
     def _get_other_size(self):
-        width = random.randint(self.width / 4, self.width / 4 + 10)
-        height = random.randint(self.height / 4, self.height / 4 + 10)
+        width = random.randint(3, self.width / self.room_number - 1)
+        height = random.randint(3, self.height / self.room_number - 1)
         x = random.randint(self.x, self.x + self.width - width -3)
         y = random.randint(self.y, self.y + self.height - height -3)
         return {
