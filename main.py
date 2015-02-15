@@ -154,7 +154,7 @@ class OuterFrame(Rect):
     @property
     def default_config(self):
         return {
-            'room_number' : 1
+            'room_number' : 2
         }
 
     def pop_rooms(self):
@@ -187,17 +187,64 @@ class RoomGenerator(Rect):
         """
         room_sizes = []
         for num in range(self.room_number):
-            width = random.randint(self.width / 4, self.width / 4 + 10)
-            height = random.randint(self.height / 4, self.height / 4 + 10)
-            x = random.randint(self.x, self.x + self.width - width -3)
-            y = random.randint(self.y, self.y + self.height - height -3)
-            room_sizes.append({
-                'x': x,
-                'y': y,
-                'width': width,
-                'height': height
-            })
+            size = self.__get_new_size()
+            room_sizes.append(size)
         return room_sizes
+
+    def __get_new_size(self):
+        checker = SizeDuplicateChecker()
+        size = self.__get_other_size()
+        while checker.prove_available_size(size) == False:
+            size = self.__get_other_size()
+        return size
+
+    def __get_other_size(self):
+        width = random.randint(self.width / 4, self.width / 4 + 10)
+        height = random.randint(self.height / 4, self.height / 4 + 10)
+        x = random.randint(self.x, self.x + self.width - width -3)
+        y = random.randint(self.y, self.y + self.height - height -3)
+        return {
+            'x': x,
+            'y': y,
+            'width': width,
+            'height': height
+        }
+
+
+class SizeDuplicateChecker(object):
+    def __init__(self):
+        self.sizes = []
+
+    def prove_available_size(self, size):
+        x = size.get('x')
+        y = size.get('y')
+        width = size.get('width')
+        height = size.get('height')
+
+        if self.__is_contain(x, y, width, height):
+            return False
+        else:
+            self.sizes.append(size)
+            return True
+
+    def __is_contain(self, x, y, width, height):
+        ax = x
+        ay = y
+        bx = x + width
+        by = y + height
+
+        for size in self.sizes:
+            cx = size.get('x')
+            cy = size.get('y')
+            dx = size.get('width') + cx
+            dy = size.get('height') + cy
+
+            if ax < dx and cx < bx and ay < dy and cy < by:
+                return True
+                break
+        else:
+            return False
+
 
 
 class Dungeon:
