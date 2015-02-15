@@ -180,6 +180,7 @@ class RoomGenerator(Rect):
     def __init__(self, width, height, config):
         super(RoomGenerator, self).__init__(1, 1, width, height)
         self.room_number = config.get('room_number', 4)
+        self.checker = SizeDuplicateChecker()
 
     def get_room_sizes(self):
         """ Return Size of the room to make future.
@@ -187,18 +188,17 @@ class RoomGenerator(Rect):
         """
         room_sizes = []
         for num in range(self.room_number):
-            size = self.__get_new_size()
+            size = self._get_new_size()
             room_sizes.append(size)
         return room_sizes
 
-    def __get_new_size(self):
-        checker = SizeDuplicateChecker()
-        size = self.__get_other_size()
-        while checker.prove_available_size(size) == False:
-            size = self.__get_other_size()
+    def _get_new_size(self):
+        size = self._get_other_size()
+        while self.checker.prove_available_size(size) == False:
+            size = self._get_other_size()
         return size
 
-    def __get_other_size(self):
+    def _get_other_size(self):
         width = random.randint(self.width / 4, self.width / 4 + 10)
         height = random.randint(self.height / 4, self.height / 4 + 10)
         x = random.randint(self.x, self.x + self.width - width -3)

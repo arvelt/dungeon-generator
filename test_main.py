@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
-from main import Rect, Tile, Room, Rooms, OuterFrame, SizeDuplicateChecker
+from main \
+import Rect, Tile, Room, Rooms, OuterFrame, SizeDuplicateChecker, RoomGenerator
 
 def test_Rect():
     rect = Rect(1, 2, 3, 3)
@@ -73,4 +74,24 @@ def test_SizeDuplicateChecker():
     size2 = {'x': 4, 'y': 6, 'width': 3, 'height':3}
     checker = SizeDuplicateChecker([size, size2])
     result = checker.prove_available_size(new_size)
+    assert result == False
+
+
+def test_RoomGenerator():
+    width = 20
+    height = 20
+    config = {'room_number': 2}
+    generator = RoomGenerator(width, height, config)
+
+    size = generator._get_new_size()
+    size2 = generator._get_new_size()
+    size3 = generator._get_new_size()
+    size4 = generator._get_new_size()
+
+    checker = SizeDuplicateChecker([size2])
+    result = checker._is_contain(size.get('x'), size.get('y'), size.get('width'), size.get('height'))
+    assert result == False
+
+    checker = SizeDuplicateChecker([size2, size3, size4])
+    result = checker._is_contain(size.get('x'), size.get('y'), size.get('width'), size.get('height'))
     assert result == False
