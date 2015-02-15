@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 from main \
-import Rect, Tile, Room, Rooms, OuterFrame, SizeDuplicateChecker, RoomGenerator
+import Rect, Tile, Room, Rooms, OuterFrame, SizeDuplicateChecker, RoomSizeGenerator
 
 def test_Rect():
     rect = Rect(1, 2, 3, 3)
@@ -77,11 +77,11 @@ def test_SizeDuplicateChecker():
     assert result == False
 
 
-def test_RoomGenerator():
+def test_RoomSizeGenerator():
     width = 20
     height = 20
     config = {'room_number': 2}
-    generator = RoomGenerator(width, height, config)
+    generator = RoomSizeGenerator(width, height, config)
 
     size = generator._get_new_size()
     size2 = generator._get_new_size()

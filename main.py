@@ -159,9 +159,9 @@ class OuterFrame(Rect):
 
     def pop_rooms(self):
         """ Pop rooms in dungeons.
-            See RoomGenerator details.
+            See RoomSizeGenerator details.
         """
-        room_generator = RoomGenerator(self.width, self.height, self.config)
+        room_generator = RoomSizeGenerator(self.width, self.height, self.config)
         sizes = room_generator.get_room_sizes()
         for index, size in enumerate(sizes):
             room = Room(size.get('x'), size.get('y'), size.get('width'), size.get('height'))
@@ -174,11 +174,11 @@ class OuterFrame(Rect):
         return self.rooms.to_map(self.x, self.y, self.ax, self.ay)
 
 
-class RoomGenerator(Rect):
+class RoomSizeGenerator(Rect):
     """ Generator of room in dungeon.
     """
     def __init__(self, width, height, config):
-        super(RoomGenerator, self).__init__(1, 1, width, height)
+        super(RoomSizeGenerator, self).__init__(1, 1, width, height)
         self.room_number = config.get('room_number', 1)
         self.checker = SizeDuplicateChecker()
 
