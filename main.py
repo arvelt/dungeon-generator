@@ -201,8 +201,10 @@ class RoomSizeGenerator(Rect):
     def _get_other_size(self):
         width = random.randint(3, self.width / self.room_number - 1)
         height = random.randint(3, self.height / self.room_number - 1)
-        x = random.randint(self.x, self.x + self.width - width -3)
-        y = random.randint(self.y, self.y + self.height - height -3)
+
+        # 一番外の境界部分には作らないようにする
+        x = random.randint(self.x + 1, self.x + self.width - width - 1)
+        y = random.randint(self.y + 1, self.y + self.height - height - 1)
         return {
             'x': x,
             'y': y,
@@ -219,15 +221,21 @@ class SizeDuplicateChecker(object):
             self.sizes = test_list
 
     def prove_available_size(self, size):
-        x = size.get('x')
-        y = size.get('y')
-        width = size.get('width')
-        height = size.get('height')
+        # 隣接しないようにサイズを1枠分大きいものとして判定する
+        x = size.get('x') - 1
+        y = size.get('y') - 1
+        width = size.get('width') + 2
+        height = size.get('height') + 2
 
         if self._is_contain(x, y, width, height):
             return False
         else:
-            self.sizes.append(size)
+            self.sizes.append({
+                'x': x,
+                'y': y,
+                'width': width,
+                'height': height
+            })
             return True
 
     def _is_contain(self, x, y, width, height):
