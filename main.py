@@ -154,7 +154,7 @@ class OuterFrame(Rect):
     @property
     def default_config(self):
         return {
-            'room_number' : 2
+            'room_number' : 5
         }
 
     def pop_rooms(self):
@@ -199,12 +199,31 @@ class RoomSizeGenerator(Rect):
         return size
 
     def _get_other_size(self):
-        width = random.randint(3, self.width / self.room_number - 1)
-        height = random.randint(3, self.height / self.room_number - 1)
+        room_number = self.room_number
+        if room_number == 1:
+            x = 2
+            y = 2
+            width = self.width - 2
+            height = self.height - 2
+        elif room_number == 2:
+            width = random.randint(10, self.width / 2 - 1)
+            height = random.randint(10, self.height / 2 - 1)
+            x = random.randint(self.x + 1, self.x + self.width - width - 1)
+            y = random.randint(self.y + 1, self.y + self.height - height - 1)
+        else:
+            room_number = self.room_number
+            if self.room_number % 2 == 1:
+                room_number = room_number + 1
+            room_number = room_number / 2
+            # 一番外の境界部分には作らないようにする
 
-        # 一番外の境界部分には作らないようにする
-        x = random.randint(self.x + 1, self.x + self.width - width - 1)
-        y = random.randint(self.y + 1, self.y + self.height - height - 1)
+            max_width = self.width / room_number - 1
+            max_height = self.height / room_number - 1
+            width = random.randint(5, max_width)
+            height = random.randint(5, max_height)
+            x = random.randint(self.x + 1, self.x + self.width - width - 1)
+            y = random.randint(self.y + 1, self.y + self.height - height - 1)
+
         return {
             'x': x,
             'y': y,
@@ -224,8 +243,8 @@ class SizeDuplicateChecker(object):
         # 隣接しないようにサイズを1枠分大きいものとして判定する
         x = size.get('x') - 1
         y = size.get('y') - 1
-        width = size.get('width') + 2
-        height = size.get('height') + 2
+        width = size.get('width') + 3
+        height = size.get('height') + 3
 
         if self._is_contain(x, y, width, height):
             return False
