@@ -200,23 +200,31 @@ class RoomSizeGenerator(Rect):
 
     def _get_other_size(self):
         room_number = self.room_number
+
+        # ルーム数１は大部屋
         if room_number == 1:
             x = 2
             y = 2
             width = self.width - 2
             height = self.height - 2
+
+        # ルーム数２は最大幅の半分まで
         elif room_number == 2:
+            #
             width = random.randint(10, self.width / 2 - 1)
             height = random.randint(10, self.height / 2 - 1)
             x = random.randint(self.x + 1, self.x + self.width - width - 1)
             y = random.randint(self.y + 1, self.y + self.height - height - 1)
+
+        # それ以上のルーム数は、切り上げた偶数の半分で最大幅を割ったもの
+        # MAX 30, 部屋数5 -> 最小: 5、最大: 30 / ( 6 / 2 ) = 10
         else:
             room_number = self.room_number
             if self.room_number % 2 == 1:
                 room_number = room_number + 1
             room_number = room_number / 2
-            # 一番外の境界部分には作らないようにする
 
+            # 一番外の境界部分には作らないようにする
             max_width = self.width / room_number - 1
             max_height = self.height / room_number - 1
             width = random.randint(5, max_width)
@@ -240,7 +248,8 @@ class SizeDuplicateChecker(object):
             self.sizes = test_list
 
     def prove_available_size(self, size):
-        # 隣接しないようにサイズを1枠分大きいものとして判定する
+        # 隣接しないようにサイズを2枠分大きいものとして判定する
+        # 部屋同士は最低でも3マスあく
         x = size.get('x') - 1
         y = size.get('y') - 1
         width = size.get('width') + 3
