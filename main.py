@@ -129,6 +129,10 @@ class Room(Rect):
         else:
             return False
 
+    # TODO
+    def __eq__(self, room):
+        pass
+
 
 class OuterFrame(Rect):
     """ The outer frame in dungeon.
@@ -284,6 +288,56 @@ class SizeDuplicateChecker(object):
         else:
             return False
 
+
+class RoomSearcher:
+    """WIP"""
+
+    RIGHT = 'right'
+    LEFT = 'left'
+    UP = 'up'
+    DOWN = 'DOWN'
+    UPPER_RIGHT = 'upper_right'
+    LOWER_RIGHT = 'lower_right'
+    UPPER_LEFT = 'upper_left'
+    LOWER_LEFT = 'lower_left'
+
+    def __init__(self):
+        self.nearest_room = {}
+
+    def conruct_rooms_placement(self, rooms):
+        self.copy_rooms = copy.deepcopy(rooms)
+        for room in rooms:
+            self.analyze(room)
+
+    def get_nearest_room(self, potision):
+        return self.nearest_room.get(potision, None)
+
+    def analyze(self, room):
+        target_room = room
+        comparison_destinations = []
+        for room in self.copy_rooms:
+            if room != target_room:
+                comparison_destinations.append(room)
+        self.search_nearest_room(target_room, comparison_destinations)
+
+    def search_nearest_room(self, room, destinations):
+        # TODO WIP
+        pass
+
+
+
+class Border:
+    """WIP"""
+    x = 0
+    y = 0
+    def __init__(self):
+        pass
+
+class BorderLine:
+    """WIP"""
+    line = ''
+    def __init__(self):
+        line = []
 
 
 class Dungeon:
