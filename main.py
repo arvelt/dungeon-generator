@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
-import random, math, pprint, pytest
+from operator import attrgetter
+import random, math, pprint, pytest, uuid
 
 class Rect(object):
     """ Shape of map base.
@@ -65,6 +66,7 @@ class Rooms(object):
     rooms = ''
 
     def __init__(self):
+        self.id = str(uuid.uuid4())
         self.rooms = []
 
     def add_room(self, room):
@@ -212,7 +214,7 @@ class RoomSizeGenerator(Rect):
             width = self.width - 2
             height = self.height - 2
 
-        # ルーム数２は最大幅の半分まで
+        # ルーム数２は最大幅の半分までが最大幅
         elif room_number == 2:
             #
             width = random.randint(10, self.width / 2 - 1)
@@ -220,8 +222,8 @@ class RoomSizeGenerator(Rect):
             x = random.randint(self.x + 1, self.x + self.width - width - 1)
             y = random.randint(self.y + 1, self.y + self.height - height - 1)
 
-        # それ以上のルーム数は、切り上げた偶数の半分で最大幅を割ったもの
-        # MAX 30, 部屋数5 -> 最小: 5、最大: 30 / ( 6 / 2 ) = 10
+        # それ以上のルーム数は、切り上げた偶数の半分で最大幅を割ったものが最大幅
+        # 例えば MAX 30, 部屋数5 -> 最小: 5、最大: 30 / ( 6 / 2 ) = 10
         else:
             room_number = self.room_number
             if self.room_number % 2 == 1:
@@ -294,8 +296,8 @@ class RoomSearcher:
 
     RIGHT = 'right'
     LEFT = 'left'
-    UP = 'up'
-    DOWN = 'DOWN'
+    TOP = 'top'
+    BELOW = 'below'
     UPPER_RIGHT = 'upper_right'
     LOWER_RIGHT = 'lower_right'
     UPPER_LEFT = 'upper_left'
@@ -306,8 +308,11 @@ class RoomSearcher:
 
     def conruct_rooms_placement(self, rooms):
         self.copy_rooms = copy.deepcopy(rooms)
+
+        nearest_rooms = []
         for room in rooms:
-            self.analyze(room)
+            nearest_rooms.append(self.analyze(room))
+        return nearest_rooms
 
     def get_nearest_room(self, potision):
         return self.nearest_room.get(potision, None)
@@ -318,12 +323,62 @@ class RoomSearcher:
         for room in self.copy_rooms:
             if room != target_room:
                 comparison_destinations.append(room)
-        self.search_nearest_room(target_room, comparison_destinations)
+        return self.search_nearest_room(target_room, comparison_destinations)
 
     def search_nearest_room(self, room, destinations):
-        # TODO WIP
-        pass
+        distance_list = self.caluclate_room_distanse(room, destinations)
+        return self.get_nearest_room(room.get('id'), distance_list)
 
+    def get_nearest_room(self, id, distance_list):
+        upper_list = []
+        right_list = []
+        lower_list = []
+        left_list = []
+        for distance in distance_list
+            angle = distance.get('angle')
+            if -45 <= angle and angle < 45:
+                #上
+                upper_list.append(distance)
+            elif 45 <= angle and angle < 135:
+                #右
+                right_list.append(distance)
+            elif 135 <= angle and angle < -135:
+                #下
+                lower_list.append(distance)
+            else 135 <= angle and angle < -135:
+                #左
+                left_list.append(distance)
+
+        sorted_upper = sorted(upper_list, key=attrgetter(distance))
+        sorted_right = sorted(right_list, key=attrgetter(distance))
+        sorted_lower = sorted(lower_list, key=attrgetter(distance))
+        sorted_left = sorted(left_list, key=attrgetter(distance))
+        return {
+            'id': id,
+            TOP: self.get_first_item(sorted_upper),
+            RIGHT: self.get_first_item(sorted_right),
+            BELOW: self.get_first_item(sorted_lower),
+            RIGHT: self.get_first_item(sorted_left),
+        }
+
+    def get_first_item(self, list, default=None):
+        try:
+            return list[0]
+        except IndexError:
+            return default
+
+    def caluclate_room_distanse(self):
+        distance_list = []
+        ax = room.get('x')
+        ay = room.get('y')
+        for destination in destinations:
+            id = destination.get('id')
+            bx = destination.get('x')
+            by = destination.get('y')
+            distance = math.sqrt( (ax - bx) * (ax - bx) + (ay - ay) * (ay - ay))
+            angle = math.atan2(bx-ax,by-ay)
+            distance_list.append({'id':id, 'distance': distance, 'angle':angle})
+        return  distance_list
 
 
 class Border:
