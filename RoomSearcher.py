@@ -37,7 +37,7 @@ class RoomSearcher:
         return self.search_nearest_room(target_room, comparison_destinations)
 
     def search_nearest_room(self, room, destinations):
-        distance_list = self.caluclate_room_distanse(room, destinations)
+        distance_list = self._caluclate_room_distanse(room, destinations)
         return self.get_nearest_room(room.get('id'), distance_list)
 
     def get_nearest_room(self, id, distance_list):
@@ -78,7 +78,7 @@ class RoomSearcher:
         except IndexError:
             return default
 
-    def caluclate_room_distanse(self):
+    def _caluclate_room_distanse(self, room, destinations):
         distance_list = []
         ax = room.get('x')
         ay = room.get('y')
