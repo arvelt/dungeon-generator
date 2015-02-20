@@ -1,6 +1,10 @@
 # -*- coding: UTF-8 -*-
-import math
+import sys, os
+sys.path.append(os.path.abspath('./src'))
+
+import math, copy
 from operator import attrgetter
+from main import Room
 
 class RoomSearcher:
     """WIP"""
