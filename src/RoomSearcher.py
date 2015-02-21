@@ -7,8 +7,6 @@ from operator import attrgetter
 from main import Room
 
 class RoomSearcher:
-    """WIP"""
-
     RIGHT = 'right'
     LEFT = 'left'
     TOP = 'top'
@@ -49,6 +47,8 @@ class RoomSearcher:
         right_list = []
         lower_list = []
         left_list = []
+
+        # 角度を元にして四方に振り分ける
         for distance in distance_list:
             angle = math.degrees(distance.get('angle'))
             if -45 <= angle and angle < 45:
