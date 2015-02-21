@@ -42,9 +42,9 @@ class RoomSearcher:
 
     def search_nearest_room(self, room, destinations):
         distance_list = self._caluclate_room_distanse(room, destinations)
-        return self.get_nearest_room(room.get('id'), distance_list)
+        return self.get_nearest_room(distance_list)
 
-    def get_nearest_room(self, id, distance_list):
+    def get_nearest_room(self, distance_list):
         upper_list = []
         right_list = []
         lower_list = []
@@ -57,23 +57,23 @@ class RoomSearcher:
             elif 45 <= angle and angle < 135:
                 #右
                 right_list.append(distance)
-            elif 135 <= angle and angle < -135:
-                #下
-                lower_list.append(distance)
-            else:
+            elif -135 <= angle and angle < -45:
                 #左
                 left_list.append(distance)
+            else:
+                #下
+                lower_list.append(distance)
 
-        sorted_upper = sorted(upper_list, key=attrgetter(distance))
-        sorted_right = sorted(right_list, key=attrgetter(distance))
-        sorted_lower = sorted(lower_list, key=attrgetter(distance))
-        sorted_left = sorted(left_list, key=attrgetter(distance))
+        # それぞれのリストの中身をdistanceの値をキーにしてソートする
+        sorted_upper = sorted(upper_list, key=lambda x:x['distance'])
+        sorted_right = sorted(right_list, key=lambda x:x['distance'])
+        sorted_lower = sorted(lower_list, key=lambda x:x['distance'])
+        sorted_left = sorted(left_list, key=lambda x:x['distance'])
         return {
-            'id': id,
-            TOP: self.get_first_item(sorted_upper),
-            RIGHT: self.get_first_item(sorted_right),
-            BELOW: self.get_first_item(sorted_lower),
-            RIGHT: self.get_first_item(sorted_left),
+            self.TOP: self.get_first_item(sorted_upper),
+            self.RIGHT: self.get_first_item(sorted_right),
+            self.BELOW: self.get_first_item(sorted_lower),
+            self.LEFT: self.get_first_item(sorted_left),
         }
 
     def get_first_item(self, list, default=None):
