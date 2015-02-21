@@ -4,7 +4,7 @@ sys.path.append(os.path.abspath('./src'))
 
 from RoomSearcher import RoomSearcher
 
-def test_RoomSearcher():
+def test_RoomSearcher__caluclate_room_distanse():
     room1 = {'x':4, 'y':4, 'width':3, 'height':3}
     room2 = {'x':7, 'y':7, 'width':3, 'height':3}
     room3 = {'x':7, 'y':1, 'width':3, 'height':3}
