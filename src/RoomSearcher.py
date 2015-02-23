@@ -27,9 +27,6 @@ class RoomSearcher:
             nearest_rooms.append(self.analyze(room))
         return nearest_rooms
 
-    def get_nearest_room(self, potision):
-        return self.nearest_room.get(potision, None)
-
     def analyze(self, room):
         target_room = room
         comparison_destinations = []
