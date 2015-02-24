@@ -1,8 +1,9 @@
 # -*- coding: UTF-8 -*-
-import sys, os, math
+import sys, os, math, pprint
 sys.path.append(os.path.abspath('./src'))
 
 from RoomSearcher import RoomSearcher
+from main import Room
 
 def test_RoomSearcher__caluclate_room_distanse():
     room1 = {'x':4, 'y':4, 'width':3, 'height':3}
@@ -100,3 +101,14 @@ def test_RoomSearcher_get_nearest_room():
     assert result.get(RoomSearcher.BELOW) is None
     assert result.get(RoomSearcher.RIGHT) is None
     assert result.get(RoomSearcher.LEFT).get('id') == '21'
+
+def test_RoomSearcher_analyze_Rooms():
+    rooms = [
+        Room(4, 1, 3, 3),
+        Room(1, 4, 3, 3),
+        Room(7, 7, 3, 3),
+    ]
+    searcher = RoomSearcher()
+    result = searcher.analyze_rooms(rooms)
+    pprint.pprint(result)
+    assert False

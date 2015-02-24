@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from operator import attrgetter
-import random, math, pprint, pytest, uuid
+from RoomSearcher import RoomSearcher
+import random, math, pprint, pytest, uuid, copy
 
 class Rect(object):
     """ Shape of map base.
@@ -63,13 +64,14 @@ class Tile(object):
 class Rooms(object):
     """ Collection of room.
     """
-    rooms = ''
-
     def __init__(self):
         self.rooms = []
 
     def add_room(self, room):
         self.rooms.append(room)
+
+    def get_rooms(self):
+        return copy.deepcopy(self.rooms)
 
     def __str__(self):
         return str([str(room) for room in self.rooms])
@@ -165,12 +167,21 @@ class OuterFrame(Rect):
         else:
             self.config = self.default_config
         self.pop_rooms()
+        self.make_roads()
 
     @property
     def default_config(self):
         return {
             'room_number' : 5
         }
+
+    def make_roads(self):
+        searcher = RoomSearcher()
+        nearest_rooms = searcher.analyze_rooms(self.rooms.get_rooms())
+
+        pprint.pprint(nearest_rooms)
+        # WIP
+
 
     def pop_rooms(self):
         """ Pop rooms in dungeons.

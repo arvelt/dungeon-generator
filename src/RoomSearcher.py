@@ -4,7 +4,6 @@ sys.path.append(os.path.abspath('./src'))
 
 import math, copy
 from operator import attrgetter
-from main import Room
 
 class RoomSearcher:
     RIGHT = 'right'
@@ -17,21 +16,27 @@ class RoomSearcher:
     LOWER_LEFT = 'lower_left'
 
     def __init__(self):
-        self.nearest_room = {}
+        pass
 
-    def conruct_rooms_placement(self, rooms):
-        self.copy_rooms = copy.deepcopy(rooms)
+    def analyze_rooms(self, rooms):
+        self.all_rooms = []
+        for room in rooms:
+            self.all_rooms.append({
+                'id': room.id,
+                'x': room.x,
+                'y': room.y
+            })
 
         nearest_rooms = []
-        for room in rooms:
+        for room in self.all_rooms:
             nearest_rooms.append(self.analyze(room))
         return nearest_rooms
 
     def analyze(self, room):
         target_room = room
         comparison_destinations = []
-        for room in self.copy_rooms:
-            if room != target_room:
+        for room in self.all_rooms:
+            if room.get('id') != target_room.get('id'):
                 comparison_destinations.append(room)
         return self.search_nearest_room(target_room, comparison_destinations)
 
