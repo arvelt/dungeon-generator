@@ -2,7 +2,7 @@
 from operator import attrgetter
 from RoomSearcher import RoomSearcher
 from RoomSizeGenerator import RoomSizeGenerator
-import math, pprint, pytest, uuid, copy
+import math, pprint, pytest, uuid, copy, random
 
 class Rect(object):
     """ Shape of map base.
@@ -41,6 +41,7 @@ class Tile(object):
     DEFAULT = 'T'
     WALL = 'W'
     WAY = 'R'
+    DOOR = 'D'
     PARTING_LINE = 'A'
 
 
@@ -113,7 +114,9 @@ class Room(Rect):
         super(Room, self).__init__(x, y, width, height)
         self.id = str(uuid.uuid4())
         self.tiles = []
+        self.doors = []
         self.fill_tiles(tmp_kind)
+        self.make_door()
 
     def fill_tiles(self, tmp_kind):
         for row in range(self.x, self.ax + 1):
@@ -142,6 +145,55 @@ class Room(Rect):
             'width': self.width,
             'height': self.height
         }
+
+    def make_door(self):
+        #上辺
+        dx = random.randint(self.x + 1, self.ax - 1)
+        dy = self.y
+        tile = self.get_tile(dx, dy)
+        tile.kind = Tile.DOOR
+        self.doors.append(tile)
+
+        #下辺
+        dx = random.randint(self.x + 1, self.ax - 1)
+        dy = self.ay
+        tile = self.get_tile(dx, dy)
+        tile.kind = Tile.DOOR
+        self.doors.append(tile)
+
+        #右辺
+        dx = self.ax
+        dy = random.randint(self.y + 1, self.ay - 1)
+        tile = self.get_tile(dx, dy)
+        tile.kind = Tile.DOOR
+        self.doors.append(tile)
+
+        #左辺
+        dx = self.x
+        dy = random.randint(self.y + 1, self.ay - 1)
+        tile = self.get_tile(dx, dy)
+        tile.kind = Tile.DOOR
+        self.doors.append(tile)
+
+    def get_north_door(self):
+        for door in self.door:
+            if door.y == self.y:
+                return door
+
+    def get_south_door(self):
+        for door in self.door:
+            if door.y == self.ay:
+                return door
+
+    def get_east_door(self):
+        for door in self.door:
+            if door.x == self.ax:
+                return door
+
+    def get_west_door(self):
+        for door in self.door:
+            if door.x == self.x:
+                return door
 
     # TODO
     def __eq__(self, room):
