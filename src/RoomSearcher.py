@@ -97,5 +97,5 @@ class RoomSearcher:
 
             #マス目は左上原点なので、Y座標が逆になっているものとして計算する。
             angle = math.radians(180) - math.atan2(bx-ax,by-ay)
-            distance_list.append({'id':id, 'distance': distance, 'angle':angle})
+            distance_list.append({'distance': distance, 'angle':angle})
         return  distance_list

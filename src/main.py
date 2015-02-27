@@ -28,6 +28,8 @@ class Rect(object):
         return str({
             'x': self.x,
             'y': self.y,
+            'ax': self.ax,
+            'ay': self.ay,
             'width': self.width,
             'heigth': self.height,
         })
@@ -39,8 +41,8 @@ class Tile(object):
     """
 
     DEFAULT = 'T'
-    WALL = 'W'
-    WAY = 'R'
+    WALL = 'Y'
+    WAY = 'Y'
     DOOR = 'D'
     PARTING_LINE = 'A'
 
@@ -78,30 +80,26 @@ class Rooms(object):
     def __str__(self):
         return str([str(room) for room in self.rooms])
 
-    def to_map(self, x, y, ax, ay):
-        """ Return squares as a string filled with tiles
 
-        arguments:
-        x -- potision x
-        y -- potision y
-        ax -- potision lower right
-        ay -- potision lower left
-        """
+class Roads(object):
+    def __init__(self):
+        self.roads = []
 
-        floor = ''
-        for row in range(x, ax + 1):
-            line = ''
-            for col in range(y, ay + 1):
-                for room in self.rooms:
-                    if room.has_tile(row, col):
-                        tile = room.get_tile(row, col)
-                        line = line + str(tile)
-                        break
-                else:
-                    line = line + str(0)
-            floor = floor + line + '\n'
-        return floor
+    def add_road(self, tile):
+        self.roads.append(tile)
 
+    def get_road(self, x, y):
+        for tile in self.roads:
+            if tile.x == x and tile.y == y:
+                return tile
+        else:
+            return None
+
+    def get_roads(self):
+        return copy.deepcopy(self.roads)
+
+    def __str__(self):
+        return str([str(road) for road in self.roads])
 
 class Room(Rect):
     """ Room in dungeon.
@@ -176,22 +174,22 @@ class Room(Rect):
         self.doors.append(tile)
 
     def get_north_door(self):
-        for door in self.door:
+        for door in self.doors:
             if door.y == self.y:
                 return door
 
     def get_south_door(self):
-        for door in self.door:
+        for door in self.doors:
             if door.y == self.ay:
                 return door
 
     def get_east_door(self):
-        for door in self.door:
+        for door in self.doors:
             if door.x == self.ax:
                 return door
 
     def get_west_door(self):
-        for door in self.door:
+        for door in self.doors:
             if door.x == self.x:
                 return door
 
@@ -205,8 +203,6 @@ class OuterFrame(Rect):
         This class has origin potisioin. Usually (1, 1).
         This class provied pop_room method.
     """
-    rooms = ''
-
     def __init__(self, width, height, config=None):
         """
         arguments:
@@ -215,6 +211,7 @@ class OuterFrame(Rect):
         """
         super(OuterFrame, self).__init__(1, 1, width, height)
         self.rooms = Rooms()
+        self.roads = Roads()
         if config is not None:
             self.config = config
         else:
@@ -232,9 +229,39 @@ class OuterFrame(Rect):
         searcher = RoomSearcher()
         nearest_rooms = searcher.analyze_rooms(self.rooms.get_rooms())
 
-        # WIP
-        #pprint.pprint(nearest_rooms)
+        for room in self.rooms.get_rooms():
+            for target in nearest_rooms:
+                if room.id == target.get('id'):
+                    self.generator_road(room, target)
 
+    def generator_road(self, room, target_size):
+        if target_size.get(RoomSearcher.TOP):
+            door = room.get_north_door()
+            x = door.x
+            y = door.y + 1
+            road = Tile(x, y, Tile.WAY)
+            self.roads.add_road(road)
+
+        if target_size.get(RoomSearcher.BELOW):
+            door = room.get_south_door()
+            x = door.x
+            y = door.y - 1
+            road = Tile(x, y, Tile.WAY)
+            self.roads.add_road(road)
+
+        if target_size.get(RoomSearcher.RIGHT):
+            door = room.get_east_door()
+            x = door.x + 1
+            y = door.y
+            road = Tile(x, y, Tile.WAY)
+            self.roads.add_road(road)
+
+        if target_size.get(RoomSearcher.LEFT):
+            door = room.get_west_door()
+            x = door.x - 1
+            y = door.y
+            road = Tile(x, y, Tile.WAY)
+            self.roads.add_road(road)
 
     def pop_rooms(self):
         """ Pop rooms in dungeons.
@@ -250,7 +277,30 @@ class OuterFrame(Rect):
         return str(self.rooms)
 
     def to_map(self):
-        return self.rooms.to_map(self.x, self.y, self.ax, self.ay)
+        x = self.x
+        y = self.y
+        ax = self.ax
+        ay = self.ay
+
+        floor = ''
+        for row in range(x, ax + 1):
+            line = ''
+            for col in range(y, ay + 1):
+                tile = None
+                for room in self.rooms.get_rooms():
+                    if room.has_tile(row, col):
+                        tile = room.get_tile(row, col)
+                        break
+
+                if tile is None:
+                    tile = self.roads.get_road(row, col)
+
+                if tile:
+                    line = line + str(tile)
+                else:
+                    line = line + str(0)
+            floor = floor + line + '\n'
+        return floor
 
 class Border:
     """WIP"""
