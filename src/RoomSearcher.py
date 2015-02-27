@@ -69,6 +69,7 @@ class RoomSearcher:
                 lower_list.append(distance)
 
         # それぞれのリストの中身をdistanceの値をキーにしてソートする
+        # 最も近い部屋までの距離と
         sorted_upper = sorted(upper_list, key=lambda x:x['distance'])
         sorted_right = sorted(right_list, key=lambda x:x['distance'])
         sorted_lower = sorted(lower_list, key=lambda x:x['distance'])
@@ -96,6 +97,7 @@ class RoomSearcher:
             distance = math.sqrt( (bx - ax) * (bx - ax) + (by - ay) * (by - ay))
 
             #マス目は左上原点なので、Y座標が逆になっているものとして計算する。
+            #右側面を正の値、左側面を負の値、上方が0度、下方が180/-180度となるものとする。
             radius = math.atan2(bx-ax,by-ay)
             if 0 < radius:
                 angle = math.radians(180) - math.atan2(bx-ax,by-ay)
