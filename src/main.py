@@ -41,8 +41,8 @@ class Tile(object):
     """
 
     DEFAULT = 'T'
-    WALL = 'Y'
-    WAY = 'Y'
+    WALL = 'W'
+    WAY = 'L'
     DOOR = 'D'
     PARTING_LINE = 'A'
 
@@ -238,14 +238,14 @@ class OuterFrame(Rect):
         if target_size.get(RoomSearcher.TOP):
             door = room.get_north_door()
             x = door.x
-            y = door.y + 1
+            y = door.y - 1
             road = Tile(x, y, Tile.WAY)
             self.roads.add_road(road)
 
         if target_size.get(RoomSearcher.BELOW):
             door = room.get_south_door()
             x = door.x
-            y = door.y - 1
+            y = door.y + 1
             road = Tile(x, y, Tile.WAY)
             self.roads.add_road(road)
 
