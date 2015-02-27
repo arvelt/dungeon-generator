@@ -23,8 +23,8 @@ class RoomSearcher:
         for room in rooms:
             self.all_rooms.append({
                 'id': room.id,
-                'x': room.x,
-                'y': room.y
+                'x': room.mx,
+                'y': room.my
             })
 
         nearest_rooms = []

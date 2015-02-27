@@ -23,6 +23,8 @@ class Rect(object):
         self.height = height
         self.ax = x + width -1
         self.ay = y + height -1
+        self.mx = (self.x + self.ax) / 2
+        self.my = (self.y + self.ay) / 2
 
     def __str__(self):
         return str({
@@ -30,6 +32,8 @@ class Rect(object):
             'y': self.y,
             'ax': self.ax,
             'ay': self.ay,
+            'mx': self.mx,
+            'my': self.my,
             'width': self.width,
             'heigth': self.height,
         })
