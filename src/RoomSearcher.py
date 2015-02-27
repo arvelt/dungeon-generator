@@ -42,7 +42,9 @@ class RoomSearcher:
 
     def search_nearest_room(self, room, destinations):
         distance_list = self._caluclate_room_distanse(room, destinations)
-        return self.get_nearest_room(distance_list)
+        result = self.get_nearest_room(distance_list)
+        result['id'] = room.get('id')
+        return result
 
     def get_nearest_room(self, distance_list):
         upper_list = []
@@ -89,7 +91,6 @@ class RoomSearcher:
         ax = room.get('x')
         ay = room.get('y')
         for destination in destinations:
-            id = destination.get('id')
             bx = destination.get('x')
             by = destination.get('y')
             distance = math.sqrt( (ax - bx) * (ax - bx) + (ay - ay) * (ay - ay))

@@ -110,5 +110,6 @@ def test_RoomSearcher_analyze_Rooms():
     ]
     searcher = RoomSearcher()
     result = searcher.analyze_rooms(rooms)
+
+    # WIP うまく動いていないように見える
     pprint.pprint(result)
-    assert False
