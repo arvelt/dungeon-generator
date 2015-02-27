@@ -93,9 +93,13 @@ class RoomSearcher:
         for destination in destinations:
             bx = destination.get('x')
             by = destination.get('y')
-            distance = math.sqrt( (ax - bx) * (ax - bx) + (ay - ay) * (ay - ay))
+            distance = math.sqrt( (bx - ax) * (bx - ax) + (by - ay) * (by - ay))
 
             #マス目は左上原点なので、Y座標が逆になっているものとして計算する。
-            angle = math.radians(180) - math.atan2(bx-ax,by-ay)
+            radius = math.atan2(bx-ax,by-ay)
+            if 0 < radius:
+                angle = math.radians(180) - math.atan2(bx-ax,by-ay)
+            else:
+                angle = math.radians(-180) - math.atan2(bx-ax,by-ay)
             distance_list.append({'distance': distance, 'angle':angle})
         return  distance_list

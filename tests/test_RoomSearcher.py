@@ -6,26 +6,47 @@ from RoomSearcher import RoomSearcher
 from main import Room
 
 def test_RoomSearcher__caluclate_room_distanse():
-    room1 = {'x':4, 'y':4, 'width':3, 'height':3}
-    room2 = {'x':7, 'y':7, 'width':3, 'height':3}
+    room = {'x':4, 'y':4, 'width':3, 'height':3}
+
+    room1 = {'x':1, 'y':1, 'width':3, 'height':3}
+    room2 = {'x':4, 'y':1, 'width':3, 'height':3}
     room3 = {'x':7, 'y':1, 'width':3, 'height':3}
-    rooms = [room2, room3]
+    room4 = {'x':1, 'y':4, 'width':3, 'height':3}
+    room5 = {'x':4, 'y':4, 'width':3, 'height':3}
+    room6 = {'x':7, 'y':4, 'width':3, 'height':3}
+    room7 = {'x':1, 'y':7, 'width':3, 'height':3}
+    room8 = {'x':4, 'y':7, 'width':3, 'height':3}
+    room9 = {'x':7, 'y':7, 'width':3, 'height':3}
+    rooms = [room1, room2, room3, room4, room6, room7, room8, room9,]
     searcher = RoomSearcher()
-    result = searcher._caluclate_room_distanse(room1, rooms)
+    result = searcher._caluclate_room_distanse(room5, rooms)
+    assert len(result) == 8
 
-    assert len(result) == 2
-
-    distance = result[0].get('distance')
     radians = result[0].get('angle')
-    print math.degrees(result[0].get('angle'))
-    print math.degrees(result[1].get('angle'))
-    assert distance == float(3)
+    assert radians == math.radians(-45)
+    radians = result[1].get('angle')
+    assert radians == math.radians(0)
+    radians = result[2].get('angle')
+    assert radians == math.radians(45)
+    radians = result[3].get('angle')
+    assert radians == math.radians(-90)
+    radians = result[4].get('angle')
+    assert radians == math.radians(90)
+    radians = result[5].get('angle')
+    assert radians == math.radians(-135)
+    radians = result[6].get('angle')
+    assert radians == math.radians(-180)
+    radians = result[7].get('angle')
     assert radians == math.radians(135)
 
     distance = result[1].get('distance')
-    radians = result[1].get('angle')
     assert distance == float(3)
-    assert radians == math.radians(45)
+    distance = result[3].get('distance')
+    assert distance == float(3)
+    distance = result[4].get('distance')
+    assert distance == float(3)
+    distance = result[6].get('distance')
+    assert distance == float(3)
 
 def test_RoomSearcher_get_nearest_room():
     UR_short1 = {'id': '1', 'distance':3, 'angle':math.radians(44)} # top
