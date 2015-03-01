@@ -6,10 +6,10 @@ import math, copy
 from operator import attrgetter
 
 class RoomSearcher:
-    RIGHT = 'right'
-    LEFT = 'left'
-    TOP = 'top'
-    BELOW = 'below'
+    EAST = 'east'
+    WEST = 'west'
+    NORTH = 'north'
+    SOUTH = 'south'
     UPPER_RIGHT = 'upper_right'
     LOWER_RIGHT = 'lower_right'
     UPPER_LEFT = 'upper_left'
@@ -17,6 +17,12 @@ class RoomSearcher:
 
     def __init__(self):
         pass
+
+    def get_room_direction(self):
+        return copy.deepcopy(self.nearest_rooms)
+
+    def get_road_pair(self):
+        return copy.deepcopy(self.road_pair)
 
     def analyze_rooms(self, rooms):
         self.all_rooms = []
@@ -30,7 +36,55 @@ class RoomSearcher:
         nearest_rooms = []
         for room in self.all_rooms:
             nearest_rooms.append(self.analyze(room))
-        return nearest_rooms
+        result = self.adjust_result_analyze(nearest_rooms)
+        return result
+
+    def adjust_result_analyze(self, rooms):
+        self.nearest_rooms = rooms
+        road_pair = []
+        for nearest_room in rooms:
+            from_id = nearest_room.get('id')
+
+            north = nearest_room.get(self.NORTH)
+            if north is not None:
+                to_id = north.get('id')
+                direction = self.NORTH
+                road_pair.append({
+                    'from': from_id,
+                    'to': to_id,
+                    'direction': self.NORTH,
+                })
+
+            south = nearest_room.get(self.SOUTH)
+            if south is not None:
+                to_id = south.get('id')
+                direction = self.SOUTH
+                road_pair.append({
+                    'from': from_id,
+                    'to': to_id,
+                    'direction': self.SOUTH,
+                })
+
+            east = nearest_room.get(self.EAST)
+            if east is not None:
+                to_id = east.get('id')
+                direction = self.EAST
+                road_pair.append({
+                    'from': from_id,
+                    'to': to_id,
+                    'direction': self.EAST,
+                })
+
+            west = nearest_room.get(self.WEST)
+            if west is not None:
+                to_id = west.get('id')
+                direction = self.WEST
+                road_pair.append({
+                    'from': from_id,
+                    'to': to_id,
+                    'direction': self.WEST,
+                })
+        self.road_pair = road_pair
 
     def analyze(self, room):
         target_room = room
@@ -75,10 +129,10 @@ class RoomSearcher:
         sorted_lower = sorted(lower_list, key=lambda x:x['distance'])
         sorted_left = sorted(left_list, key=lambda x:x['distance'])
         return {
-            self.TOP: self.get_first_item(sorted_upper),
-            self.RIGHT: self.get_first_item(sorted_right),
-            self.BELOW: self.get_first_item(sorted_lower),
-            self.LEFT: self.get_first_item(sorted_left),
+            self.NORTH: self.get_first_item(sorted_upper),
+            self.EAST: self.get_first_item(sorted_right),
+            self.SOUTH: self.get_first_item(sorted_lower),
+            self.WEST: self.get_first_item(sorted_left),
         }
 
     def get_first_item(self, list, default=None):
@@ -103,5 +157,9 @@ class RoomSearcher:
                 angle = math.radians(180) - math.atan2(bx-ax,by-ay)
             else:
                 angle = math.radians(-180) - math.atan2(bx-ax,by-ay)
-            distance_list.append({'distance': distance, 'angle':angle})
+            distance_list.append({
+                'id': destination.get('id'),
+                'distance': distance,
+                'angle':angle
+            })
         return  distance_list

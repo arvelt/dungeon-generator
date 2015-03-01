@@ -78,6 +78,11 @@ class Rooms(object):
     def add_room(self, room):
         self.rooms.append(room)
 
+    def get_room(self, id):
+        for room in self.rooms:
+            if room.id == id:
+                return room
+
     def get_rooms(self):
         return copy.deepcopy(self.rooms)
 
@@ -231,7 +236,11 @@ class OuterFrame(Rect):
 
     def make_roads(self):
         searcher = RoomSearcher()
-        nearest_rooms = searcher.analyze_rooms(self.rooms.get_rooms())
+        searcher.analyze_rooms(self.rooms.get_rooms())
+        nearest_rooms = searcher.get_room_direction()
+
+        # TODO これをうまくやる
+        print searcher.get_road_pair()
 
         for room in self.rooms.get_rooms():
             for target in nearest_rooms:
@@ -239,28 +248,28 @@ class OuterFrame(Rect):
                     self.generator_road(room, target)
 
     def generator_road(self, room, target_size):
-        if target_size.get(RoomSearcher.TOP):
+        if target_size.get(RoomSearcher.NORTH):
             door = room.get_north_door()
             x = door.x
             y = door.y - 1
             road = Tile(x, y, Tile.WAY)
             self.roads.add_road(road)
 
-        if target_size.get(RoomSearcher.BELOW):
+        if target_size.get(RoomSearcher.SOUTH):
             door = room.get_south_door()
             x = door.x
             y = door.y + 1
             road = Tile(x, y, Tile.WAY)
             self.roads.add_road(road)
 
-        if target_size.get(RoomSearcher.RIGHT):
+        if target_size.get(RoomSearcher.EAST):
             door = room.get_east_door()
             x = door.x + 1
             y = door.y
             road = Tile(x, y, Tile.WAY)
             self.roads.add_road(road)
 
-        if target_size.get(RoomSearcher.LEFT):
+        if target_size.get(RoomSearcher.WEST):
             door = room.get_west_door()
             x = door.x - 1
             y = door.y
