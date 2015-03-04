@@ -231,50 +231,175 @@ class OuterFrame(Rect):
     @property
     def default_config(self):
         return {
-            'room_number' : 5
+            'room_number' : 3
         }
 
     def make_roads(self):
         searcher = RoomSearcher()
         searcher.analyze_rooms(self.rooms.get_rooms())
-        nearest_rooms = searcher.get_room_direction()
+        # nearest_rooms = searcher.get_room_direction()
+        #
+        # # TODO これをうまくやる
+        # pprint.pprint( searcher.get_road_pair() )
+        #
+        col_way = []
+        col_roads = []
+        row_way = []
+        row_roads = []
+        pair_list = searcher.get_road_pair()
+        for pair in pair_list:
+            from_id = pair.get('from')
+            to_id = pair.get('to')
 
-        # TODO これをうまくやる
-        print searcher.get_road_pair()
+            if pair.get('direction') == 'north':
+                door1 = self.rooms.get_room(from_id).get_north_door()
+                door2 = self.rooms.get_room(to_id).get_south_door()
+                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
+                for way in col_way:
+                    if way == distance:
+                        break
+                else:
+                    col_way.append(distance)
+                    col_roads.append((door1, door2))
 
-        for room in self.rooms.get_rooms():
-            for target in nearest_rooms:
-                if room.id == target.get('id'):
-                    self.generator_road(room, target)
+            if pair.get('direction') == 'south':
+                door1 = self.rooms.get_room(from_id).get_south_door()
+                door2 = self.rooms.get_room(to_id).get_north_door()
+                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
+                for way in col_way:
+                    if way == distance:
+                        break
+                else:
+                    col_way.append(distance)
+                    col_roads.append((door1, door2))
 
-    def generator_road(self, room, target_size):
-        if target_size.get(RoomSearcher.NORTH):
-            door = room.get_north_door()
-            x = door.x
-            y = door.y - 1
-            road = Tile(x, y, Tile.WAY)
-            self.roads.add_road(road)
+            if pair.get('direction') == 'east':
+                door1 = self.rooms.get_room(from_id).get_east_door()
+                door2 = self.rooms.get_room(to_id).get_west_door()
+                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
+                for way in row_way:
+                    if way == distance:
+                        break
+                else:
+                    row_way.append(distance)
+                row_roads.append((door1, door2))
 
-        if target_size.get(RoomSearcher.SOUTH):
-            door = room.get_south_door()
-            x = door.x
-            y = door.y + 1
-            road = Tile(x, y, Tile.WAY)
-            self.roads.add_road(road)
+            if pair.get('direction') == 'west':
+                door1 = self.rooms.get_room(from_id).get_west_door()
+                door2 = self.rooms.get_room(to_id).get_east_door()
+                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
+                for way in row_way:
+                    if way == distance:
+                        break
+                else:
+                    row_way.append(distance)
+                    row_roads.append((door1, door2))
 
-        if target_size.get(RoomSearcher.EAST):
-            door = room.get_east_door()
-            x = door.x + 1
-            y = door.y
-            road = Tile(x, y, Tile.WAY)
-            self.roads.add_road(road)
+        door_pair = {
+            'col_doors': col_roads,
+            'row_doors': row_roads
+        }
 
-        if target_size.get(RoomSearcher.WEST):
-            door = room.get_west_door()
-            x = door.x - 1
-            y = door.y
-            road = Tile(x, y, Tile.WAY)
-            self.roads.add_road(road)
+        self.generator_road(door_pair)
+
+        # for room in self.rooms.get_rooms():
+        #     for target in nearest_rooms:
+        #         if room.id == target.get('id'):
+        #             self.generator_road(room, target)
+
+    def generator_road(self, door_pair):
+        col_doors = door_pair.get('col_doors')
+        row_doors = door_pair.get('row_doors')
+
+        for doors in col_doors:
+            door1 = doors[0]
+            door2 = doors[1]
+            if door1.y < door2.y:
+                self.pave_col_road(door1, door2)
+            else:
+                self.pave_col_road(door2, door1)
+        for doors in row_doors:
+            door1 = doors[0]
+            door2 = doors[1]
+            if door1.y < door2.y:
+                self.pave_row_road(door1, door2)
+            else:
+                self.pave_row_road(door2, door1)
+
+    def pave_col_road(self, up_door, down_door):
+#        print up_door.x, up_door.y, down_door.x, down_door.y
+        ax = up_door.x
+        ay = up_door.y + 1
+        next1 = Tile(ax, ay, Tile.WAY)
+        self.roads.add_road(next1)
+
+        if ay == down_door.y:
+            if ax < down_door.x:
+                start = ax
+                end = down_door.x
+            else:
+                start = down_door.x
+                end = ax
+            for x in range(start, end):
+                road = Tile(x, ay, Tile.WAY)
+                self.roads.add_road(road)
+                return
+
+        bx = down_door.x
+        by = down_door.y - 1
+        next2 = Tile(bx, by, Tile.WAY)
+        self.roads.add_road(next2)
+
+        if ay == by:
+            if ax < bx:
+                start = ax
+                end = bx
+            else:
+                start = bx
+                end = ax
+            for x in range(start, end):
+                road = Tile(x, ay, Tile.WAY)
+                self.roads.add_road(road)
+        else:
+            self.pave_col_road(next1, next2)
+
+
+    def pave_row_road(self, left_door, right_door):
+#        print left_door.x, left_door.y, right_door.x, right_door.y
+        ax = left_door.x + 1
+        ay = left_door.y
+        next1 = Tile(ax, ay, Tile.WAY)
+        self.roads.add_road(next1)
+
+        if ax == right_door.x:
+            if ay < right_door.y:
+                start = ay
+                end = right_door.y
+            else:
+                start = right_door.y
+                end = ay
+            for y in range(start, end):
+                road = Tile(ax, y, Tile.WAY)
+                self.roads.add_road(road)
+                return
+
+        bx = right_door.x - 1
+        by = right_door.y
+        next2 = Tile(bx, by, Tile.WAY)
+        self.roads.add_road(next2)
+
+        if ax == bx:
+            if ay < by:
+                start = ay
+                end = by
+            else:
+                start = by
+                end = ay
+            for y in range(start, end):
+                road = Tile(ax, y, Tile.WAY)
+                self.roads.add_road(road)
+        else:
+            self.pave_row_road(next1, next2)
 
     def pop_rooms(self):
         """ Pop rooms in dungeons.
