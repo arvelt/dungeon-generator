@@ -126,9 +126,9 @@ class Room(Rect):
         self.make_door()
 
     def fill_tiles(self, tmp_kind):
-        for row in range(self.x, self.ax + 1):
-            for col in range(self.y, self.ay + 1):
-                self.tiles.append(Tile(row , col, tmp_kind))
+        for col in range(self.x, self.ax + 1):
+            for row in range(self.y, self.ay + 1):
+                self.tiles.append(Tile(col , row, tmp_kind))
 
     def get_tile(self, x, y):
         for tile in self.tiles:
@@ -421,17 +421,17 @@ class OuterFrame(Rect):
         ay = self.ay
 
         floor = ''
-        for row in range(x, ax + 1):
+        for col in range(x, ax + 1):
             line = ''
-            for col in range(y, ay + 1):
+            for row in range(y, ay + 1):
                 tile = None
                 for room in self.rooms.get_rooms():
-                    if room.has_tile(row, col):
-                        tile = room.get_tile(row, col)
+                    if room.has_tile(col, row):
+                        tile = room.get_tile(col, row)
                         break
 
                 if tile is None:
-                    tile = self.roads.get_road(row, col)
+                    tile = self.roads.get_road(col, row)
 
                 if tile:
                     line = line + str(tile)
@@ -459,7 +459,7 @@ class Dungeon:
     col_size = 32
 
     def __init__(self, config=None):
-        self.dungeon = OuterFrame(self.row_size, self.col_size, config)
+        self.dungeon = OuterFrame(self.col_size, self.row_size, config)
 
 
     def __str__(self):
