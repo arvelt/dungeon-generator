@@ -1,0 +1,176 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Room Module &mdash; src  documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="src  documentation" href="index.html" />
+    <link rel="next" title="RoomSearcher Module" href="RoomSearcher.html" />
+    <link rel="prev" title="Roads Module" href="Roads.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="RoomSearcher.html" title="RoomSearcher Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Roads.html" title="Roads Module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">src  documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-Room">
+<span id="room-module"></span><h1>Room Module<a class="headerlink" href="#module-Room" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Room.Room">
+<em class="property">class </em><tt class="descclassname">Room.</tt><tt class="descname">Room</tt><big>(</big><em>x</em>, <em>y</em>, <em>width</em>, <em>height</em>, <em>tmp_kind=None</em><big>)</big><a class="reference internal" href="_modules/Room.html#Room"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="Rect.html#Rect.Rect" title="Rect.Rect"><tt class="xref py py-class docutils literal"><span class="pre">Rect.Rect</span></tt></a></p>
+<p>Room in dungeon.
+Once instantiated, it is filled with Tile.</p>
+<dl class="method">
+<dt id="Room.Room.fill_tiles">
+<tt class="descname">fill_tiles</tt><big>(</big><em>tmp_kind</em><big>)</big><a class="reference internal" href="_modules/Room.html#Room.fill_tiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.fill_tiles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Room.Room.get_east_door">
+<tt class="descname">get_east_door</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Room.html#Room.get_east_door"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.get_east_door" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Room.Room.get_north_door">
+<tt class="descname">get_north_door</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Room.html#Room.get_north_door"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.get_north_door" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Room.Room.get_south_door">
+<tt class="descname">get_south_door</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Room.html#Room.get_south_door"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.get_south_door" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Room.Room.get_tile">
+<tt class="descname">get_tile</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/Room.html#Room.get_tile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.get_tile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Room.Room.get_west_door">
+<tt class="descname">get_west_door</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Room.html#Room.get_west_door"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.get_west_door" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Room.Room.has_tile">
+<tt class="descname">has_tile</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/Room.html#Room.has_tile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.has_tile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Room.Room.make_door">
+<tt class="descname">make_door</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Room.html#Room.make_door"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.make_door" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="Room.Room.tiles">
+<tt class="descname">tiles</tt><em class="property"> = ''</em><a class="headerlink" href="#Room.Room.tiles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="Room.Room.to_dict">
+<tt class="descname">to_dict</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Room.html#Room.to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Roads.html"
+                        title="previous chapter">Roads Module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="RoomSearcher.html"
+                        title="next chapter">RoomSearcher Module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/Room.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="RoomSearcher.html" title="RoomSearcher Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Roads.html" title="Roads Module"
+             >previous</a> |</li>
+        <li><a href="index.html">src  documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Author.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

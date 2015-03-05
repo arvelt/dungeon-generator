@@ -1,0 +1,31 @@
+.. src documentation master file, created by
+   sphinx-quickstart on Fri Mar  6 01:51:00 2015.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to src's documentation!
+===============================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 4
+
+   Frame
+   Rect
+   Roads
+   Room
+   RoomSearcher
+   RoomSizeGenerator
+   Rooms
+   Tile
+   main
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
