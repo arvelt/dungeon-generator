@@ -125,7 +125,7 @@ class Frame(Rect):
         ax = up_door.x
         ay = up_door.y + 1
         next1 = Tile(ax, ay, Tile.WAY)
-        self.roads.add_road(next1)
+        self.roads.add(next1)
 
         if ay == down_door.y:
             if ax < down_door.x:
@@ -136,13 +136,13 @@ class Frame(Rect):
                 end = ax
             for x in range(start, end):
                 road = Tile(x, ay, Tile.WAY)
-                self.roads.add_road(road)
+                self.roads.add(road)
             return
 
         bx = down_door.x
         by = down_door.y - 1
         next2 = Tile(bx, by, Tile.WAY)
-        self.roads.add_road(next2)
+        self.roads.add(next2)
 
         if ay == by:
             if ax < bx:
@@ -153,7 +153,7 @@ class Frame(Rect):
                 end = ax
             for x in range(start, end):
                 road = Tile(x, ay, Tile.WAY)
-                self.roads.add_road(road)
+                self.roads.add(road)
         else:
             self.pave_col_road(next1, next2)
 
@@ -162,7 +162,7 @@ class Frame(Rect):
         ax = left_door.x + 1
         ay = left_door.y
         next1 = Tile(ax, ay, Tile.WAY)
-        self.roads.add_road(next1)
+        self.roads.add(next1)
 
         if ax == right_door.x:
             if ay < right_door.y:
@@ -173,13 +173,13 @@ class Frame(Rect):
                 end = ay
             for y in range(start, end):
                 road = Tile(ax, y, Tile.WAY)
-                self.roads.add_road(road)
+                self.roads.add(road)
             return
 
         bx = right_door.x - 1
         by = right_door.y
         next2 = Tile(bx, by, Tile.WAY)
-        self.roads.add_road(next2)
+        self.roads.add(next2)
 
         if ax == bx:
             if ay < by:
@@ -190,7 +190,7 @@ class Frame(Rect):
                 end = ay
             for y in range(start, end):
                 road = Tile(ax, y, Tile.WAY)
-                self.roads.add_road(road)
+                self.roads.add(road)
         else:
             self.pave_row_road(next1, next2)
 
@@ -224,7 +224,7 @@ class Frame(Rect):
                         break
 
                 if tile is None:
-                    tile = self.roads.get_road(col, row)
+                    tile = self.roads.get(col, row)
 
                 if tile:
                     line = line + str(tile)

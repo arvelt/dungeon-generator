@@ -4,17 +4,17 @@ class Roads(object):
     def __init__(self):
         self.roads = []
 
-    def add_road(self, tile):
+    def add(self, tile):
         self.roads.append(tile)
 
-    def get_road(self, x, y):
+    def get(self, x, y):
         for tile in self.roads:
             if tile.x == x and tile.y == y:
                 return tile
         else:
             return None
 
-    def get_roads(self):
+    def get_all(self):
         return copy.deepcopy(self.roads)
 
     def __str__(self):
