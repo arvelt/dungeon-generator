@@ -7,15 +7,15 @@ class Rooms(object):
     def __init__(self):
         self.rooms = []
 
-    def add_room(self, room):
+    def add(self, room):
         self.rooms.append(room)
 
-    def get_room(self, id):
+    def get(self, id):
         for room in self.rooms:
             if room.id == id:
                 return room
 
-    def get_rooms(self):
+    def get_all(self):
         return copy.deepcopy(self.rooms)
 
     def __str__(self):

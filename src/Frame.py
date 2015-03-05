@@ -36,7 +36,7 @@ class Frame(Rect):
 
     def make_roads(self):
         searcher = RoomSearcher()
-        searcher.analyze_rooms(self.rooms.get_rooms())
+        searcher.analyze_rooms(self.rooms.get_all())
         col_way = []
         col_roads = []
         row_way = []
@@ -47,8 +47,8 @@ class Frame(Rect):
             to_id = pair.get('to')
 
             if pair.get('direction') == 'north':
-                door1 = self.rooms.get_room(from_id).get_north_door()
-                door2 = self.rooms.get_room(to_id).get_south_door()
+                door1 = self.rooms.get(from_id).get_north_door()
+                door2 = self.rooms.get(to_id).get_south_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
                 for way in col_way:
                     if way == distance:
@@ -58,8 +58,8 @@ class Frame(Rect):
                     col_roads.append((door1, door2))
 
             if pair.get('direction') == 'south':
-                door1 = self.rooms.get_room(from_id).get_south_door()
-                door2 = self.rooms.get_room(to_id).get_north_door()
+                door1 = self.rooms.get(from_id).get_south_door()
+                door2 = self.rooms.get(to_id).get_north_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
                 for way in col_way:
                     if way == distance:
@@ -69,8 +69,8 @@ class Frame(Rect):
                     col_roads.append((door1, door2))
 
             if pair.get('direction') == 'east':
-                door1 = self.rooms.get_room(from_id).get_east_door()
-                door2 = self.rooms.get_room(to_id).get_west_door()
+                door1 = self.rooms.get(from_id).get_east_door()
+                door2 = self.rooms.get(to_id).get_west_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
                 for way in row_way:
                     if way == distance:
@@ -80,8 +80,8 @@ class Frame(Rect):
                 row_roads.append((door1, door2))
 
             if pair.get('direction') == 'west':
-                door1 = self.rooms.get_room(from_id).get_west_door()
-                door2 = self.rooms.get_room(to_id).get_east_door()
+                door1 = self.rooms.get(from_id).get_west_door()
+                door2 = self.rooms.get(to_id).get_east_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
                 for way in row_way:
                     if way == distance:
@@ -96,11 +96,6 @@ class Frame(Rect):
         }
 
         self.generator_road(door_pair)
-
-        # for room in self.rooms.get_rooms():
-        #     for target in nearest_rooms:
-        #         if room.id == target.get('id'):
-        #             self.generator_road(room, target)
 
     def generator_road(self, door_pair):
         col_doors = door_pair.get('col_doors')
@@ -202,7 +197,7 @@ class Frame(Rect):
         sizes = room_generator.get_room_sizes()
         for index, size in enumerate(sizes):
             room = Room(size.get('x'), size.get('y'), size.get('width'), size.get('height'))
-            self.rooms.add_room(room)
+            self.rooms.add(room)
 
     def __str__(self):
         return str(self.rooms)
@@ -218,7 +213,7 @@ class Frame(Rect):
             line = ''
             for col in range(y, ay + 1):
                 tile = None
-                for room in self.rooms.get_rooms():
+                for room in self.rooms.get_all():
                     if room.has_tile(col, row):
                         tile = room.get_tile(col, row)
                         break
