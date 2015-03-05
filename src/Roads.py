@@ -7,14 +7,14 @@ class Roads(object):
         self.roads = []
 
     def add(self, tile):
-        """add road.
+        """Add a road to collection.
 
         :param tile: tile class.
         """
         self.roads.append(tile)
 
     def get(self, x, y):
-        """add road.
+        """Get a road from collection.
 
         :param x: potision x.
         :param y: potision y.
@@ -28,10 +28,10 @@ class Roads(object):
             return None
 
     def get_all(self):
-        """Get all roads.
+        """Get all roads from collection.
 
         :rtype: List
-        :return: List of tile.
+        :return: List of Tile.
         """
         return copy.deepcopy(self.roads)
 
