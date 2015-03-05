@@ -1,14 +1,5 @@
 # -*- coding: UTF-8 -*-
-from operator import attrgetter
-from Rect import Rect
-from Tile import Tile
-from Room import Room
-from Rooms import Rooms
-from Roads import Roads
-from RoomSearcher import RoomSearcher
-from RoomSizeGenerator import RoomSizeGenerator
 from Frame import Frame
-import math, pprint, pytest
 
 class Dungeon:
     row_size = 32
