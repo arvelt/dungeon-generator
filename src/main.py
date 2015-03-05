@@ -231,17 +231,12 @@ class OuterFrame(Rect):
     @property
     def default_config(self):
         return {
-            'room_number' : 3
+            'room_number' : 5
         }
 
     def make_roads(self):
         searcher = RoomSearcher()
         searcher.analyze_rooms(self.rooms.get_rooms())
-        # nearest_rooms = searcher.get_room_direction()
-        #
-        # # TODO これをうまくやる
-        # pprint.pprint( searcher.get_road_pair() )
-        #
         col_way = []
         col_roads = []
         row_way = []
@@ -321,13 +316,12 @@ class OuterFrame(Rect):
         for doors in row_doors:
             door1 = doors[0]
             door2 = doors[1]
-            if door1.y < door2.y:
+            if door1.x < door2.x:
                 self.pave_row_road(door1, door2)
             else:
                 self.pave_row_road(door2, door1)
 
     def pave_col_road(self, up_door, down_door):
-#        print up_door.x, up_door.y, down_door.x, down_door.y
         ax = up_door.x
         ay = up_door.y + 1
         next1 = Tile(ax, ay, Tile.WAY)
@@ -343,7 +337,7 @@ class OuterFrame(Rect):
             for x in range(start, end):
                 road = Tile(x, ay, Tile.WAY)
                 self.roads.add_road(road)
-                return
+            return
 
         bx = down_door.x
         by = down_door.y - 1
@@ -365,7 +359,6 @@ class OuterFrame(Rect):
 
 
     def pave_row_road(self, left_door, right_door):
-#        print left_door.x, left_door.y, right_door.x, right_door.y
         ax = left_door.x + 1
         ay = left_door.y
         next1 = Tile(ax, ay, Tile.WAY)
@@ -381,7 +374,7 @@ class OuterFrame(Rect):
             for y in range(start, end):
                 road = Tile(ax, y, Tile.WAY)
                 self.roads.add_road(road)
-                return
+            return
 
         bx = right_door.x - 1
         by = right_door.y
@@ -421,9 +414,9 @@ class OuterFrame(Rect):
         ay = self.ay
 
         floor = ''
-        for col in range(x, ax + 1):
+        for row in range(x, ax + 1):
             line = ''
-            for row in range(y, ay + 1):
+            for col in range(y, ay + 1):
                 tile = None
                 for room in self.rooms.get_rooms():
                     if room.has_tile(col, row):
