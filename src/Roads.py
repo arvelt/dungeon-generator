@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 class Roads(object):
     def __init__(self):
         self.roads = []
