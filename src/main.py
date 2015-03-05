@@ -1,39 +1,10 @@
 # -*- coding: UTF-8 -*-
 from operator import attrgetter
 from Rect import Rect
+from Tile import Tile
 from RoomSearcher import RoomSearcher
 from RoomSizeGenerator import RoomSizeGenerator
 import math, pprint, pytest, uuid, copy, random
-
-class Tile(object):
-    """ A tile of map in dungeon.
-        All unit of member value is squares, not coordinate.
-    """
-
-    DEFAULT = 'T'
-    WALL = 'W'
-    WAY = 'L'
-    DOOR = 'D'
-    PARTING_LINE = 'A'
-
-
-    def __init__(self, x, y, kind = None):
-        """
-        arguments:
-        x -- potision x
-        y -- potision y
-        kind -- kind of map (Default is 'T')
-        """
-        self.x = x
-        self.y = y
-        if kind is None:
-            self.kind = self.DEFAULT
-        else:
-            self.kind = kind
-
-    def __str__(self):
-        return str(self.kind)
-
 
 class Rooms(object):
     """ Collection of room.
