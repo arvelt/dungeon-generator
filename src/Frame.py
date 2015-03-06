@@ -8,7 +8,7 @@ from RoomSearcher import RoomSearcher
 from RoomSizeGenerator import RoomSizeGenerator
 
 class Frame(Rect):
-    """ The frame shape.
+    """ The display frame shape.
         Upper left is the origin.
         The origin starts (1, 1).
     """
