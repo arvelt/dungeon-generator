@@ -12,8 +12,8 @@ class Dungeon:
     def __str__(self):
         return str(self.dungeon)
 
-    def to_map(self):
-        return self.dungeon.to_map()
+    def to_string(self):
+        return self.dungeon.to_string()
 
 
 if __name__ == '__main__':
@@ -21,4 +21,4 @@ if __name__ == '__main__':
         'room_number' : 6
     }
     dungeon = Dungeon()
-    print dungeon.to_map()
+    print dungeon.to_string()

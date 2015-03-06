@@ -37,7 +37,8 @@ class RoomSearcher:
         for room in self.all_rooms:
             nearest_rooms.append(self.analyze(room))
         result = self.adjust_result_analyze(nearest_rooms)
-        return result
+        self.road_pair = result
+        return copy.deepcopy(self.road_pair)
 
     def adjust_result_analyze(self, rooms):
         self.nearest_rooms = rooms
@@ -84,7 +85,7 @@ class RoomSearcher:
                     'to': to_id,
                     'direction': self.WEST,
                 })
-        self.road_pair = road_pair
+        return road_pair
 
     def analyze(self, room):
         target_room = room
