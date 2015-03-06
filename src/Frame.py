@@ -54,7 +54,7 @@ class Frame(Rect):
                 door1 = self.rooms.get(from_id).get_north_door()
                 door2 = self.rooms.get(to_id).get_south_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
-                # 逆向きペアが入っているので取り除く。同じ距離なら逆向きのペアとみなす。
+                # 距離が同じならばドアの組み合わせは同じなので除く
                 for way in col_way:
                     if way == distance:
                         break
@@ -66,7 +66,7 @@ class Frame(Rect):
                 door1 = self.rooms.get(from_id).get_south_door()
                 door2 = self.rooms.get(to_id).get_north_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
-                # 逆向きペアが入っているので取り除く。同じ距離なら逆向きのペアとみなす。
+                # 距離が同じならばドアの組み合わせは同じなので除く
                 for way in col_way:
                     if way == distance:
                         break
@@ -78,7 +78,7 @@ class Frame(Rect):
                 door1 = self.rooms.get(from_id).get_east_door()
                 door2 = self.rooms.get(to_id).get_west_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
-                # 逆向きペアが入っているので取り除く。同じ距離なら逆向きのペアとみなす。
+                # 距離が同じならばドアの組み合わせは同じなので除く
                 for way in row_way:
                     if way == distance:
                         break
@@ -90,7 +90,7 @@ class Frame(Rect):
                 door1 = self.rooms.get(from_id).get_west_door()
                 door2 = self.rooms.get(to_id).get_east_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
-                # 逆向きペアが入っているので取り除く。同じ距離なら逆向きのペアとみなす。
+                # 距離が同じならばドアの組み合わせは同じなので除く
                 for way in row_way:
                     if way == distance:
                         break
@@ -204,9 +204,6 @@ class Frame(Rect):
         for index, size in enumerate(sizes):
             room = Room(size.get('x'), size.get('y'), size.get('width'), size.get('height'))
             self.rooms.add(room)
-
-    def __str__(self):
-        return str(self.rooms)
 
     def to_string(self):
         x = self.x
