@@ -19,14 +19,15 @@ class Frame(Rect):
         height -- Outer frame height. (Mean the size of dungeon height)
         """
         super(Frame, self).__init__(1, 1, width, height)
-        self.rooms = Rooms()
-        self.roads = Roads()
+        # FIXME configの扱い
         if config is not None:
             self.config = config
         else:
             self.config = self.default_config
+        self.rooms = Rooms()
         self.pop_rooms()
-        self.make_roads()
+        self.roads = Roads()
+        self.pop_roads()
 
     @property
     def default_config(self):
@@ -34,14 +35,17 @@ class Frame(Rect):
             'room_number' : 5
         }
 
-    def make_roads(self):
+    def pop_roads(self):
         searcher = RoomSearcher()
+        # FIXME 直接とればいいのでは？
         searcher.analyze_rooms(self.rooms.get_all())
+        pair_list = searcher.get_road_pair()
+
+        # FIXME このへんをメソッド切り出しして？
         col_way = []
         col_roads = []
         row_way = []
         row_roads = []
-        pair_list = searcher.get_road_pair()
         for pair in pair_list:
             from_id = pair.get('from')
             to_id = pair.get('to')
@@ -95,6 +99,7 @@ class Frame(Rect):
             'row_doors': row_roads
         }
 
+        # FIXME このさきのやつと束ねるほうがいいのでは？
         self.generator_road(door_pair)
 
     def generator_road(self, door_pair):
