@@ -33,6 +33,15 @@ class Rooms(object):
         :rtype: List
         :return: List of Room.
         """
+        return self.rooms
+
+    def get_copy_all(self):
+        """ Get all copy of rooms from collection.
+            When performing a destructive operation , use this.
+
+        :rtype: List
+        :return: List of Room.
+        """
         return copy.deepcopy(self.rooms)
 
     def __str__(self):

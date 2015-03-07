@@ -33,6 +33,15 @@ class Roads(object):
         :rtype: List
         :return: List of Tile.
         """
+        return self.roads
+
+    def get_copy_all(self):
+        """ Get all copy of roads from collection.
+            When performing a destructive operation , use this.
+
+        :rtype: List
+        :return: List of Tile.
+        """
         return copy.deepcopy(self.roads)
 
     def __str__(self):

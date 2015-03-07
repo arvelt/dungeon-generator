@@ -42,7 +42,7 @@ class Frame(Rect):
             from_id = pair.get('from')
             to_id = pair.get('to')
 
-            if pair.get('direction') == 'north':
+            if pair.get('direction') == RoomSearcher.NORTH:
                 door1 = self.rooms.get(from_id).get_north_door()
                 door2 = self.rooms.get(to_id).get_south_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
@@ -54,7 +54,7 @@ class Frame(Rect):
                     col_way.append(distance)
                     col_roads.append((door1, door2))
 
-            if pair.get('direction') == 'south':
+            if pair.get('direction') == RoomSearcher.SOUTH:
                 door1 = self.rooms.get(from_id).get_south_door()
                 door2 = self.rooms.get(to_id).get_north_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
@@ -66,7 +66,7 @@ class Frame(Rect):
                     col_way.append(distance)
                     col_roads.append((door1, door2))
 
-            if pair.get('direction') == 'east':
+            if pair.get('direction') == RoomSearcher.EAST:
                 door1 = self.rooms.get(from_id).get_east_door()
                 door2 = self.rooms.get(to_id).get_west_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
@@ -78,7 +78,7 @@ class Frame(Rect):
                     row_way.append(distance)
                 row_roads.append((door1, door2))
 
-            if pair.get('direction') == 'west':
+            if pair.get('direction') == RoomSearcher.WEST:
                 door1 = self.rooms.get(from_id).get_west_door()
                 door2 = self.rooms.get(to_id).get_east_door()
                 distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
@@ -115,9 +115,7 @@ class Frame(Rect):
                 self._pave_row_road(door2, door1)
 
     def _pave_col_road(self, north_door, south_door):
-        """ Make raods from door to door.
-            The direction of the north-south.
-        """
+        # ドアからドアまでの道を作る。対象は南北方向
         ax = north_door.x
         ay = north_door.y + 1
         next1 = Tile(ax, ay, Tile.WAY)
@@ -159,9 +157,7 @@ class Frame(Rect):
 
 
     def _pave_row_road(self, west_door, east_door):
-        """ Make raods from door to door.
-            The direction of the door east-west.
-        """
+        # ドアからドアまでの道を作る。対象は東西方向。
         ax = west_door.x + 1
         ay = west_door.y
         next1 = Tile(ax, ay, Tile.WAY)
@@ -202,9 +198,7 @@ class Frame(Rect):
             self._pave_row_road(next1, next2)
 
     def _pop_rooms(self):
-        """ Pop rooms in dungeons.
-            See RoomSizeGenerator details.
-        """
+        # RoomSizeGeneratorで取得したサイズを元に部屋を作成する
         room_generator = RoomSizeGenerator(self.width, self.height, self.config)
         sizes = room_generator.get_room_sizes()
         for index, size in enumerate(sizes):
@@ -216,7 +210,7 @@ class Frame(Rect):
         y = self.y
         ax = self.ax
         ay = self.ay
-        self.dungeon_map = [[0 for j in range(self.ay)] for i in range(ax)]
+        self.dungeon_map = [[0 for j in range(ay)] for i in range(ax)]
 
         # xとyを順にインクリメントしながら、該当するマスのタイルを取得していく
         floor = ''
@@ -254,6 +248,6 @@ class Frame(Rect):
         """Get a two-dimensional array of dungeon map.
 
         :rtype: array
-        :return: Secondary sequence.
+        :return: Two-dimensional array.
         """
         return self.dungeon_map

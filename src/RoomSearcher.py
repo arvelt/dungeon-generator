@@ -10,18 +10,14 @@ class RoomSearcher:
     WEST = 'west'
     NORTH = 'north'
     SOUTH = 'south'
-    UPPER_RIGHT = 'upper_right'
-    LOWER_RIGHT = 'lower_right'
-    UPPER_LEFT = 'upper_left'
-    LOWER_LEFT = 'lower_left'
 
     def __init__(self):
         pass
 
-    def get_room_direction(self):
+    def get_copy_room_direction(self):
         return copy.deepcopy(self.nearest_rooms)
 
-    def get_road_pair(self):
+    def get_copy_road_pair(self):
         return copy.deepcopy(self.road_pair)
 
     def analyze_rooms(self, rooms):
