@@ -2,9 +2,6 @@
 from Frame import Frame
 
 class Dungeon:
-    row_size = 32
-    col_size = 32
-
     def __init__(self, config={}):
         self.row_size = config.get('col_size', 20)
         self.col_size = config.get('row_size', 20)
