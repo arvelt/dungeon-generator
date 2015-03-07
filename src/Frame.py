@@ -14,11 +14,6 @@ class Frame(Rect):
         The origin starts (1, 1).
     """
     def __init__(self, width, height, config):
-        """
-        arguments:
-        width -- Outer frame width. (Mean the size of dungeon width)
-        height -- Outer frame height. (Mean the size of dungeon height)
-        """
         super(Frame, self).__init__(1, 1, width, height)
         self.config = config
         self.rooms = Rooms()
