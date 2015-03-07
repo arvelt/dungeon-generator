@@ -31,9 +31,9 @@ class Dungeon:
 
 if __name__ == '__main__':
     config = {
-        'row_size': 10,
-        'col_size': 20,
-        'room_number' : 1
+        'row_size': 32,
+        'col_size': 32,
+        'room_number' : 4
     }
     dungeon = Dungeon(config=config)
     print dungeon.to_string()
