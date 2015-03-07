@@ -58,47 +58,26 @@
 <span id="frame-module"></span><h1>Frame Module<a class="headerlink" href="#module-Frame" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="Frame.Frame">
-<em class="property">class </em><tt class="descclassname">Frame.</tt><tt class="descname">Frame</tt><big>(</big><em>width</em>, <em>height</em>, <em>config=None</em><big>)</big><a class="reference internal" href="_modules/Frame.html#Frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">Frame.</tt><tt class="descname">Frame</tt><big>(</big><em>width</em>, <em>height</em>, <em>config</em><big>)</big><a class="reference internal" href="_modules/Frame.html#Frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="Rect.html#Rect.Rect" title="Rect.Rect"><tt class="xref py py-class docutils literal"><span class="pre">Rect.Rect</span></tt></a></p>
-<p>The outer frame in dungeon.
-This class has origin potisioin. Usually (1, 1).
-This class provied pop_room method.</p>
-<dl class="attribute">
-<dt id="Frame.Frame.default_config">
-<tt class="descname">default_config</tt><a class="reference internal" href="_modules/Frame.html#Frame.default_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame.default_config" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<p>The display frame shape.
+Upper left is the origin.
+The origin starts (1, 1).</p>
 <dl class="method">
-<dt id="Frame.Frame.generator_road">
-<tt class="descname">generator_road</tt><big>(</big><em>door_pair</em><big>)</big><a class="reference internal" href="_modules/Frame.html#Frame.generator_road"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame.generator_road" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Frame.Frame.make_roads">
-<tt class="descname">make_roads</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Frame.html#Frame.make_roads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame.make_roads" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Frame.Frame.pave_col_road">
-<tt class="descname">pave_col_road</tt><big>(</big><em>up_door</em>, <em>down_door</em><big>)</big><a class="reference internal" href="_modules/Frame.html#Frame.pave_col_road"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame.pave_col_road" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Frame.Frame.pave_row_road">
-<tt class="descname">pave_row_road</tt><big>(</big><em>left_door</em>, <em>right_door</em><big>)</big><a class="reference internal" href="_modules/Frame.html#Frame.pave_row_road"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame.pave_row_road" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="Frame.Frame.pop_rooms">
-<tt class="descname">pop_rooms</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Frame.html#Frame.pop_rooms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame.pop_rooms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pop rooms in dungeons.
-See RoomSizeGenerator details.</p>
+<dt id="Frame.Frame.to_string">
+<tt class="descname">to_string</tt><big>(</big><big>)</big><a class="headerlink" href="#Frame.Frame.to_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a human-readable dungeon map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Fixed-length string with a newline.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
-
-<dl class="method">
-<dt id="Frame.Frame.to_map">
-<tt class="descname">to_map</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Frame.html#Frame.to_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame.to_map" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

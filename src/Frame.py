@@ -12,28 +12,18 @@ class Frame(Rect):
         Upper left is the origin.
         The origin starts (1, 1).
     """
-    def __init__(self, width, height, config=None):
+    def __init__(self, width, height, config):
         """
         arguments:
         width -- Outer frame width. (Mean the size of dungeon width)
         height -- Outer frame height. (Mean the size of dungeon height)
         """
         super(Frame, self).__init__(1, 1, width, height)
-        # FIXME configの扱い
-        if config is not None:
-            self.config = config
-        else:
-            self.config = self.default_config
+        self.config = config
         self.rooms = Rooms()
         self._pop_rooms()
         self.roads = Roads()
         self._pop_roads()
-
-    @property
-    def default_config(self):
-        return {
-            'room_number' : 5
-        }
 
     def _pop_roads(self):
         searcher = RoomSearcher()
@@ -122,29 +112,34 @@ class Frame(Rect):
             else:
                 self._pave_row_road(door2, door1)
 
-    def _pave_col_road(self, up_door, down_door):
-        ax = up_door.x
-        ay = up_door.y + 1
+    def _pave_col_road(self, north_door, south_door):
+        """ Make raods from door to door.
+            The direction of the north-south.
+        """
+        ax = north_door.x
+        ay = north_door.y + 1
         next1 = Tile(ax, ay, Tile.WAY)
         self.roads.add(next1)
 
-        if ay == down_door.y:
-            if ax < down_door.x:
+        # 同じY位置まできたらX側を埋める
+        if ay == south_door.y:
+            if ax < south_door.x:
                 start = ax
-                end = down_door.x
+                end = south_door.x
             else:
-                start = down_door.x
+                start = south_door.x
                 end = ax
             for x in range(start, end):
                 road = Tile(x, ay, Tile.WAY)
                 self.roads.add(road)
             return
 
-        bx = down_door.x
-        by = down_door.y - 1
+        bx = south_door.x
+        by = south_door.y - 1
         next2 = Tile(bx, by, Tile.WAY)
         self.roads.add(next2)
 
+        # 同じY位置まできたらX側を埋める
         if ay == by:
             if ax < bx:
                 start = ax
@@ -155,33 +150,40 @@ class Frame(Rect):
             for x in range(start, end):
                 road = Tile(x, ay, Tile.WAY)
                 self.roads.add(road)
+
+        # 道が埋まるまで再帰的に繰り返す
         else:
             self._pave_col_road(next1, next2)
 
 
-    def _pave_row_road(self, left_door, right_door):
-        ax = left_door.x + 1
-        ay = left_door.y
+    def _pave_row_road(self, west_door, east_door):
+        """ Make raods from door to door.
+            The direction of the door east-west.
+        """
+        ax = west_door.x + 1
+        ay = west_door.y
         next1 = Tile(ax, ay, Tile.WAY)
         self.roads.add(next1)
 
-        if ax == right_door.x:
-            if ay < right_door.y:
+        # 同じX位置にきたらY側を埋める
+        if ax == east_door.x:
+            if ay < east_door.y:
                 start = ay
-                end = right_door.y
+                end = east_door.y
             else:
-                start = right_door.y
+                start = east_door.y
                 end = ay
             for y in range(start, end):
                 road = Tile(ax, y, Tile.WAY)
                 self.roads.add(road)
             return
 
-        bx = right_door.x - 1
-        by = right_door.y
+        bx = east_door.x - 1
+        by = east_door.y
         next2 = Tile(bx, by, Tile.WAY)
         self.roads.add(next2)
 
+        # 同じX位置にきたらY側を埋める
         if ax == bx:
             if ay < by:
                 start = ay
@@ -192,6 +194,8 @@ class Frame(Rect):
             for y in range(start, end):
                 road = Tile(ax, y, Tile.WAY)
                 self.roads.add(road)
+
+        # 道が埋まるまで再帰的に繰り返す
         else:
             self._pave_row_road(next1, next2)
 
@@ -206,11 +210,17 @@ class Frame(Rect):
             self.rooms.add(room)
 
     def to_string(self):
+        """Get a human-readable dungeon map.
+
+        :rtype: string
+        :return: Fixed-length string with a newline.
+        """
         x = self.x
         y = self.y
         ax = self.ax
         ay = self.ay
 
+        # xとyを順にインクリメントしながら、該当するマスのタイルを取得していく
         floor = ''
         for row in range(x, ax + 1):
             line = ''

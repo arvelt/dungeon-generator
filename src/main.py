@@ -5,7 +5,9 @@ class Dungeon:
     row_size = 32
     col_size = 32
 
-    def __init__(self, config=None):
+    def __init__(self, config={}):
+        self.row_size = config.get('col_size', 20)
+        self.col_size = config.get('row_size', 20)
         self.dungeon = Frame(self.col_size, self.row_size, config)
 
 
@@ -18,7 +20,9 @@ class Dungeon:
 
 if __name__ == '__main__':
     config = {
+        'row_size': 32,
+        'col_size': 32,
         'room_number' : 6
     }
-    dungeon = Dungeon()
+    dungeon = Dungeon(config=config)
     print dungeon.to_string()

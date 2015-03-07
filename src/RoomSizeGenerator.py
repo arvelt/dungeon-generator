@@ -9,7 +9,7 @@ class RoomSizeGenerator(object):
         self.y = 1
         self.width = width
         self.height = height
-        self.room_number = config.get('room_number', 1)
+        self.room_number = config.get('room_number', 3)
         self.checker = SizeDuplicateChecker()
 
     def get_room_sizes(self):
