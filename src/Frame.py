@@ -6,7 +6,6 @@ from Rooms import Rooms
 from Roads import Roads
 from RoomSearcher import RoomSearcher
 from RoomSizeGenerator import RoomSizeGenerator
-import pprint
 
 class Frame(Rect):
     """ The display frame shape.
