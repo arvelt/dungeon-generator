@@ -6,6 +6,7 @@ from Rooms import Rooms
 from Roads import Roads
 from RoomSearcher import RoomSearcher
 from RoomSizeGenerator import RoomSizeGenerator
+import pprint
 
 class Frame(Rect):
     """ The display frame shape.
@@ -24,6 +25,7 @@ class Frame(Rect):
         self._pop_rooms()
         self.roads = Roads()
         self._pop_roads()
+        self._make_map()
 
     def _pop_roads(self):
         searcher = RoomSearcher()
@@ -209,16 +211,12 @@ class Frame(Rect):
             room = Room(size.get('x'), size.get('y'), size.get('width'), size.get('height'))
             self.rooms.add(room)
 
-    def to_string(self):
-        """Get a human-readable dungeon map.
-
-        :rtype: string
-        :return: Fixed-length string with a newline.
-        """
+    def _make_map(self):
         x = self.x
         y = self.y
         ax = self.ax
         ay = self.ay
+        self.dungeon_map = [[0 for j in range(self.ay)] for i in range(ax)]
 
         # xとyを順にインクリメントしながら、該当するマスのタイルを取得していく
         floor = ''
@@ -235,8 +233,27 @@ class Frame(Rect):
                     tile = self.roads.get(col, row)
 
                 if tile:
+                    self.dungeon_map[row-1][col-1] = str(tile)
                     line = line + str(tile)
                 else:
+                    self.dungeon_map[row-1][col-1] = str(0)
                     line = line + str(0)
             floor = floor + line + '\n'
-        return floor
+
+        self.dungeon_string = floor
+
+    def to_string(self):
+        """Get a human-readable dungeon map.
+
+        :rtype: string
+        :return: Fixed-length string with a newline.
+        """
+        return self.dungeon_string
+
+    def to_array(self):
+        """Get a two-dimensional array of dungeon map.
+
+        :rtype: array
+        :return: Secondary sequence.
+        """
+        return self.dungeon_map

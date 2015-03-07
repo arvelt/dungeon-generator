@@ -16,19 +16,24 @@ class Dungeon:
         self.dungeon = Frame(self.col_size, self.row_size, config)
 
     def to_string(self):
-        """Get a human-readable dungeon map.
+        """ Call Frame.to_string()
 
-        :rtype: string
-        :return: Fixed-length string with a newline.
+            See Frame.to_string detail.
         """
         return self.dungeon.to_string()
 
+    def to_array(self):
+        """ Call Frame.to_array()
+
+            See Frame.to_array detail.
+        """
+        return self.dungeon.to_array()
 
 if __name__ == '__main__':
     config = {
-        'row_size': 32,
-        'col_size': 32,
-        'room_number' : 6
+        'row_size': 10,
+        'col_size': 20,
+        'room_number' : 1
     }
     dungeon = Dungeon(config=config)
     print dungeon.to_string()
