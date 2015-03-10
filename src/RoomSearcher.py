@@ -5,14 +5,11 @@ sys.path.append(os.path.abspath('./src'))
 import math, copy
 from operator import attrgetter
 
-class RoomSearcher:
+class RoomSearcher(object):
     EAST = 'east'
     WEST = 'west'
     NORTH = 'north'
     SOUTH = 'south'
-
-    def __init__(self):
-        pass
 
     def get_copy_room_direction(self):
         return copy.deepcopy(self.nearest_rooms)
@@ -126,13 +123,13 @@ class RoomSearcher:
         sorted_lower = sorted(lower_list, key=lambda x:x['distance'])
         sorted_left = sorted(left_list, key=lambda x:x['distance'])
         return {
-            self.NORTH: self.get_first_item(sorted_upper),
-            self.EAST: self.get_first_item(sorted_right),
-            self.SOUTH: self.get_first_item(sorted_lower),
-            self.WEST: self.get_first_item(sorted_left),
+            self.NORTH: self._get_first_item(sorted_upper),
+            self.EAST: self._get_first_item(sorted_right),
+            self.SOUTH: self._get_first_item(sorted_lower),
+            self.WEST: self._get_first_item(sorted_left),
         }
 
-    def get_first_item(self, list, default=None):
+    def _get_first_item(self, list, default=None):
         try:
             return list[0]
         except IndexError:
