@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from Rect import Rect
 from Tile import Tile
+from Door import Door
 import uuid, random
 
 class Room(Rect):
@@ -23,12 +24,18 @@ class Room(Rect):
             for row in range(self.y, self.ay + 1):
                 self.tiles.append(Tile(col , row, tmp_kind))
 
+
     def get_tile(self, x, y):
         for tile in self.tiles:
             if tile.x == x and tile.y == y:
                 return tile
         else:
             return None
+
+    def set_tile(self, x, y, new_tile):
+        for index, tile in enumerate(self.tiles):
+            if tile.x == x and tile.y == y:
+                self.tiles[index] = new_tile
 
     def has_tile(self, x, y):
         if (self.x <= x and x <= self.x + self.width - 1) and \
@@ -50,30 +57,30 @@ class Room(Rect):
         #上辺
         dx = random.randint(self.x + 1, self.ax - 1)
         dy = self.y
-        tile = self.get_tile(dx, dy)
-        tile.kind = Tile.DOOR
-        self.doors.append(tile)
+        door = Door(dx, dy, Door.NORTH)
+        self.set_tile(dx, dy, door)
+        self.doors.append(door)
 
         #下辺
         dx = random.randint(self.x + 1, self.ax - 1)
         dy = self.ay
-        tile = self.get_tile(dx, dy)
-        tile.kind = Tile.DOOR
-        self.doors.append(tile)
+        door = Door(dx, dy, Door.SOUTH)
+        self.set_tile(dx, dy, door)
+        self.doors.append(door)
 
         #右辺
         dx = self.ax
         dy = random.randint(self.y + 1, self.ay - 1)
-        tile = self.get_tile(dx, dy)
-        tile.kind = Tile.DOOR
-        self.doors.append(tile)
+        door = Door(dx, dy, Door.EAST)
+        self.set_tile(dx, dy, door)
+        self.doors.append(door)
 
         #左辺
         dx = self.x
         dy = random.randint(self.y + 1, self.ay - 1)
-        tile = self.get_tile(dx, dy)
-        tile.kind = Tile.DOOR
-        self.doors.append(tile)
+        door = Door(dx, dy, Door.WEST)
+        self.set_tile(dx, dy, door)
+        self.doors.append(door)
 
     def get_north_door(self):
         for door in self.doors:

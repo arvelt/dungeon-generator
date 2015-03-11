@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
 
 class Road(object):
-    pass
+    def __init__(self):
+        pass
