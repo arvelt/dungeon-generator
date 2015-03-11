@@ -89,6 +89,8 @@ class Frame(Rect):
         for doors in door_pair:
             door1 = doors[0]
             door2 = doors[1]
+            # FIXME こうしたい
+            # self.roads.add(Road(door1, door2))
             if door1.is_vertical():
                 if door1.y < door2.y:
                     self._pave_road(door1, door2, 0, 1)
