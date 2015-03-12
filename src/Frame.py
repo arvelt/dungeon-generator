@@ -116,15 +116,15 @@ class Frame(Rect):
                 for room in self.rooms.get_all():
                     if room.has_tile(col, row):
                         tile = room.get_tile(col, row)
-                        break
+                        if tile:
+                            break
 
                 if tile is None:
                     for road in self.roads.get_all():
-                        if road.has_tile(col, row):
+                        if road.may_have_tile(col, row):
                             tile = road.get_tile(col, row)
-                            if tile is None:
-                                print col, row,'があるはずなのにない'
-                            break
+                            if tile:
+                                break
 
                 if tile:
                     self.dungeon_map[row-1][col-1] = str(tile)

@@ -49,15 +49,14 @@ class Road(object):
                 self._set_inline_range(to_door, from_door, 1, 0)
                 self._pave_road(to_door, from_door, 1, 0)
 
-#        print from_door.x, from_door.y, 'to', to_door.x, to_door.y, ': LU', self.x, self.y, 'RL', self.ax, self.ay
-
     def _set_inline_range(self, from_door, to_door, col_add, row_add):
+        #ドアを含まない道になりうる領域を四角形とみなして保持する
         x = from_door.x + col_add
         y = from_door.y + row_add
         ax = to_door.x - col_add
         ay = to_door.y - row_add
 
-        if x < ay:
+        if x < ax:
             self.x = x
             self.ax = ax
         else:
@@ -74,7 +73,6 @@ class Road(object):
         # ドアからドアまでの道を作る
         ax = from_door.x + col_add
         ay = from_door.y + row_add
-        print ax, ay, 'を登録'
         next1 = Tile(ax, ay, Tile.WAY)
         self.tiles.append(next1)
 
@@ -83,7 +81,6 @@ class Road(object):
 
         bx = to_door.x - col_add
         by = to_door.y - row_add
-        print bx, by, 'を登録'
         next2 = Tile(bx, by, Tile.WAY)
         self.tiles.append(next2)
 
@@ -105,7 +102,6 @@ class Road(object):
                     start = bx
                     end = ax
                 for x in range(start, end):
-                    print x, ay, 'を登録'
                     road = Tile(x, ay, Tile.WAY)
                     self.tiles.append(road)
                 return True
@@ -121,7 +117,6 @@ class Road(object):
                     start = by
                     end = ay
                 for y in range(start, end):
-                    print ax, ay, 'を登録'
                     road = Tile(ax, y, Tile.WAY)
                     self.tiles.append(road)
                 return True
