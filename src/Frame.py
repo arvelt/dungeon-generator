@@ -122,6 +122,8 @@ class Frame(Rect):
                     for road in self.roads.get_all():
                         if road.has_tile(col, row):
                             tile = road.get_tile(col, row)
+                            if tile is None:
+                                print col, row,'があるはずなのにない'
                             break
 
                 if tile:
