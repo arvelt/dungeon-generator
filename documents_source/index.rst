@@ -1,5 +1,5 @@
 .. src documentation master file, created by
-   sphinx-quickstart on Fri Mar  6 01:51:00 2015.
+   sphinx-quickstart on Fri Mar 13 01:53:42 2015.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -11,8 +11,10 @@ Contents:
 .. toctree::
    :maxdepth: 4
 
+   Door
    Frame
    Rect
+   Road
    Roads
    Room
    RoomSearcher

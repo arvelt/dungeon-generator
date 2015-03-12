@@ -4,8 +4,10 @@ src
 .. toctree::
    :maxdepth: 4
 
+   Door
    Frame
    Rect
+   Road
    Roads
    Room
    RoomSearcher
