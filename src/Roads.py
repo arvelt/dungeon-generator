@@ -30,7 +30,7 @@ class Roads(object):
         """Get all roads from collection.
 
         :rtype: List
-        :return: List of Tile.
+        :return: List of Road.
         """
         return self.roads
 
@@ -39,9 +39,6 @@ class Roads(object):
             When performing a destructive operation , use this.
 
         :rtype: List
-        :return: List of Tile.
+        :return: List of Road.
         """
         return copy.deepcopy(self.roads)
-
-    def __str__(self):
-        return str([str(road) for road in self.roads])
