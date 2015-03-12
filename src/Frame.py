@@ -23,12 +23,16 @@ class Frame(Rect):
         self._make_map()
 
     def _pop_roads(self):
+        # RoomSearcherで取得した部屋から部屋への扉の組み合わせから道を作成する
+        rooms = self.rooms.get_all()
         searcher = RoomSearcher()
-        door_pairs = searcher.get_door_pairs(self.rooms.get_all())
+        door_pairs = searcher.get_door_pairs(rooms)
         for doors in door_pairs:
             door1 = doors[0]
             door2 = doors[1]
-            self.roads.add(Road(door1, door2))
+            road = Road(door1, door2)
+            if not self._check_duplicate_room_road(rooms, road):
+                self.roads.add(road)
 
     def _pop_rooms(self):
         # RoomSizeGeneratorで取得したサイズを元に部屋を作成する
@@ -37,6 +41,17 @@ class Frame(Rect):
         for index, size in enumerate(sizes):
             room = Room(size.get('x'), size.get('y'), size.get('width'), size.get('height'))
             self.rooms.add(room)
+
+    def _check_duplicate_room_road(self, rooms, road):
+        # 道がいずれかの部屋の座標と重複してしまう場合はTrue、そうでなければFalse
+        for room in rooms:
+            if room.x <= road.x or room.x <= road.ax or road.y <= room.y or room.ay <= road.y:
+                # 各辺が離れている場合は衝突していない
+                pass
+            else:
+                return True
+        else:
+            return False
 
     def _make_map(self):
         x = self.x

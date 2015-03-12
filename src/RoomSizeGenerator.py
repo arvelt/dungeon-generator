@@ -24,6 +24,7 @@ class RoomSizeGenerator(object):
 
     def _get_new_size(self):
         size = self._get_other_size()
+        # TODO 何度か繰り返してもダメなときはもう隙間がないので返すようにする
         while self.checker.prove_available_size(size) == False:
             size = self._get_other_size()
         return size
