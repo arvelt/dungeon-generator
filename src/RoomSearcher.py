@@ -17,7 +17,7 @@ class RoomSearcher(object):
     def get_copy_road_pair(self):
         return copy.deepcopy(self.road_pair)
 
-    def analyze_rooms(self, rooms):
+    def get_door_pairs(self, rooms):
         self.all_rooms = []
         for room in rooms:
             self.all_rooms.append({
@@ -28,12 +28,12 @@ class RoomSearcher(object):
 
         nearest_rooms = []
         for room in self.all_rooms:
-            nearest_rooms.append(self.analyze(room))
-        result = self.adjust_result_analyze(nearest_rooms)
-        self.road_pair = result
-        return self.road_pair
+            nearest_rooms.append(self._analyze(room))
+        pair_list = self._adjust_result_analyze(nearest_rooms)
+        door_pair = self._transform_door_pair(pair_list, rooms)
+        return door_pair
 
-    def adjust_result_analyze(self, rooms):
+    def _adjust_result_analyze(self, rooms):
         self.nearest_rooms = rooms
         road_pair = []
         for nearest_room in rooms:
@@ -80,21 +80,86 @@ class RoomSearcher(object):
                 })
         return road_pair
 
-    def analyze(self, room):
+    def _transform_door_pair(self, pair_list, rooms):
+        col_distances = []
+        row_distances = []
+        door_pair = []
+        for pair in pair_list:
+            from_id = pair.get('from')
+            to_id = pair.get('to')
+
+            for room in rooms:
+                if room.id == from_id:
+                    from_room = room
+                if room.id == to_id:
+                    to_room = room
+
+            if pair.get('direction') == RoomSearcher.NORTH:
+                door1 = from_room.get_north_door()
+                door2 = to_room.get_south_door()
+                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
+                # 距離が同じならばドアの組み合わせは同じなので除く
+                for way in col_distances:
+                    if way == distance:
+                        break
+                else:
+                    col_distances.append(distance)
+                    door_pair.append((door1, door2))
+
+            if pair.get('direction') == RoomSearcher.SOUTH:
+                door1 = from_room.get_south_door()
+                door2 = to_room.get_north_door()
+                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
+                # 距離が同じならばドアの組み合わせは同じなので除く
+                for way in col_distances:
+                    if way == distance:
+                        break
+                else:
+                    col_distances.append(distance)
+                    door_pair.append((door1, door2))
+
+            if pair.get('direction') == RoomSearcher.EAST:
+                door1 = from_room.get_east_door()
+                door2 = to_room.get_west_door()
+                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
+                # 距離が同じならばドアの組み合わせは同じなので除く
+                for way in row_distances:
+                    if way == distance:
+                        break
+                else:
+                    row_distances.append(distance)
+                    door_pair.append((door1, door2))
+
+            if pair.get('direction') == RoomSearcher.WEST:
+                door1 = from_room.get_west_door()
+                door2 = to_room.get_east_door()
+                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
+                # 距離が同じならばドアの組み合わせは同じなので除く
+                for way in row_distances:
+                    if way == distance:
+                        break
+                else:
+                    row_distances.append(distance)
+                    door_pair.append((door1, door2))
+
+        return door_pair
+
+
+    def _analyze(self, room):
         target_room = room
         comparison_destinations = []
         for room in self.all_rooms:
             if room.get('id') != target_room.get('id'):
                 comparison_destinations.append(room)
-        return self.search_nearest_room(target_room, comparison_destinations)
+        return self._search_nearest_room(target_room, comparison_destinations)
 
-    def search_nearest_room(self, room, destinations):
+    def _search_nearest_room(self, room, destinations):
         distance_list = self._caluclate_room_distanse(room, destinations)
-        result = self.get_nearest_room(distance_list)
+        result = self._get_nearest_room(distance_list)
         result['id'] = room.get('id')
         return result
 
-    def get_nearest_room(self, distance_list):
+    def _get_nearest_room(self, distance_list):
         upper_list = []
         right_list = []
         lower_list = []

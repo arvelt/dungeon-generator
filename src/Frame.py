@@ -24,70 +24,8 @@ class Frame(Rect):
 
     def _pop_roads(self):
         searcher = RoomSearcher()
-        pair_list = searcher.analyze_rooms(self.rooms.get_all())
-        door_pair = self._transform_door_pair(pair_list)
-        self._generator_road(door_pair)
-
-    def _transform_door_pair(self, pair_list):
-        col_distances = []
-        row_distances = []
-        door_pair = []
-        for pair in pair_list:
-            from_id = pair.get('from')
-            to_id = pair.get('to')
-
-            if pair.get('direction') == RoomSearcher.NORTH:
-                door1 = self.rooms.get(from_id).get_north_door()
-                door2 = self.rooms.get(to_id).get_south_door()
-                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
-                # 距離が同じならばドアの組み合わせは同じなので除く
-                for way in col_distances:
-                    if way == distance:
-                        break
-                else:
-                    col_distances.append(distance)
-                    door_pair.append((door1, door2))
-
-            if pair.get('direction') == RoomSearcher.SOUTH:
-                door1 = self.rooms.get(from_id).get_south_door()
-                door2 = self.rooms.get(to_id).get_north_door()
-                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
-                # 距離が同じならばドアの組み合わせは同じなので除く
-                for way in col_distances:
-                    if way == distance:
-                        break
-                else:
-                    col_distances.append(distance)
-                    door_pair.append((door1, door2))
-
-            if pair.get('direction') == RoomSearcher.EAST:
-                door1 = self.rooms.get(from_id).get_east_door()
-                door2 = self.rooms.get(to_id).get_west_door()
-                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
-                # 距離が同じならばドアの組み合わせは同じなので除く
-                for way in row_distances:
-                    if way == distance:
-                        break
-                else:
-                    row_distances.append(distance)
-                    door_pair.append((door1, door2))
-
-            if pair.get('direction') == RoomSearcher.WEST:
-                door1 = self.rooms.get(from_id).get_west_door()
-                door2 = self.rooms.get(to_id).get_east_door()
-                distance = (door2.x - door1.x) * (door2.x - door1.x) + (door2.y - door1.y) * (door2.y - door1.y)
-                # 距離が同じならばドアの組み合わせは同じなので除く
-                for way in row_distances:
-                    if way == distance:
-                        break
-                else:
-                    row_distances.append(distance)
-                    door_pair.append((door1, door2))
-
-        return door_pair
-
-    def _generator_road(self, door_pair):
-        for doors in door_pair:
+        door_pairs = searcher.get_door_pairs(self.rooms.get_all())
+        for doors in door_pairs:
             door1 = doors[0]
             door2 = doors[1]
             self.roads.add(Road(door1, door2))
