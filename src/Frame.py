@@ -3,6 +3,7 @@ from Rect import Rect
 from Tile import Tile
 from Room import Room
 from Rooms import Rooms
+from Road import Road
 from Roads import Roads
 from RoomSearcher import RoomSearcher
 from RoomSizeGenerator import RoomSizeGenerator
@@ -89,72 +90,7 @@ class Frame(Rect):
         for doors in door_pair:
             door1 = doors[0]
             door2 = doors[1]
-            # FIXME こうしたい
-            # self.roads.add(Road(door1, door2))
-            if door1.is_vertical():
-                if door1.y < door2.y:
-                    self._pave_road(door1, door2, 0, 1)
-                else:
-                    self._pave_road(door2, door1, 0, 1)
-            else:
-                if door1.x < door2.x:
-                    self._pave_road(door1, door2, 1, 0)
-                else:
-                    self._pave_road(door2, door1, 1, 0)
-
-    def _pave_road(self, from_door, to_door, col_add, row_add):
-        # ドアからドアまでの道を作る
-        ax = from_door.x + col_add
-        ay = from_door.y + row_add
-        next1 = Tile(ax, ay, Tile.WAY)
-        self.roads.add(next1)
-
-        if self._pave_middle_polyline(ax, ay, to_door.x, to_door.y, col_add):
-            return
-
-        bx = to_door.x - col_add
-        by = to_door.y - row_add
-        next2 = Tile(bx, by, Tile.WAY)
-        self.roads.add(next2)
-
-        if self._pave_middle_polyline(ax, ay, bx, by, col_add):
-            return
-
-        # 道が埋まるまで再帰的に繰り返す
-        self._pave_road(next1, next2, col_add, row_add)
-
-    def _pave_middle_polyline(self, ax, ay, bx, by, vertical):
-        #縦方向の道は横がそろうまで伸ばす
-        if vertical == 0:
-            # 同じY位置まできたらX側を埋める
-            if ay == by:
-                if ax < bx:
-                    start = ax
-                    end = bx
-                else:
-                    start = bx
-                    end = ax
-                for x in range(start, end):
-                    road = Tile(x, ay, Tile.WAY)
-                    self.roads.add(road)
-                return True
-
-        #横方向の道は横がそろうまで伸ばす
-        else:
-            # 同じX位置にきたらY側を埋める
-            if ax == bx:
-                if ay < by:
-                    start = ay
-                    end = by
-                else:
-                    start = by
-                    end = ay
-                for y in range(start, end):
-                    road = Tile(ax, y, Tile.WAY)
-                    self.roads.add(road)
-                return True
-
-        return False
+            self.roads.add(Road(door1, door2))
 
     def _pop_rooms(self):
         # RoomSizeGeneratorで取得したサイズを元に部屋を作成する
@@ -183,7 +119,10 @@ class Frame(Rect):
                         break
 
                 if tile is None:
-                    tile = self.roads.get(col, row)
+                    for road in self.roads.get_all():
+                        if road.has_tile(col, row):
+                            tile = road.get_tile(col, row)
+                            break
 
                 if tile:
                     self.dungeon_map[row-1][col-1] = str(tile)

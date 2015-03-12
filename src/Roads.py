@@ -6,24 +6,23 @@ class Roads(object):
     def __init__(self):
         self.roads = []
 
-    def add(self, tile):
+    def add(self, road):
         """Add a road to collection.
 
         :param tile: tile class.
         """
-        self.roads.append(tile)
+        self.roads.append(road)
 
-    def get(self, x, y):
+    def get(self, id):
         """Get a road from collection.
 
-        :param x: potision x.
-        :param y: potision y.
-        :rtype: tile or None
-        :return: Return tile. if it does not exist, return None.
+        :param id: unique key of the road.
+        :rtype: Road class
+        :return: Return road. if it does not exist, return None.
         """
-        for tile in self.roads:
-            if tile.x == x and tile.y == y:
-                return tile
+        for road in self.roads:
+            if road.id == id:
+                return road
         else:
             return None
 
