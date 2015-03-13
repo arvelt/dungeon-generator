@@ -45,8 +45,9 @@ class Frame(Rect):
     def _check_duplicate_room_road(self, rooms, road):
         # 道がいずれかの部屋の座標と重複してしまう場合はTrue、そうでなければFalse
         for room in rooms:
-            if room.x <= road.x or room.x <= road.ax or road.y <= room.y or room.ay <= road.y:
-                # 各辺が離れている場合は衝突していない
+            # roadがroomの右にある、roadがroomの左にある、roadがroomの下にある、roadがroomの上にある
+            if room.ax < road.x or road.ax < room.x or room.ay < road.y or road.ay < room.y:
+                # 衝突していない
                 pass
             else:
                 return True
