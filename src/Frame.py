@@ -45,14 +45,21 @@ class Frame(Rect):
     def _check_duplicate_room_road(self, rooms, road):
         # 道がいずれかの部屋の座標と重複してしまう場合はTrue、そうでなければFalse
         for room in rooms:
-            # roadがroomの右にある、roadがroomの左にある、roadがroomの下にある、roadがroomの上にある
-            if room.ax < road.x or road.ax < room.x or room.ay < road.y or road.ay < room.y:
-                # 衝突していない
+            if not self._is_colliding_square(room.x, room.y, room.ax, room.ay, road.x, road.y, road.ax, road.ay):
                 pass
             else:
                 return True
         else:
             return False
+
+    def _is_colliding_square(self, ax, ay, bx, by, cx, cy, dx, dy):
+        # abとcdという四角形として
+        # cdがののab右にある、cdがabの左にある、cdがabの下にある、cdがabの上にある
+        if bx < cx or dx < ax or by < cy or dy < ay:
+            # 衝突していない
+            return False
+        else:
+            return True
 
     def _make_map(self):
         x = self.x
