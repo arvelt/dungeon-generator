@@ -17,8 +17,15 @@ class RoomSizeGenerator(object):
         self.checker = SizeDuplicateChecker()
 
     def get_room_sizes(self):
-        """ Return Size of the room to make future.
-            WIP.
+        """　Get available sizes for Room.
+
+        :rtype: List of dictionary.
+
+            | x: Potision of room x. Express upper left squares.
+            | y: Potision of room y. Express upper left squares.
+            | width: Width of room.
+            | height: Height of room.
+        :return: Return sizes.
         """
         room_sizes = []
         for num in range(self.room_number):
