@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to src’s documentation! &mdash; src  documentation</title>
+    <title>main Module &mdash; src  documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="src  documentation" href="#" />
-    <link rel="next" title="Door Module" href="Door.html" /> 
+    <link rel="top" title="src  documentation" href="index.html" />
+    <link rel="prev" title="Tile Module" href="Tile.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,9 +39,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="Door.html" title="Door Module"
-             accesskey="N">next</a> |</li>
-        <li><a href="#">src  documentation</a> &raquo;</li> 
+          <a href="Tile.html" title="Tile Module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -50,32 +50,34 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="welcome-to-src-s-documentation">
-<h1>Welcome to src&#8217;s documentation!<a class="headerlink" href="#welcome-to-src-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="Door.html">Door Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Frame.html">Frame Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Rect.html">Rect Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Road.html">Road Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Roads.html">Roads Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Room.html">Room Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="RoomSearcher.html">RoomSearcher Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="RoomSizeGenerator.html">RoomSizeGenerator Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Rooms.html">Rooms Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tile.html">Tile Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="main.html">main Module</a></li>
-</ul>
-</div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-main">
+<span id="main-module"></span><h1>main Module<a class="headerlink" href="#module-main" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="main.Dungeon">
+<em class="property">class </em><tt class="descclassname">main.</tt><tt class="descname">Dungeon</tt><big>(</big><em>config={}</em><big>)</big><a class="reference internal" href="_modules/main.html#Dungeon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#main.Dungeon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator two-dimensional map for roguelike.</p>
+<p>Config:</p>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
-<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+<li>row_size: Vertical size of the map.</li>
+<li>col_size: Horizontal size of the map.</li>
+<li>room_number: Number of rooms to pop in the map.</li>
 </ul>
+<dl class="method">
+<dt id="main.Dungeon.to_array">
+<tt class="descname">to_array</tt><big>(</big><big>)</big><a class="headerlink" href="#main.Dungeon.to_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call Frame.to_array()</p>
+<p>See Frame.to_array detail.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="main.Dungeon.to_string">
+<tt class="descname">to_string</tt><big>(</big><big>)</big><a class="headerlink" href="#main.Dungeon.to_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call Frame.to_string()</p>
+<p>See Frame.to_string detail.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -84,20 +86,12 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Welcome to src&#8217;s documentation!</a><ul>
-</ul>
-</li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
-
-  <h4>Next topic</h4>
-  <p class="topless"><a href="Door.html"
-                        title="next chapter">Door Module</a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Tile.html"
+                        title="previous chapter">Tile Module</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/index.txt"
+    <li><a href="_sources/main.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -127,9 +121,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="Door.html" title="Door Module"
-             >next</a> |</li>
-        <li><a href="#">src  documentation</a> &raquo;</li> 
+          <a href="Tile.html" title="Tile Module"
+             >previous</a> |</li>
+        <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
