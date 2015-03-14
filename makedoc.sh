@@ -6,4 +6,11 @@ sphinx-apidoc -F -o ./documents_source ./src
 #sphinx-apidoc -f -o ./documents_source ./src
 sphinx-build -a ./documents_source ./publish
 
-#cp -rf publish/* docs/
+git add -A .
+git commit -m 'update document'
+
+cp -rf publish/* docs/
+cd docs
+git add -A .
+git commit -m 'update document'
+git push origin gh-pages
