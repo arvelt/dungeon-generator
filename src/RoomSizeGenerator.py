@@ -1,6 +1,9 @@
 # -*- coding: UTF-8 -*-
 import random
 
+class NoFreeSpaceException(Exception):
+    pass
+
 class RoomSizeGenerator(object):
     """ Generator of room in dungeon.
     """
@@ -18,15 +21,22 @@ class RoomSizeGenerator(object):
         """
         room_sizes = []
         for num in range(self.room_number):
-            size = self._get_new_size()
-            room_sizes.append(size)
+            try:
+                size = self._get_new_size()
+                room_sizes.append(size)
+            except NoFreeSpaceException:
+                pass
         return room_sizes
 
     def _get_new_size(self):
         size = self._get_other_size()
-        # TODO 何度か繰り返してもダメなときはもう隙間がないので返すようにする
+        count = 0
         while self.checker.prove_available_size(size) == False:
+            count = count + 1
             size = self._get_other_size()
+            # 10000回繰り返しても見つからなければもう空きがないとみなして飛ばす
+            if count > 10000:
+                raise NoFreeSpaceException()
         return size
 
     def _get_other_size(self):
