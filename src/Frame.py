@@ -23,6 +23,14 @@ class Frame(Rect):
         self._pop_roads()
         self._make_map()
 
+    def _pop_rooms(self):
+        # RoomSizeGeneratorで取得したサイズを元に部屋を作成する
+        room_generator = RoomSizeGenerator(self.width, self.height, self.config)
+        sizes = room_generator.get_room_sizes()
+        for index, size in enumerate(sizes):
+            room = Room(size.get('x'), size.get('y'), size.get('width'), size.get('height'))
+            self.rooms.add(room)
+
     def _pop_roads(self):
         # RoomSearcherで取得した部屋から部屋への扉の組み合わせから道を作成する
         rooms = self.rooms.get_all()
@@ -32,36 +40,29 @@ class Frame(Rect):
             door1 = doors[0]
             door2 = doors[1]
             road = Road(door1, door2)
-            if not self._check_duplicate_room_road(rooms, road):
+            # 部屋と衝突せず、かつ隣接しない道だけが有効
+            if not self._is_collided(rooms, road) and not self._is_adjoing(rooms, road):
                 self.roads.add(road)
 
-    def _pop_rooms(self):
-        # RoomSizeGeneratorで取得したサイズを元に部屋を作成する
-        room_generator = RoomSizeGenerator(self.width, self.height, self.config)
-        sizes = room_generator.get_room_sizes()
-        for index, size in enumerate(sizes):
-            room = Room(size.get('x'), size.get('y'), size.get('width'), size.get('height'))
-            self.rooms.add(room)
-
-    def _check_duplicate_room_road(self, rooms, road):
-        # 道がいずれかの部屋の座標と重複してしまう場合はTrue、そうでなければFalse
+    def _is_adjoing(self, rooms, road):
+        # 道が部屋に隣接してできてしまう場合はTrue、そうでなければFalse
         for room in rooms:
-#            if not self._is_colliding_square(room.x, room.y, room.ax, room.ay, road.x, road.y, road.ax, road.ay):
-            if not Util.is_colliding_square(room.x, room.y, room.ax, room.ay, road.x, road.y, road.ax, road.ay):
+            # 道につながっているドアは除いて、道の四角形の１マス分大きい形とぶつかれば、隣接しているということである
+            if room.has_door(road.from_door) or room.has_door(road.to_door):
                 pass
             else:
+                if Util.is_colliding_square(room.x, room.y, room.ax, room.ay, road.x-1, road.y-1, road.ax+1, road.ay+1):
+                    return True
+        else:
+            return False
+
+    def _is_collided(self, rooms, road):
+        # 道がいずれかの部屋の座標と衝突してしまう場合はTrue、そうでなければFalse
+        for room in rooms:
+            if Util.is_colliding_square(room.x, room.y, room.ax, room.ay, road.x, road.y, road.ax, road.ay):
                 return True
         else:
             return False
-
-    def _is_colliding_square(self, ax, ay, bx, by, cx, cy, dx, dy):
-        # abとcdという四角形として
-        # cdがののab右にある、cdがabの左にある、cdがabの下にある、cdがabの上にある
-        if bx < cx or dx < ax or by < cy or dy < ay:
-            # 衝突していない
-            return False
-        else:
-            return True
 
     def _make_map(self):
         x = self.x
