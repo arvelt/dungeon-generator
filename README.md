@@ -4,7 +4,7 @@
 WIP
 
 ##API document  
-http://arvelt.github.io/dungeon-generator-python/Room.html
+http://arvelt.github.io/dungeon-generator-python/index.html
 
 ##Usage
 WIP
