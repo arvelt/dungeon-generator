@@ -61,6 +61,22 @@ class Room(Rect):
         else:
             return False
 
+    def has_door(self, door):
+        """ Whether holds the door.
+
+        :param x: potision x.
+        :param y: potision y.
+        :rtype: Booean
+        :return: Return True, if holds the tile. Otherwise Fasle.
+        """
+        if door.kind != Tile.DOOR:
+            return False
+        for room_door in self.doors:
+            if room_door.x == door.x and room_door.y == door.y:
+                return True
+        else:
+            return False
+
     def _make_door(self):
         #上辺
         dx = random.randint(self.x + 1, self.ax - 1)
