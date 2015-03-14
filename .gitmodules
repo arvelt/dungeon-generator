@@ -1,0 +1,4 @@
+[submodule "docs"]
+	path = docs
+	url = https://github.com/arvelt/dungeon-generator-python
+	branch = gh-pages
