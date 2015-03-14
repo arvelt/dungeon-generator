@@ -14,3 +14,4 @@ cd docs
 git add -A .
 git commit -m 'update document'
 git push origin gh-pages
+git submodule update
