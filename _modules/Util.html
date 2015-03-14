@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview: module code &mdash; src  documentation</title>
+    <title>Util &mdash; src  documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -25,7 +25,8 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="src  documentation" href="../index.html" /> 
+    <link rel="top" title="src  documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +38,8 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../index.html">src  documentation</a> &raquo;</li> 
+        <li><a href="../index.html">src  documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -46,20 +48,20 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="Door.html">Door</a></li>
-<li><a href="Frame.html">Frame</a></li>
-<li><a href="Rect.html">Rect</a></li>
-<li><a href="Road.html">Road</a></li>
-<li><a href="Roads.html">Roads</a></li>
-<li><a href="Room.html">Room</a></li>
-<li><a href="RoomSearcher.html">RoomSearcher</a></li>
-<li><a href="RoomSizeGenerator.html">RoomSizeGenerator</a></li>
-<li><a href="Rooms.html">Rooms</a></li>
-<li><a href="Tile.html">Tile</a></li>
-<li><a href="Util.html">Util</a></li>
-<li><a href="main.html">main</a></li>
-</ul>
+  <h1>Source code for Util</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: UTF-8 -*-</span>
+<div class="viewcode-block" id="Util"><a class="viewcode-back" href="../Util.html#Util.Util">[docs]</a><span class="k">class</span> <span class="nc">Util</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Util.is_colliding_square"><a class="viewcode-back" href="../Util.html#Util.Util.is_colliding_square">[docs]</a>    <span class="k">def</span> <span class="nf">is_colliding_square</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">):</span>
+        <span class="c"># abとcdという四角形として</span>
+        <span class="c"># cdがののab右にある、cdがabの左にある、cdがabの下にある、cdがabの上にある</span>
+        <span class="k">if</span> <span class="n">bx</span> <span class="o">&lt;</span> <span class="n">cx</span> <span class="ow">or</span> <span class="n">dx</span> <span class="o">&lt;</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">by</span> <span class="o">&lt;</span> <span class="n">cy</span> <span class="ow">or</span> <span class="n">dy</span> <span class="o">&lt;</span> <span class="n">ay</span><span class="p">:</span>
+            <span class="c"># 衝突していない</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span></div></div>
+</pre></div>
 
           </div>
         </div>
@@ -92,7 +94,8 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../index.html">src  documentation</a> &raquo;</li> 
+        <li><a href="../index.html">src  documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
