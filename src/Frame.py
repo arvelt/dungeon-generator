@@ -5,6 +5,7 @@ from Room import Room
 from Rooms import Rooms
 from Road import Road
 from Roads import Roads
+from Util import Util
 from RoomSearcher import RoomSearcher
 from RoomSizeGenerator import RoomSizeGenerator
 
@@ -45,7 +46,8 @@ class Frame(Rect):
     def _check_duplicate_room_road(self, rooms, road):
         # 道がいずれかの部屋の座標と重複してしまう場合はTrue、そうでなければFalse
         for room in rooms:
-            if not self._is_colliding_square(room.x, room.y, room.ax, room.ay, road.x, road.y, road.ax, road.ay):
+#            if not self._is_colliding_square(room.x, room.y, room.ax, room.ay, road.x, road.y, road.ax, road.ay):
+            if not Util.is_colliding_square(room.x, room.y, room.ax, room.ay, road.x, road.y, road.ax, road.ay):
                 pass
             else:
                 return True

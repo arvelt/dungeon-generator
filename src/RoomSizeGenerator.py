@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+from Util import Util
 import random
 
 class NoFreeSpaceException(Exception):
@@ -119,7 +120,7 @@ class SizeDuplicateChecker(object):
             dx = size.get('width') + cx - 1
             dy = size.get('height') + cy - 1
 
-            if ax <= dx and cx <= bx and ay <= dy and cy <= by:
+            if Util.is_colliding_square(ax, ay, bx, by, cx, cy, dx, dy):
                 return True
                 break
         else:
