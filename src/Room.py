@@ -13,6 +13,14 @@ class Room(Rect):
         self.id = str(uuid.uuid4())
         self.tiles = []
         self.doors = []
+
+        """ Whther the at least one of the road, or not."""
+        self.has_road = False
+
+        self.north_road_id = None
+        self.south_road_id = None
+        self.east_road_id = None
+        self.west_road_id = None
         self._fill_tiles(tmp_kind)
         self._make_door()
 
@@ -60,6 +68,20 @@ class Room(Rect):
             return True
         else:
             return False
+
+    def get_door(self, x, y):
+        """ Get a door from Room.
+
+        :param x: potision x.
+        :param y: potision y.
+        :rtype: Door class.
+        :return: Return door. if it does not exist, return None.
+        """
+        for door in self.doors:
+            if door.x == x and door.y == y:
+                return door
+        else:
+            return None
 
     def has_door(self, door):
         """ Whether holds the door.

@@ -44,6 +44,12 @@ class Frame(Rect):
             if not self._is_adjacent(rooms, road):
                 self.roads.add(road)
 
+        # 道がひとつもない部屋があれば消す
+        self.rooms.combine_roads(self.roads.get_all())
+        for room in self.rooms.get_all():
+            if not room.has_road:
+                self.rooms.delete(room.id)
+
     def _is_adjacent(self, rooms, road):
         # 道が部屋に隣接してできている場合はTrue、そうでなければFalse
         for room in rooms:
