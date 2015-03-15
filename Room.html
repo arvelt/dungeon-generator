@@ -63,9 +63,9 @@
 <p>Room in dungeon.
 Once instantiated, it is filled with Tile.</p>
 <dl class="attribute">
-<dt id="Room.Room.doors">
-<tt class="descname">doors</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.doors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whther the at least one of the road, or not.</p>
+<dt id="Room.Room.east_road_id">
+<tt class="descname">east_road_id</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.east_road_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The road id on east side. If not exist, None.</p>
 </dd></dl>
 
 <dl class="method">
@@ -204,6 +204,12 @@ Once instantiated, it is filled with Tile.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="Room.Room.has_road">
+<tt class="descname">has_road</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.has_road" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whther the at least one of the road, or not.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="Room.Room.has_tile">
 <tt class="descname">has_tile</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/Room.html#Room.has_tile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.has_tile" title="Permalink to this definition">¶</a></dt>
@@ -228,6 +234,12 @@ Once instantiated, it is filled with Tile.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="Room.Room.north_road_id">
+<tt class="descname">north_road_id</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.north_road_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The road id on north side. If not exist, None.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="Room.Room.set_tile">
 <tt class="descname">set_tile</tt><big>(</big><em>x</em>, <em>y</em>, <em>new_tile</em><big>)</big><a class="headerlink" href="#Room.Room.set_tile" title="Permalink to this definition">¶</a></dt>
@@ -245,6 +257,18 @@ Once instantiated, it is filled with Tile.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Room.Room.south_road_id">
+<tt class="descname">south_road_id</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.south_road_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The road id on south side. If not exist, None.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Room.Room.west_road_id">
+<tt class="descname">west_road_id</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.west_road_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The road id on west side. If not exist, None.</p>
 </dd></dl>
 
 </dd></dl>
