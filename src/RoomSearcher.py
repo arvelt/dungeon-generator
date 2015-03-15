@@ -11,13 +11,16 @@ class RoomSearcher(object):
     NORTH = 'north'
     SOUTH = 'south'
 
-    def get_copy_room_direction(self):
-        return copy.deepcopy(self.nearest_rooms)
-
-    def get_copy_road_pair(self):
-        return copy.deepcopy(self.road_pair)
-
     def get_door_pairs(self, rooms):
+        """ Get door pairs from all rooms.
+
+            It is a combination of the door nearest the room from the door of each side of the room.
+        :rtype: List of Tupple
+
+            | [0] from_door
+            | [1] to_door
+        :return: Return List of door tuple.
+        """
         self.all_rooms = []
         for room in rooms:
             self.all_rooms.append({
@@ -28,12 +31,19 @@ class RoomSearcher(object):
 
         nearest_rooms = []
         for room in self.all_rooms:
-            nearest_rooms.append(self._analyze(room))
+            nearest_rooms.append(self._devide_room_and_anlyze(room))
         pair_list = self._adjust_result_analyze(nearest_rooms)
         door_pair = self._transform_door_pair(pair_list, rooms)
         return door_pair
 
     def _adjust_result_analyze(self, rooms):
+        # 一番近い部屋同士の組み合わせを、東西南北ごとに作る
+        # 以下の形式を返す
+        # [{
+        #     'from': room id,
+        #     'to': room id,
+        #     'direction': direction of north, south, east and west,
+        # }]
         self.nearest_rooms = rooms
         road_pair = []
         for nearest_room in rooms:
@@ -81,6 +91,12 @@ class RoomSearcher(object):
         return road_pair
 
     def _transform_door_pair(self, pair_list, rooms):
+        # 部屋の組み合わせからドアの組わせを作る
+        # 以下の形式を返す
+        # [(
+        #    Door, One of the door to be the start of road.
+        #    Door  One of the foor to be the end of road.
+        # )]
         col_distances = []
         row_distances = []
         door_pair = []
@@ -145,7 +161,9 @@ class RoomSearcher(object):
         return door_pair
 
 
-    def _analyze(self, room):
+    def _devide_room_and_anlyze(self, room):
+        # 基準になる部屋とそれ以外の部屋、という組み合わせを作る
+        # 返す値は _search_nearest_room と _get_nearest_roomのコメントを参照
         target_room = room
         comparison_destinations = []
         for room in self.all_rooms:
@@ -154,12 +172,42 @@ class RoomSearcher(object):
         return self._search_nearest_room(target_room, comparison_destinations)
 
     def _search_nearest_room(self, room, destinations):
+        # 基準になる部屋から、一番近い部屋を探す
+        # 以下の形式を返す。
+        # {
+        #     'id': ID of standard room,
+        #     Other keys, see _get_nearest_room detail.
+        # }
         distance_list = self._caluclate_room_distanse(room, destinations)
         result = self._get_nearest_room(distance_list)
         result['id'] = room.get('id')
         return result
 
     def _get_nearest_room(self, distance_list):
+        # 全ての部屋に対する距離の中から、東西南北のそれぞれの方向で一番近い距離を探す
+        # 以下の形式を返す。
+        # {
+        #     'north' : {
+        #         'id': Destination room id,
+        #         'distance': Distance from room to room,
+        #         'angle': Angle of destination room.
+        #     } or None,
+        #     'south' : {
+        #         'id': Destination room id,
+        #         'distance': Distance from room to room,
+        #         'angle': Angle of destination room.
+        #     } or None,
+        #     'east' : {
+        #         'id': Destination room id,
+        #         'distance': Distance from room to room,
+        #         'angle': Angle of destination room.
+        #     } or None,
+        #     'west' : {
+        #         'id': Destination room id,
+        #         'distance': Distance from room to room,
+        #         'angle': Angle of destination room.
+        #     } or None,
+        # }
         upper_list = []
         right_list = []
         lower_list = []
@@ -201,6 +249,7 @@ class RoomSearcher(object):
             return default
 
     def _caluclate_room_distanse(self, room, destinations):
+        # 基準になる部屋から、すべての部屋に対して距離を計算する
         distance_list = []
         ax = room.get('x')
         ay = room.get('y')

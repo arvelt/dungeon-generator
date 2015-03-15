@@ -107,21 +107,41 @@ class Room(Rect):
         self.doors.append(door)
 
     def get_north_door(self):
+        """ Get a door on the north side.
+
+        :rtype: Door
+        :return: Return Door.
+        """
         for door in self.doors:
             if door.y == self.y:
                 return door
 
     def get_south_door(self):
+        """ Get a door on the south side.
+
+        :rtype: Door
+        :return: Return Door.
+        """
         for door in self.doors:
             if door.y == self.ay:
                 return door
 
     def get_east_door(self):
+        """ Get a door on the east side.
+
+        :rtype: Door
+        :return: Return Door.
+        """
         for door in self.doors:
             if door.x == self.ax:
                 return door
 
     def get_west_door(self):
+        """ Get a door on the west side.
+
+        :rtype: Door
+        :return: Return Door.
+        """
         for door in self.doors:
             if door.x == self.x:
                 return door
