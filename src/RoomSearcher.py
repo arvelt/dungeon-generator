@@ -14,7 +14,7 @@ class RoomSearcher(object):
     def get_door_pairs(self, rooms):
         """ Get door pairs from all rooms.
 
-            It is a combination of the door nearest the room from the door of each side of the room.
+        It is a combination of the door nearest the room from the door of each side of the room.
         :rtype: List of Tupple
 
             | [0] from_door
