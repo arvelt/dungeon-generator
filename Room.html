@@ -62,6 +62,36 @@
 <dd><p>Bases: <a class="reference internal" href="Rect.html#Rect.Rect" title="Rect.Rect"><tt class="xref py py-class docutils literal"><span class="pre">Rect.Rect</span></tt></a></p>
 <p>Room in dungeon.
 Once instantiated, it is filled with Tile.</p>
+<dl class="attribute">
+<dt id="Room.Room.doors">
+<tt class="descname">doors</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.doors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whther the at least one of the road, or not.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Room.Room.get_door">
+<tt class="descname">get_door</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="headerlink" href="#Room.Room.get_door" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a door from Room.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; potision x.</li>
+<li><strong>y</strong> &#8211; potision y.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Door class.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Return door. if it does not exist, return None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="Room.Room.get_east_door">
 <tt class="descname">get_east_door</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Room.html#Room.get_east_door"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.get_east_door" title="Permalink to this definition">¶</a></dt>
