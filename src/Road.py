@@ -14,6 +14,14 @@ class Road(object):
         self.to_door = Door(to_door.x, to_door.y, to_door.direction)
         self._fill_road(from_door, to_door)
 
+    def get_tiles(self):
+        """Get all tiles from Road.
+
+        :rtype: List of Tile .
+        :return: Return tiles. if it does not exist, return empty list.
+        """
+        return self.tiles
+
     def get_tile(self, x, y):
         """Get a tile from Road.
 

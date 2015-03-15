@@ -40,29 +40,50 @@ class Frame(Rect):
             door1 = doors[0]
             door2 = doors[1]
             road = Road(door1, door2)
-            # 部屋と衝突せず、かつ隣接しない道だけが有効
-            if not self._is_collided(rooms, road) and not self._is_adjoing(rooms, road):
+            # 部屋に隣接しない道ならば有効
+            if not self._is_adjacent(rooms, road):
                 self.roads.add(road)
 
-    def _is_adjoing(self, rooms, road):
-        # 道が部屋に隣接してできてしまう場合はTrue、そうでなければFalse
+    def _is_adjacent(self, rooms, road):
+        # 道が部屋に隣接してできている場合はTrue、そうでなければFalse
         for room in rooms:
-            # 道につながっているドアは除いて、道の四角形の１マス分大きい形とぶつかれば、隣接しているということである
-            if room.has_door(road.from_door) or room.has_door(road.to_door):
-                pass
-            else:
-                if Util.is_colliding_square(room.x, room.y, room.ax, room.ay, road.x-1, road.y-1, road.ax+1, road.ay+1):
+            for tile in road.get_tiles():
+                if self._is_adjacent_room_tile(room, tile):
                     return True
         else:
             return False
 
-    def _is_collided(self, rooms, road):
-        # 道がいずれかの部屋の座標と衝突してしまう場合はTrue、そうでなければFalse
-        for room in rooms:
-            if Util.is_colliding_square(room.x, room.y, room.ax, room.ay, road.x, road.y, road.ax, road.ay):
-                return True
-        else:
-            return False
+    def _is_adjacent_room_tile(self, room, tile):
+        # 道の１マスの上下左右にドアではない部屋のマスがあればTrue、そうでなければFalse
+        x = tile.x + 1
+        y = tile.y
+        if room.has_tile(x, y):
+            print room.has_tile(x, y), room.get_tile(x, y)
+        if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
+            return True
+
+        x = tile.x - 1
+        y = tile.y
+        if room.has_tile(x, y):
+            print room.has_tile(x, y), room.get_tile(x, y)
+        if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
+            return True
+
+        x = tile.x
+        y = tile.y + 1
+        if room.has_tile(x, y):
+            print room.has_tile(x, y), room.get_tile(x, y)
+        if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
+            return True
+
+        x = tile.x
+        y = tile.y - 1
+        if room.has_tile(x, y):
+            print room.has_tile(x, y), room.get_tile(x, y)
+        if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
+            return True
+
+        return False
 
     def _make_map(self):
         x = self.x

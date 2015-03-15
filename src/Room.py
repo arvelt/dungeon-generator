@@ -13,10 +13,10 @@ class Room(Rect):
         self.id = str(uuid.uuid4())
         self.tiles = []
         self.doors = []
-        self.fill_tiles(tmp_kind)
+        self._fill_tiles(tmp_kind)
         self._make_door()
 
-    def fill_tiles(self, tmp_kind):
+    def _fill_tiles(self, tmp_kind):
         for col in range(self.x, self.ax + 1):
             for row in range(self.y, self.ay + 1):
                 self.tiles.append(Tile(col , row, tmp_kind))
