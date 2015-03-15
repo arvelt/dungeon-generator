@@ -62,6 +62,36 @@
 <dd><p>Bases: <a class="reference internal" href="Rect.html#Rect.Rect" title="Rect.Rect"><tt class="xref py py-class docutils literal"><span class="pre">Rect.Rect</span></tt></a></p>
 <p>Room in dungeon.
 Once instantiated, it is filled with Tile.</p>
+<dl class="attribute">
+<dt id="Room.Room.east_road_id">
+<tt class="descname">east_road_id</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.east_road_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The road id on east side. If not exist, None.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Room.Room.get_door">
+<tt class="descname">get_door</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="headerlink" href="#Room.Room.get_door" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a door from Room.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; potision x.</li>
+<li><strong>y</strong> &#8211; potision y.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Door class.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Return door. if it does not exist, return None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="Room.Room.get_east_door">
 <tt class="descname">get_east_door</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Room.html#Room.get_east_door"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.get_east_door" title="Permalink to this definition">¶</a></dt>
@@ -174,6 +204,12 @@ Once instantiated, it is filled with Tile.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="Room.Room.has_road">
+<tt class="descname">has_road</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.has_road" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whther the at least one of the road, or not.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="Room.Room.has_tile">
 <tt class="descname">has_tile</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/Room.html#Room.has_tile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Room.Room.has_tile" title="Permalink to this definition">¶</a></dt>
@@ -198,6 +234,12 @@ Once instantiated, it is filled with Tile.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="Room.Room.north_road_id">
+<tt class="descname">north_road_id</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.north_road_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The road id on north side. If not exist, None.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="Room.Room.set_tile">
 <tt class="descname">set_tile</tt><big>(</big><em>x</em>, <em>y</em>, <em>new_tile</em><big>)</big><a class="headerlink" href="#Room.Room.set_tile" title="Permalink to this definition">¶</a></dt>
@@ -215,6 +257,18 @@ Once instantiated, it is filled with Tile.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Room.Room.south_road_id">
+<tt class="descname">south_road_id</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.south_road_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The road id on south side. If not exist, None.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Room.Room.west_road_id">
+<tt class="descname">west_road_id</tt><em class="property"> = None</em><a class="headerlink" href="#Room.Room.west_road_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The road id on west side. If not exist, None.</p>
 </dd></dl>
 
 </dd></dl>

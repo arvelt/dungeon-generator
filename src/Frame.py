@@ -63,29 +63,21 @@ class Frame(Rect):
         # 道の１マスの上下左右にドアではない部屋のマスがあればTrue、そうでなければFalse
         x = tile.x + 1
         y = tile.y
-        if room.has_tile(x, y):
-            print room.has_tile(x, y), room.get_tile(x, y)
         if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
             return True
 
         x = tile.x - 1
         y = tile.y
-        if room.has_tile(x, y):
-            print room.has_tile(x, y), room.get_tile(x, y)
         if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
             return True
 
         x = tile.x
         y = tile.y + 1
-        if room.has_tile(x, y):
-            print room.has_tile(x, y), room.get_tile(x, y)
         if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
             return True
 
         x = tile.x
         y = tile.y - 1
-        if room.has_tile(x, y):
-            print room.has_tile(x, y), room.get_tile(x, y)
         if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
             return True
 

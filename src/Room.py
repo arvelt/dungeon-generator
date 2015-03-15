@@ -14,13 +14,21 @@ class Room(Rect):
         self.tiles = []
         self.doors = []
 
-        """ Whther the at least one of the road, or not."""
         self.has_road = False
+        """ Whther the at least one of the road, or not."""
 
         self.north_road_id = None
+        """ The road id on north side. If not exist, None."""
+
         self.south_road_id = None
+        """ The road id on south side. If not exist, None."""
+
         self.east_road_id = None
+        """ The road id on east side. If not exist, None."""
+
         self.west_road_id = None
+        """ The road id on west side. If not exist, None."""
+
         self._fill_tiles(tmp_kind)
         self._make_door()
 

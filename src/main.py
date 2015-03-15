@@ -34,7 +34,7 @@ if __name__ == '__main__':
     config = {
         'row_size': 32,
         'col_size': 32,
-        'room_number' : random.randint(3, 7)
+        'room_number' : random.randint(3,10)
     }
     dungeon = Dungeon(config=config)
     print dungeon.to_string()

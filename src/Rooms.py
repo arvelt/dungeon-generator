@@ -50,6 +50,7 @@ class Rooms(object):
         When has door, the room records each direction road id.
         :param roads: List of road.
         """
+        # 全ての部屋と全ての道を探索し、部屋につながっている道があればその道のIDを設定する
         for room in self.rooms:
             for road in roads:
                 if room.has_door(road.from_door) or room.has_door(road.to_door):
