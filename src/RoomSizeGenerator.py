@@ -76,8 +76,8 @@ class RoomSizeGenerator(object):
             # 一番外の境界部分には作らないようにする
             max_width = self.width / room_number - 1
             max_height = self.height / room_number - 1
-            width = random.randint(5, max_width)
-            height = random.randint(5, max_height)
+            width = random.randint(4, max_width)
+            height = random.randint(4, max_height)
             x = random.randint(self.x + 1, self.x + self.width - width - 1)
             y = random.randint(self.y + 1, self.y + self.height - height - 1)
 
