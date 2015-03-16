@@ -29,10 +29,9 @@ class RoomSearcher(object):
                 'y': room.my
             })
 
-        nearest_rooms = []
-        for room in self.all_rooms:
-            nearest_rooms.append(self._devide_room_and_anlyze(room))
-        pair_list = self._adjust_result_analyze(nearest_rooms)
+        divided_rooms = self._devide_room()
+        combinations_of_nearest_room = self._get_near_conbination(divided_rooms)
+        pair_list = self._adjust_result_analyze(combinations_of_nearest_room)
         door_pair = self._transform_door_pair(pair_list, rooms)
         return door_pair
 
@@ -160,16 +159,39 @@ class RoomSearcher(object):
 
         return door_pair
 
-
-    def _devide_room_and_anlyze(self, room):
+    def _devide_room(self):
         # 基準になる部屋とそれ以外の部屋、という組み合わせを作る
-        # 返す値は _search_nearest_room と _get_nearest_roomのコメントを参照
-        target_room = room
-        comparison_destinations = []
+        # [(target_room, comparison_destinations[])] を返す
+        devided_rooms = []
         for room in self.all_rooms:
-            if room.get('id') != target_room.get('id'):
-                comparison_destinations.append(room)
-        return self._search_nearest_room(target_room, comparison_destinations)
+            target_room = room
+            comparison_destinations = []
+            for room in self.all_rooms:
+                if room.get('id') != target_room.get('id'):
+                    comparison_destinations.append(room)
+            devided_rooms.append((target_room, comparison_destinations))
+        return devided_rooms
+
+    def _get_near_conbination(self, divided_rooms):
+        # 基準になる部屋と東西南北の方向ごとに一番近い部屋の組み合わせのリストを返す
+        # 以下の形式を返す
+        # {
+        #     # Below, see _search_nearest_room detail.
+        #     'id':
+        #     # Below, see _get_nearest_room detail.
+        #     'north':
+        #     'south':
+        #     'east':
+        #     'west'
+        # }
+        combinations_of_nearest_room = []
+        for divided in divided_rooms:
+            target_room = divided[0]
+            comparison_destinations = divided[1]
+            combinations_of_nearest_room.append(
+                self._search_nearest_room(target_room, comparison_destinations)
+            )
+        return combinations_of_nearest_room
 
     def _search_nearest_room(self, room, destinations):
         # 基準になる部屋から、一番近い部屋を探す
