@@ -69,8 +69,8 @@ def test_SizeDuplicateChecker():
 
 
 def test_RoomSizeGenerator():
-    width = 20
-    height = 20
+    width = 32
+    height = 32
     config = {'room_number': 3}
     generator = RoomSizeGenerator(width, height, config)
 

@@ -3,7 +3,7 @@ import sys, os, math, pprint
 sys.path.append(os.path.abspath('./src'))
 
 from RoomSearcher import RoomSearcher
-from main import Room
+from Room import Room
 
 def test_RoomSearcher__caluclate_room_distanse():
     room = {'x':4, 'y':4, 'width':3, 'height':3}
@@ -48,7 +48,7 @@ def test_RoomSearcher__caluclate_room_distanse():
     distance = result[6].get('distance')
     assert distance == float(3)
 
-def test_RoomSearcher_get_nearest_room():
+def test_RoomSearcher__get_nearest_room():
     UR_short1 = {'id': '1', 'distance':3, 'angle':math.radians(44)} # top
     UR_short2 = {'id': '2', 'distance':3, 'angle':math.radians(45)} # right
     UR_short3 = {'id': '3', 'distance':3, 'angle':math.radians(46)}
@@ -87,50 +87,38 @@ def test_RoomSearcher_get_nearest_room():
     distance_list = [
         UR_short1, UR_short2, UR_long1, UR_long2
     ]
-    result = searcher.get_nearest_room(distance_list)
-    assert result.get(RoomSearcher.TOP).get('id') == '1'
-    assert result.get(RoomSearcher.BELOW) is None
-    assert result.get(RoomSearcher.RIGHT).get('id') == '2'
-    assert result.get(RoomSearcher.LEFT) is None
+    result = searcher._get_nearest_room(distance_list)
+    assert result.get(RoomSearcher.NORTH).get('id') == '1'
+    assert result.get(RoomSearcher.SOUTH) is None
+    assert result.get(RoomSearcher.EAST).get('id') == '2'
+    assert result.get(RoomSearcher.WEST) is None
 
     # 右下
     distance_list = [
         LR_short1, LR_short2, LR_long1, LR_long2
     ]
-    result = searcher.get_nearest_room(distance_list)
-    assert result.get(RoomSearcher.TOP) is None
-    assert result.get(RoomSearcher.BELOW).get('id') == '8'
-    assert result.get(RoomSearcher.RIGHT).get('id') == '7'
-    assert result.get(RoomSearcher.LEFT) is None
+    result = searcher._get_nearest_room(distance_list)
+    assert result.get(RoomSearcher.NORTH) is None
+    assert result.get(RoomSearcher.SOUTH).get('id') == '8'
+    assert result.get(RoomSearcher.EAST).get('id') == '7'
+    assert result.get(RoomSearcher.WEST) is None
 
     #　左下
     distance_list = [
         LL_short2, LL_short3, LL_long2, LL_long3
     ]
-    result = searcher.get_nearest_room(distance_list)
-    assert result.get(RoomSearcher.TOP) is None
-    assert result.get(RoomSearcher.BELOW).get('id') == '15'
-    assert result.get(RoomSearcher.RIGHT) is None
-    assert result.get(RoomSearcher.LEFT).get('id') == '14'
+    result = searcher._get_nearest_room(distance_list)
+    assert result.get(RoomSearcher.NORTH) is None
+    assert result.get(RoomSearcher.SOUTH).get('id') == '15'
+    assert result.get(RoomSearcher.EAST) is None
+    assert result.get(RoomSearcher.WEST).get('id') == '14'
 
     # 左上
     distance_list = [
         UL_short2, UL_short3, UL_long2, UL_long3
     ]
-    result = searcher.get_nearest_room(distance_list)
-    assert result.get(RoomSearcher.TOP).get('id') == '20'
-    assert result.get(RoomSearcher.BELOW) is None
-    assert result.get(RoomSearcher.RIGHT) is None
-    assert result.get(RoomSearcher.LEFT).get('id') == '21'
-
-def test_RoomSearcher_analyze_Rooms():
-    rooms = [
-        Room(4, 1, 3, 3),
-        Room(1, 4, 3, 3),
-        Room(7, 7, 3, 3),
-    ]
-    searcher = RoomSearcher()
-    result = searcher.analyze_rooms(rooms)
-
-    # WIP うまく動いていないように見える
-    pprint.pprint(result)
+    result = searcher._get_nearest_room(distance_list)
+    assert result.get(RoomSearcher.NORTH).get('id') == '20'
+    assert result.get(RoomSearcher.SOUTH) is None
+    assert result.get(RoomSearcher.EAST) is None
+    assert result.get(RoomSearcher.WEST).get('id') == '21'
