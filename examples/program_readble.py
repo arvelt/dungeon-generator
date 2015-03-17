@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import sys, os, random, pprint
 sys.path.append(os.path.abspath('./src'))
-from Dungeon import Dungeon
+from dungeon_generator import Dungeon
 
 def main():
     config = {
