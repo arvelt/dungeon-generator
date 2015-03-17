@@ -4,7 +4,8 @@
 ![alt tag](https://raw.github.com/arvelt/dungeon-generator-python/master/examples/UhjNV86Q4P.gif)
 
 ##Usage
-See examples/human_readble.py or examples/program_readble.py.
+See ``examples/human_readble.py`` or ``examples/program_readble.py``.
+
 
 ##API document  
 http://arvelt.github.io/dungeon-generator-python/index.html
