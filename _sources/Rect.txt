@@ -1,4 +1,4 @@
-Rect Module
+Rect module
 ===========
 
 .. automodule:: Rect

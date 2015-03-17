@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -35,9 +33,6 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
         <li><a href="../index.html">src  documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
@@ -53,25 +48,34 @@
 
 <div class="viewcode-block" id="Rect"><a class="viewcode-back" href="../Rect.html#Rect.Rect">[docs]</a><span class="k">class</span> <span class="nc">Rect</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Shape of map base.</span>
+
 <span class="sd">        All unit of member value is squares, not coordinate.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        arguments:</span>
-<span class="sd">        x -- potision x</span>
-<span class="sd">        y -- potision y</span>
-<span class="sd">        width -- shape width</span>
-<span class="sd">        height -- shape height</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="sd">&quot;&quot;&quot;X squares in the lower right.&quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="sd">&quot;&quot;&quot;Y squares in the lower right.&quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="sd">&quot;&quot;&quot;Size of width&quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">height</span>
+        <span class="sd">&quot;&quot;&quot;Size of height&quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">width</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="sd">&quot;&quot;&quot;X squares in the lower right. Automatic calculation from the argument&quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">height</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="sd">&quot;&quot;&quot;Y squares in the lower right. Automatic calculation from the argument&quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">mx</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="sd">&quot;&quot;&quot;X squares midpoint. Automatic calculation from the argument&quot;&quot;&quot;</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">my</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="sd">&quot;&quot;&quot;Y squares midpoint. Automatic calculation from the argument&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">({</span>
@@ -114,16 +118,13 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
         <li><a href="../index.html">src  documentation</a> &raquo;</li>
           <li><a href="index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2015, Author.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -35,9 +33,6 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
         <li><a href="../index.html">src  documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
@@ -56,26 +51,22 @@
 <span class="kn">import</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">copy</span>
 <span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">attrgetter</span>
 
-<div class="viewcode-block" id="RoomSearcher"><a class="viewcode-back" href="../RoomSearcher.html#RoomSearcher.RoomSearcher">[docs]</a><span class="k">class</span> <span class="nc">RoomSearcher</span><span class="p">:</span>
+<div class="viewcode-block" id="RoomSearcher"><a class="viewcode-back" href="../RoomSearcher.html#RoomSearcher.RoomSearcher">[docs]</a><span class="k">class</span> <span class="nc">RoomSearcher</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">EAST</span> <span class="o">=</span> <span class="s">&#39;east&#39;</span>
     <span class="n">WEST</span> <span class="o">=</span> <span class="s">&#39;west&#39;</span>
     <span class="n">NORTH</span> <span class="o">=</span> <span class="s">&#39;north&#39;</span>
     <span class="n">SOUTH</span> <span class="o">=</span> <span class="s">&#39;south&#39;</span>
-    <span class="n">UPPER_RIGHT</span> <span class="o">=</span> <span class="s">&#39;upper_right&#39;</span>
-    <span class="n">LOWER_RIGHT</span> <span class="o">=</span> <span class="s">&#39;lower_right&#39;</span>
-    <span class="n">UPPER_LEFT</span> <span class="o">=</span> <span class="s">&#39;upper_left&#39;</span>
-    <span class="n">LOWER_LEFT</span> <span class="o">=</span> <span class="s">&#39;lower_left&#39;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
+<div class="viewcode-block" id="RoomSearcher.get_door_pairs"><a class="viewcode-back" href="../RoomSearcher.html#RoomSearcher.RoomSearcher.get_door_pairs">[docs]</a>    <span class="k">def</span> <span class="nf">get_door_pairs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rooms</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get door pairs from all rooms.</span>
 
-<div class="viewcode-block" id="RoomSearcher.get_room_direction"><a class="viewcode-back" href="../RoomSearcher.html#RoomSearcher.RoomSearcher.get_room_direction">[docs]</a>    <span class="k">def</span> <span class="nf">get_room_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nearest_rooms</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="RoomSearcher.get_road_pair"><a class="viewcode-back" href="../RoomSearcher.html#RoomSearcher.RoomSearcher.get_road_pair">[docs]</a>    <span class="k">def</span> <span class="nf">get_road_pair</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">road_pair</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="RoomSearcher.analyze_rooms"><a class="viewcode-back" href="../RoomSearcher.html#RoomSearcher.RoomSearcher.analyze_rooms">[docs]</a>    <span class="k">def</span> <span class="nf">analyze_rooms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rooms</span><span class="p">):</span>
+<span class="sd">        It is a combination of the door nearest the room from the door of each side of the room.</span>
+<span class="sd">        :rtype: List of Tupple</span>
+
+<span class="sd">            | [0] from_door</span>
+<span class="sd">            | [1] to_door</span>
+<span class="sd">        :return: Return List of door tuple.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">all_rooms</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="n">rooms</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">all_rooms</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
@@ -84,13 +75,20 @@
                 <span class="s">&#39;y&#39;</span><span class="p">:</span> <span class="n">room</span><span class="o">.</span><span class="n">my</span>
             <span class="p">})</span>
 
-        <span class="n">nearest_rooms</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_rooms</span><span class="p">:</span>
-            <span class="n">nearest_rooms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analyze</span><span class="p">(</span><span class="n">room</span><span class="p">))</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjust_result_analyze</span><span class="p">(</span><span class="n">nearest_rooms</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="n">divided_rooms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_devide_room</span><span class="p">()</span>
+        <span class="n">combinations_of_nearest_room</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_near_conbination</span><span class="p">(</span><span class="n">divided_rooms</span><span class="p">)</span>
+        <span class="n">pair_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjust_result_analyze</span><span class="p">(</span><span class="n">combinations_of_nearest_room</span><span class="p">)</span>
+        <span class="n">door_pair</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_transform_door_pair</span><span class="p">(</span><span class="n">pair_list</span><span class="p">,</span> <span class="n">rooms</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">door_pair</span>
 </div>
-<div class="viewcode-block" id="RoomSearcher.adjust_result_analyze"><a class="viewcode-back" href="../RoomSearcher.html#RoomSearcher.RoomSearcher.adjust_result_analyze">[docs]</a>    <span class="k">def</span> <span class="nf">adjust_result_analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rooms</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_adjust_result_analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rooms</span><span class="p">):</span>
+        <span class="c"># 一番近い部屋同士の組み合わせを、東西南北ごとに作る</span>
+        <span class="c"># 以下の形式を返す</span>
+        <span class="c"># [{</span>
+        <span class="c">#     &#39;from&#39;: room id,</span>
+        <span class="c">#     &#39;to&#39;: room id,</span>
+        <span class="c">#     &#39;direction&#39;: direction of north, south, east and west,</span>
+        <span class="c"># }]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nearest_rooms</span> <span class="o">=</span> <span class="n">rooms</span>
         <span class="n">road_pair</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">nearest_room</span> <span class="ow">in</span> <span class="n">rooms</span><span class="p">:</span>
@@ -135,23 +133,149 @@
                     <span class="s">&#39;to&#39;</span><span class="p">:</span> <span class="n">to_id</span><span class="p">,</span>
                     <span class="s">&#39;direction&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">WEST</span><span class="p">,</span>
                 <span class="p">})</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">road_pair</span> <span class="o">=</span> <span class="n">road_pair</span>
-</div>
-<div class="viewcode-block" id="RoomSearcher.analyze"><a class="viewcode-back" href="../RoomSearcher.html#RoomSearcher.RoomSearcher.analyze">[docs]</a>    <span class="k">def</span> <span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">):</span>
-        <span class="n">target_room</span> <span class="o">=</span> <span class="n">room</span>
-        <span class="n">comparison_destinations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">road_pair</span>
+
+    <span class="k">def</span> <span class="nf">_transform_door_pair</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pair_list</span><span class="p">,</span> <span class="n">rooms</span><span class="p">):</span>
+        <span class="c"># 部屋の組み合わせからドアの組わせを作る</span>
+        <span class="c"># 以下の形式を返す</span>
+        <span class="c"># [(</span>
+        <span class="c">#    Door, One of the door to be the start of road.</span>
+        <span class="c">#    Door  One of the foor to be the end of road.</span>
+        <span class="c"># )]</span>
+        <span class="n">col_distances</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">row_distances</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">door_pair</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pair_list</span><span class="p">:</span>
+            <span class="n">from_id</span> <span class="o">=</span> <span class="n">pair</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;from&#39;</span><span class="p">)</span>
+            <span class="n">to_id</span> <span class="o">=</span> <span class="n">pair</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;to&#39;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="n">rooms</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">from_id</span><span class="p">:</span>
+                    <span class="n">from_room</span> <span class="o">=</span> <span class="n">room</span>
+                <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">to_id</span><span class="p">:</span>
+                    <span class="n">to_room</span> <span class="o">=</span> <span class="n">room</span>
+
+            <span class="k">if</span> <span class="n">pair</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;direction&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">RoomSearcher</span><span class="o">.</span><span class="n">NORTH</span><span class="p">:</span>
+                <span class="n">door1</span> <span class="o">=</span> <span class="n">from_room</span><span class="o">.</span><span class="n">get_north_door</span><span class="p">()</span>
+                <span class="n">door2</span> <span class="o">=</span> <span class="n">to_room</span><span class="o">.</span><span class="n">get_south_door</span><span class="p">()</span>
+                <span class="n">distance</span> <span class="o">=</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                <span class="c"># 距離が同じならばドアの組み合わせは同じなので除く</span>
+                <span class="k">for</span> <span class="n">way</span> <span class="ow">in</span> <span class="n">col_distances</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">way</span> <span class="o">==</span> <span class="n">distance</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">col_distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
+                    <span class="n">door_pair</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">door1</span><span class="p">,</span> <span class="n">door2</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">pair</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;direction&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">RoomSearcher</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">:</span>
+                <span class="n">door1</span> <span class="o">=</span> <span class="n">from_room</span><span class="o">.</span><span class="n">get_south_door</span><span class="p">()</span>
+                <span class="n">door2</span> <span class="o">=</span> <span class="n">to_room</span><span class="o">.</span><span class="n">get_north_door</span><span class="p">()</span>
+                <span class="n">distance</span> <span class="o">=</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                <span class="c"># 距離が同じならばドアの組み合わせは同じなので除く</span>
+                <span class="k">for</span> <span class="n">way</span> <span class="ow">in</span> <span class="n">col_distances</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">way</span> <span class="o">==</span> <span class="n">distance</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">col_distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
+                    <span class="n">door_pair</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">door1</span><span class="p">,</span> <span class="n">door2</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">pair</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;direction&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">RoomSearcher</span><span class="o">.</span><span class="n">EAST</span><span class="p">:</span>
+                <span class="n">door1</span> <span class="o">=</span> <span class="n">from_room</span><span class="o">.</span><span class="n">get_east_door</span><span class="p">()</span>
+                <span class="n">door2</span> <span class="o">=</span> <span class="n">to_room</span><span class="o">.</span><span class="n">get_west_door</span><span class="p">()</span>
+                <span class="n">distance</span> <span class="o">=</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                <span class="c"># 距離が同じならばドアの組み合わせは同じなので除く</span>
+                <span class="k">for</span> <span class="n">way</span> <span class="ow">in</span> <span class="n">row_distances</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">way</span> <span class="o">==</span> <span class="n">distance</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">row_distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
+                    <span class="n">door_pair</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">door1</span><span class="p">,</span> <span class="n">door2</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">pair</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;direction&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">RoomSearcher</span><span class="o">.</span><span class="n">WEST</span><span class="p">:</span>
+                <span class="n">door1</span> <span class="o">=</span> <span class="n">from_room</span><span class="o">.</span><span class="n">get_west_door</span><span class="p">()</span>
+                <span class="n">door2</span> <span class="o">=</span> <span class="n">to_room</span><span class="o">.</span><span class="n">get_east_door</span><span class="p">()</span>
+                <span class="n">distance</span> <span class="o">=</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">door2</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">door1</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                <span class="c"># 距離が同じならばドアの組み合わせは同じなので除く</span>
+                <span class="k">for</span> <span class="n">way</span> <span class="ow">in</span> <span class="n">row_distances</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">way</span> <span class="o">==</span> <span class="n">distance</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">row_distances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
+                    <span class="n">door_pair</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">door1</span><span class="p">,</span> <span class="n">door2</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">door_pair</span>
+
+    <span class="k">def</span> <span class="nf">_devide_room</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># 基準になる部屋とそれ以外の部屋、という組み合わせを作る</span>
+        <span class="c"># [(target_room, comparison_destinations[])] を返す</span>
+        <span class="n">devided_rooms</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_rooms</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="n">target_room</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">):</span>
-                <span class="n">comparison_destinations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">room</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_nearest_room</span><span class="p">(</span><span class="n">target_room</span><span class="p">,</span> <span class="n">comparison_destinations</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="RoomSearcher.search_nearest_room"><a class="viewcode-back" href="../RoomSearcher.html#RoomSearcher.RoomSearcher.search_nearest_room">[docs]</a>    <span class="k">def</span> <span class="nf">search_nearest_room</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">destinations</span><span class="p">):</span>
+            <span class="n">target_room</span> <span class="o">=</span> <span class="n">room</span>
+            <span class="n">comparison_destinations</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_rooms</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="n">target_room</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">):</span>
+                    <span class="n">comparison_destinations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">room</span><span class="p">)</span>
+            <span class="n">devided_rooms</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">target_room</span><span class="p">,</span> <span class="n">comparison_destinations</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">devided_rooms</span>
+
+    <span class="k">def</span> <span class="nf">_get_near_conbination</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">divided_rooms</span><span class="p">):</span>
+        <span class="c"># 基準になる部屋と東西南北の方向ごとに一番近い部屋の組み合わせのリストを返す</span>
+        <span class="c"># 以下の形式を返す</span>
+        <span class="c"># {</span>
+        <span class="c">#     # Below, see _search_nearest_room detail.</span>
+        <span class="c">#     &#39;id&#39;:</span>
+        <span class="c">#     # Below, see _get_nearest_room detail.</span>
+        <span class="c">#     &#39;north&#39;:</span>
+        <span class="c">#     &#39;south&#39;:</span>
+        <span class="c">#     &#39;east&#39;:</span>
+        <span class="c">#     &#39;west&#39;</span>
+        <span class="c"># }</span>
+        <span class="n">combinations_of_nearest_room</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">divided</span> <span class="ow">in</span> <span class="n">divided_rooms</span><span class="p">:</span>
+            <span class="n">target_room</span> <span class="o">=</span> <span class="n">divided</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">comparison_destinations</span> <span class="o">=</span> <span class="n">divided</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">combinations_of_nearest_room</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_search_nearest_room</span><span class="p">(</span><span class="n">target_room</span><span class="p">,</span> <span class="n">comparison_destinations</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">combinations_of_nearest_room</span>
+
+    <span class="k">def</span> <span class="nf">_search_nearest_room</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">destinations</span><span class="p">):</span>
+        <span class="c"># 基準になる部屋から、一番近い部屋を探す</span>
+        <span class="c"># 以下の形式を返す。</span>
+        <span class="c"># {</span>
+        <span class="c">#     &#39;id&#39;: ID of standard room,</span>
+        <span class="c">#     Other keys, see _get_nearest_room detail.</span>
+        <span class="c"># }</span>
         <span class="n">distance_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_caluclate_room_distanse</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">destinations</span><span class="p">)</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nearest_room</span><span class="p">(</span><span class="n">distance_list</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_nearest_room</span><span class="p">(</span><span class="n">distance_list</span><span class="p">)</span>
         <span class="n">result</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;id&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span>
-</div>
-<div class="viewcode-block" id="RoomSearcher.get_nearest_room"><a class="viewcode-back" href="../RoomSearcher.html#RoomSearcher.RoomSearcher.get_nearest_room">[docs]</a>    <span class="k">def</span> <span class="nf">get_nearest_room</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_list</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_get_nearest_room</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">distance_list</span><span class="p">):</span>
+        <span class="c"># 全ての部屋に対する距離の中から、東西南北のそれぞれの方向で一番近い距離を探す</span>
+        <span class="c"># 以下の形式を返す。</span>
+        <span class="c"># {</span>
+        <span class="c">#     &#39;north&#39; : {</span>
+        <span class="c">#         &#39;id&#39;: Destination room id,</span>
+        <span class="c">#         &#39;distance&#39;: Distance from room to room,</span>
+        <span class="c">#         &#39;angle&#39;: Angle of destination room.</span>
+        <span class="c">#     } or None,</span>
+        <span class="c">#     &#39;south&#39; : {</span>
+        <span class="c">#         &#39;id&#39;: Destination room id,</span>
+        <span class="c">#         &#39;distance&#39;: Distance from room to room,</span>
+        <span class="c">#         &#39;angle&#39;: Angle of destination room.</span>
+        <span class="c">#     } or None,</span>
+        <span class="c">#     &#39;east&#39; : {</span>
+        <span class="c">#         &#39;id&#39;: Destination room id,</span>
+        <span class="c">#         &#39;distance&#39;: Distance from room to room,</span>
+        <span class="c">#         &#39;angle&#39;: Angle of destination room.</span>
+        <span class="c">#     } or None,</span>
+        <span class="c">#     &#39;west&#39; : {</span>
+        <span class="c">#         &#39;id&#39;: Destination room id,</span>
+        <span class="c">#         &#39;distance&#39;: Distance from room to room,</span>
+        <span class="c">#         &#39;angle&#39;: Angle of destination room.</span>
+        <span class="c">#     } or None,</span>
+        <span class="c"># }</span>
         <span class="n">upper_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">right_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">lower_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -180,19 +304,20 @@
         <span class="n">sorted_lower</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lower_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s">&#39;distance&#39;</span><span class="p">])</span>
         <span class="n">sorted_left</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">left_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s">&#39;distance&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">NORTH</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_first_item</span><span class="p">(</span><span class="n">sorted_upper</span><span class="p">),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">EAST</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_first_item</span><span class="p">(</span><span class="n">sorted_right</span><span class="p">),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_first_item</span><span class="p">(</span><span class="n">sorted_lower</span><span class="p">),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">WEST</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_first_item</span><span class="p">(</span><span class="n">sorted_left</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">NORTH</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_first_item</span><span class="p">(</span><span class="n">sorted_upper</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">EAST</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_first_item</span><span class="p">(</span><span class="n">sorted_right</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_first_item</span><span class="p">(</span><span class="n">sorted_lower</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">WEST</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_first_item</span><span class="p">(</span><span class="n">sorted_left</span><span class="p">),</span>
         <span class="p">}</span>
-</div>
-<div class="viewcode-block" id="RoomSearcher.get_first_item"><a class="viewcode-back" href="../RoomSearcher.html#RoomSearcher.RoomSearcher.get_first_item">[docs]</a>    <span class="k">def</span> <span class="nf">get_first_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_get_first_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="nb">list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">default</span>
-</div>
+
     <span class="k">def</span> <span class="nf">_caluclate_room_distanse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">destinations</span><span class="p">):</span>
+        <span class="c"># 基準になる部屋から、すべての部屋に対して距離を計算する</span>
         <span class="n">distance_list</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
         <span class="n">ay</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span>
@@ -244,16 +369,13 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
         <li><a href="../index.html">src  documentation</a> &raquo;</li>
           <li><a href="index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2015, Author.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>
