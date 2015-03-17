@@ -1,5 +1,5 @@
 .. src documentation master file, created by
-   sphinx-quickstart on Fri Mar 13 01:53:42 2015.
+   sphinx-quickstart on Tue Mar 17 19:11:17 2015.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -21,7 +21,8 @@ Contents:
    RoomSizeGenerator
    Rooms
    Tile
-   main
+   Util
+   dungeon_generator
 
 
 Indices and tables

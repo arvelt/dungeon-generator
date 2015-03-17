@@ -1,4 +1,4 @@
-RoomSearcher Module
+RoomSearcher module
 ===================
 
 .. automodule:: RoomSearcher

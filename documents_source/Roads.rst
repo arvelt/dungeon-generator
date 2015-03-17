@@ -1,4 +1,4 @@
-Roads Module
+Roads module
 ============
 
 .. automodule:: Roads

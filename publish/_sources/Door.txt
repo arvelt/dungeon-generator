@@ -1,4 +1,4 @@
-Door Module
+Door module
 ===========
 
 .. automodule:: Door

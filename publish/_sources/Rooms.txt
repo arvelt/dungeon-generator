@@ -1,4 +1,4 @@
-Rooms Module
+Rooms module
 ============
 
 .. automodule:: Rooms

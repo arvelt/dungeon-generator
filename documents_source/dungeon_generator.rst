@@ -1,7 +1,7 @@
-RoomSizeGenerator module
+dungeon_generator module
 ========================
 
-.. automodule:: RoomSizeGenerator
+.. automodule:: dungeon_generator
     :members:
     :undoc-members:
     :show-inheritance:

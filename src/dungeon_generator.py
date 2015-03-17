@@ -2,7 +2,7 @@
 from Frame import Frame
 import random
 
-class Dungeon:
+class Dungeon(object)::
     """ Generator two-dimensional map for roguelike.
 
         Config:
