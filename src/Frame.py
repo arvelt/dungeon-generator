@@ -55,33 +55,40 @@ class Frame(Rect):
         # 道が部屋に隣接してできている場合はTrue、そうでなければFalse
         for room in rooms:
             for tile in road.get_tiles():
-                if self._is_adjacent_room_tile(room, tile):
+                if self._check_adjacent_each_direction(room, tile):
                     return True
         else:
             return False
 
-    def _is_adjacent_room_tile(self, room, tile):
-        # 道の１マスの上下左右にドアではない部屋のマスがあればTrue、そうでなければFalse
+    def _check_adjacent_each_direction(self, room, tile):
+        # 道の１マスの上下左右にドアでも壁でもない部屋のマスがあればTrue、そうでなければFalse
         x = tile.x + 1
         y = tile.y
-        if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
+        if self._is_adjacent_tile(room, x, y):
             return True
 
         x = tile.x - 1
         y = tile.y
-        if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
+        if self._is_adjacent_tile(room, x, y):
             return True
 
         x = tile.x
         y = tile.y + 1
-        if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
+        if self._is_adjacent_tile(room, x, y):
             return True
 
         x = tile.x
         y = tile.y - 1
-        if room.has_tile(x, y) and room.get_tile(x, y).kind != Tile.DOOR:
+        if self._is_adjacent_tile(room, x, y):
             return True
 
+        return False
+
+    def _is_adjacent_tile(self, room, x, y):
+        if room.has_tile(x, y):
+            target_tile = room.get_tile(x, y)
+            if target_tile is not None and target_tile.kind != Tile.DOOR and target_tile.kind != Tile.WALL:
+                return True
         return False
 
     def _make_map(self):
@@ -98,13 +105,12 @@ class Frame(Rect):
             for col in range(y, ay + 1):
                 tile = None
                 for room in self.rooms.get_all():
-                    # tile = room.get_tile(col, row)
 
                     # 部屋を取得
                     if room.has_tile(col, row):
                         tile = room.get_tile(col, row)
 
-                        # 道を取得（道は壁を通るため先に見る
+                        # 道を取得（道は壁を通るため先にも見る
                         if tile is None:
                             for road in self.roads.get_all():
                                 if road.may_have_tile(col, row):
