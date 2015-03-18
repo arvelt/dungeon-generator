@@ -13,6 +13,7 @@ class Room(Rect):
         self.id = str(uuid.uuid4())
         self.tiles = []
         self.doors = []
+        self.walls = []
 
         self.has_road = False
         """ Whther the at least one of the road, or not."""
@@ -31,12 +32,45 @@ class Room(Rect):
 
         self._fill_tiles(tmp_kind)
         self._make_door()
+        self._wrap_walls()
 
     def _fill_tiles(self, tmp_kind):
         for col in range(self.x, self.ax + 1):
             for row in range(self.y, self.ay + 1):
                 self.tiles.append(Tile(col , row, tmp_kind))
 
+    def _wrap_walls(self):
+        # ４隅が重複するが問題ないので気にしなくて良い
+
+        # 上辺
+        start = self.x - 1
+        end = self.ax + 1
+        row = self.y - 1
+        for col in range(start, end + 1):
+            self.walls.append(Tile(col , row, Tile.WALL))
+
+        # 下辺
+        start = self.x - 1
+        end = self.ax + 1
+        row = self.ay + 1
+        for col in range(start, end + 1):
+            self.walls.append(Tile(col , row, Tile.WALL))
+
+        # 左辺
+        west_door = self.get_west_door()
+        start = self.y - 1
+        end = self.ay + 1
+        col = self.x - 1
+        for row in range(start, end + 1):
+            self.walls.append(Tile(col , row, Tile.WALL))
+
+        # 右辺
+        east_door = self.get_east_door()
+        start = self.y - 1
+        end = self.ay + 1
+        col = self.ax + 1
+        for row in range(start, end + 1):
+            self.walls.append(Tile(col , row, Tile.WALL))
 
     def get_tile(self, x, y):
         """ Get a tile from Room.
@@ -71,8 +105,8 @@ class Room(Rect):
         :rtype: Booean
         :return: Return True, if holds the tile. Otherwise Fasle.
         """
-        if (self.x <= x and x <= self.x + self.width - 1) and \
-            (self.y <= y and y <= self.y + self.height - 1):
+        if (self.x - 1 <= x and x <= self.ax + 1) and \
+            (self.y - 1  <= y and y <= self.ay + 1):
             return True
         else:
             return False
@@ -106,6 +140,20 @@ class Room(Rect):
                 return True
         else:
             return False
+
+    def get_wall(self, x, y):
+        """ Get a wall from Room.
+
+        :param x: potision x.
+        :param y: potision y.
+        :rtype: Tile class.
+        :return: Return tile. if it does not exist, return None.
+        """
+        for wall in self.walls:
+            if wall.x == x and wall.y == y:
+                return wall
+        else:
+            return None
 
     def _make_door(self):
         #上辺

@@ -6,7 +6,7 @@ class Tile(object):
     """
 
     DEFAULT = 'T'
-    WALL = 'W'
+    WALL = '+'
     WAY = 'L'
     DOOR = 'D'
     PARTING_LINE = 'A'

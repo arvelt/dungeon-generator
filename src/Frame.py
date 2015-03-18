@@ -98,11 +98,26 @@ class Frame(Rect):
             for col in range(y, ay + 1):
                 tile = None
                 for room in self.rooms.get_all():
+                    # tile = room.get_tile(col, row)
+
+                    # 部屋を取得
                     if room.has_tile(col, row):
                         tile = room.get_tile(col, row)
+
+                        # 道を取得（道は壁を通るため先に見る
+                        if tile is None:
+                            for road in self.roads.get_all():
+                                if road.may_have_tile(col, row):
+                                    tile = road.get_tile(col, row)
+                                    if tile:
+                                        break
+                        # 壁を取得
+                        if tile is None:
+                            tile = room.get_wall(col, row)
                         if tile:
                             break
 
+                # 道を取得
                 if tile is None:
                     for road in self.roads.get_all():
                         if road.may_have_tile(col, row):
