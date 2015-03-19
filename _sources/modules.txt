@@ -15,4 +15,5 @@ src
    Rooms
    Tile
    Util
+   Waterway
    dungeon_generator

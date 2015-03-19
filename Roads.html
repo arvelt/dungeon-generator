@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Roads module &mdash; src  documentation</title>
+    <title>Roads Module &mdash; src  documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="src  documentation" href="index.html" />
-    <link rel="next" title="Room module" href="Room.html" />
-    <link rel="prev" title="Road module" href="Road.html" /> 
+    <link rel="next" title="Room Module" href="Room.html" />
+    <link rel="prev" title="Road Module" href="Road.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="Room.html" title="Room module"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Room.html" title="Room Module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="Road.html" title="Road module"
+          <a href="Road.html" title="Road Module"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>
@@ -51,8 +54,80 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="roads-module">
-<h1>Roads module<a class="headerlink" href="#roads-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-Roads">
+<span id="roads-module"></span><h1>Roads Module<a class="headerlink" href="#module-Roads" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Roads.Roads">
+<em class="property">class </em><tt class="descclassname">Roads.</tt><tt class="descname">Roads</tt><a class="reference internal" href="_modules/Roads.html#Roads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Roads.Roads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Collections of Road.</p>
+<dl class="method">
+<dt id="Roads.Roads.add">
+<tt class="descname">add</tt><big>(</big><em>road</em><big>)</big><a class="reference internal" href="_modules/Roads.html#Roads.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Roads.Roads.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a road to collection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tile</strong> &#8211; tile class.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Roads.Roads.get">
+<tt class="descname">get</tt><big>(</big><em>id</em><big>)</big><a class="reference internal" href="_modules/Roads.html#Roads.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Roads.Roads.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a road from collection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; unique key of the road.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Road class</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Return road. if it does not exist, return None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Roads.Roads.get_all">
+<tt class="descname">get_all</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Roads.html#Roads.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Roads.Roads.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all roads from collection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of Road.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Roads.Roads.get_copy_all">
+<tt class="descname">get_copy_all</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Roads.html#Roads.get_copy_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Roads.Roads.get_copy_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all copy of roads from collection.
+When performing a destructive operation , use this.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of Road.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -63,10 +138,10 @@
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="Road.html"
-                        title="previous chapter">Road module</a></p>
+                        title="previous chapter">Road Module</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="Room.html"
-                        title="next chapter">Room module</a></p>
+                        title="next chapter">Room Module</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/Roads.txt"
@@ -96,10 +171,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="Room.html" title="Room module"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Room.html" title="Room Module"
              >next</a> |</li>
         <li class="right" >
-          <a href="Road.html" title="Road module"
+          <a href="Road.html" title="Road Module"
              >previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>

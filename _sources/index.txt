@@ -22,6 +22,7 @@ Contents:
    Rooms
    Tile
    Util
+   Waterway
    dungeon_generator
 
 
@@ -31,4 +32,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

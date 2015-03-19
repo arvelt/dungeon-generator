@@ -1,4 +1,4 @@
-RoomSizeGenerator module
+RoomSizeGenerator Module
 ========================
 
 .. automodule:: RoomSizeGenerator

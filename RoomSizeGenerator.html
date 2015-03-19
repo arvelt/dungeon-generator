@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>RoomSizeGenerator module &mdash; src  documentation</title>
+    <title>RoomSizeGenerator Module &mdash; src  documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="src  documentation" href="index.html" />
-    <link rel="next" title="Rooms module" href="Rooms.html" />
-    <link rel="prev" title="RoomSearcher module" href="RoomSearcher.html" /> 
+    <link rel="next" title="Rooms Module" href="Rooms.html" />
+    <link rel="prev" title="RoomSearcher Module" href="RoomSearcher.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="Rooms.html" title="Rooms module"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Rooms.html" title="Rooms Module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="RoomSearcher.html" title="RoomSearcher module"
+          <a href="RoomSearcher.html" title="RoomSearcher Module"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>
@@ -51,8 +54,54 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="roomsizegenerator-module">
-<h1>RoomSizeGenerator module<a class="headerlink" href="#roomsizegenerator-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-RoomSizeGenerator">
+<span id="roomsizegenerator-module"></span><h1>RoomSizeGenerator Module<a class="headerlink" href="#module-RoomSizeGenerator" title="Permalink to this headline">¶</a></h1>
+<dl class="exception">
+<dt id="RoomSizeGenerator.NoFreeSpaceException">
+<em class="property">exception </em><tt class="descclassname">RoomSizeGenerator.</tt><tt class="descname">NoFreeSpaceException</tt><a class="reference internal" href="_modules/RoomSizeGenerator.html#NoFreeSpaceException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#RoomSizeGenerator.NoFreeSpaceException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="RoomSizeGenerator.RoomSizeGenerator">
+<em class="property">class </em><tt class="descclassname">RoomSizeGenerator.</tt><tt class="descname">RoomSizeGenerator</tt><big>(</big><em>width</em>, <em>height</em>, <em>config</em><big>)</big><a class="reference internal" href="_modules/RoomSizeGenerator.html#RoomSizeGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#RoomSizeGenerator.RoomSizeGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Generator of room in dungeon.</p>
+<dl class="method">
+<dt id="RoomSizeGenerator.RoomSizeGenerator.get_room_sizes">
+<tt class="descname">get_room_sizes</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/RoomSizeGenerator.html#RoomSizeGenerator.get_room_sizes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#RoomSizeGenerator.RoomSizeGenerator.get_room_sizes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get available sizes for Room.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List of dictionary.<div class="line-block">
+<div class="line">x: Potision of room x. Express upper left squares.</div>
+<div class="line">y: Potision of room y. Express upper left squares.</div>
+<div class="line">width: Width of room.</div>
+<div class="line">height: Height of room.</div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Return sizes.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="RoomSizeGenerator.SizeDuplicateChecker">
+<em class="property">class </em><tt class="descclassname">RoomSizeGenerator.</tt><tt class="descname">SizeDuplicateChecker</tt><big>(</big><em>test_list=None</em><big>)</big><a class="reference internal" href="_modules/RoomSizeGenerator.html#SizeDuplicateChecker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#RoomSizeGenerator.SizeDuplicateChecker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="RoomSizeGenerator.SizeDuplicateChecker.prove_available_size">
+<tt class="descname">prove_available_size</tt><big>(</big><em>size</em><big>)</big><a class="reference internal" href="_modules/RoomSizeGenerator.html#SizeDuplicateChecker.prove_available_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#RoomSizeGenerator.SizeDuplicateChecker.prove_available_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -63,10 +112,10 @@
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="RoomSearcher.html"
-                        title="previous chapter">RoomSearcher module</a></p>
+                        title="previous chapter">RoomSearcher Module</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="Rooms.html"
-                        title="next chapter">Rooms module</a></p>
+                        title="next chapter">Rooms Module</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/RoomSizeGenerator.txt"
@@ -96,10 +145,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="Rooms.html" title="Rooms module"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Rooms.html" title="Rooms Module"
              >next</a> |</li>
         <li class="right" >
-          <a href="RoomSearcher.html" title="RoomSearcher module"
+          <a href="RoomSearcher.html" title="RoomSearcher Module"
              >previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>

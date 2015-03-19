@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -33,6 +35,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li><a href="../index.html">src  documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
@@ -51,6 +56,7 @@
 <span class="kn">from</span> <span class="nn">Rooms</span> <span class="kn">import</span> <span class="n">Rooms</span>
 <span class="kn">from</span> <span class="nn">Road</span> <span class="kn">import</span> <span class="n">Road</span>
 <span class="kn">from</span> <span class="nn">Roads</span> <span class="kn">import</span> <span class="n">Roads</span>
+<span class="kn">from</span> <span class="nn">Waterway</span> <span class="kn">import</span> <span class="n">Waterway</span>
 <span class="kn">from</span> <span class="nn">Util</span> <span class="kn">import</span> <span class="n">Util</span>
 <span class="kn">from</span> <span class="nn">RoomSearcher</span> <span class="kn">import</span> <span class="n">RoomSearcher</span>
 <span class="kn">from</span> <span class="nn">RoomSizeGenerator</span> <span class="kn">import</span> <span class="n">RoomSizeGenerator</span>
@@ -63,13 +69,14 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Frame</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span> <span class="o">=</span> <span class="n">Rooms</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pop_rooms</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">roads</span> <span class="o">=</span> <span class="n">Roads</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_pop_roads</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pop_waterway</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_make_map</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_pop_rooms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span> <span class="o">=</span> <span class="n">Rooms</span><span class="p">()</span>
+
         <span class="c"># RoomSizeGeneratorで取得したサイズを元に部屋を作成する</span>
         <span class="n">room_generator</span> <span class="o">=</span> <span class="n">RoomSizeGenerator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
         <span class="n">sizes</span> <span class="o">=</span> <span class="n">room_generator</span><span class="o">.</span><span class="n">get_room_sizes</span><span class="p">()</span>
@@ -78,6 +85,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">room</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_pop_roads</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">roads</span> <span class="o">=</span> <span class="n">Roads</span><span class="p">()</span>
+
         <span class="c"># RoomSearcherで取得した部屋から部屋への扉の組み合わせから道を作成する</span>
         <span class="n">rooms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span><span class="o">.</span><span class="n">get_all</span><span class="p">()</span>
         <span class="n">searcher</span> <span class="o">=</span> <span class="n">RoomSearcher</span><span class="p">()</span>
@@ -101,34 +110,44 @@
         <span class="c"># 道が部屋に隣接してできている場合はTrue、そうでなければFalse</span>
         <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="n">rooms</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">road</span><span class="o">.</span><span class="n">get_tiles</span><span class="p">():</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_adjacent_room_tile</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">tile</span><span class="p">):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_adjacent_each_direction</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">tile</span><span class="p">):</span>
                     <span class="k">return</span> <span class="bp">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">False</span>
 
-    <span class="k">def</span> <span class="nf">_is_adjacent_room_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">tile</span><span class="p">):</span>
-        <span class="c"># 道の１マスの上下左右にドアではない部屋のマスがあればTrue、そうでなければFalse</span>
+    <span class="k">def</span> <span class="nf">_check_adjacent_each_direction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">tile</span><span class="p">):</span>
+        <span class="c"># 道の１マスの上下左右にドアでも壁でもない部屋のマスがあればTrue、そうでなければFalse</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">y</span>
-        <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">has_tile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">and</span> <span class="n">room</span><span class="o">.</span><span class="n">get_tile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">Tile</span><span class="o">.</span><span class="n">DOOR</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_adjacent_tile</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">True</span>
 
         <span class="n">x</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">y</span>
-        <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">has_tile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">and</span> <span class="n">room</span><span class="o">.</span><span class="n">get_tile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">Tile</span><span class="o">.</span><span class="n">DOOR</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_adjacent_tile</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">True</span>
 
         <span class="n">x</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">x</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">has_tile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">and</span> <span class="n">room</span><span class="o">.</span><span class="n">get_tile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">Tile</span><span class="o">.</span><span class="n">DOOR</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_adjacent_tile</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">True</span>
 
         <span class="n">x</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">x</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">tile</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">has_tile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">and</span> <span class="n">room</span><span class="o">.</span><span class="n">get_tile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">Tile</span><span class="o">.</span><span class="n">DOOR</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_adjacent_tile</span><span class="p">(</span><span class="n">room</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">True</span>
 
         <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">_is_adjacent_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">has_tile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+            <span class="n">target_tile</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get_tile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">target_tile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">target_tile</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">Tile</span><span class="o">.</span><span class="n">DOOR</span> <span class="ow">and</span> <span class="n">target_tile</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">Tile</span><span class="o">.</span><span class="n">WALL</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">_pop_waterway</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">waterway</span> <span class="o">=</span> <span class="n">Waterway</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_make_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
@@ -144,11 +163,25 @@
             <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">ay</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
                 <span class="n">tile</span> <span class="o">=</span> <span class="bp">None</span>
                 <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span><span class="o">.</span><span class="n">get_all</span><span class="p">():</span>
+
+                    <span class="c"># 部屋を取得</span>
                     <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">has_tile</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
                         <span class="n">tile</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get_tile</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+
+                        <span class="c"># 道を取得（道は壁を通るため先にも見る</span>
+                        <span class="k">if</span> <span class="n">tile</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="k">for</span> <span class="n">road</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">roads</span><span class="o">.</span><span class="n">get_all</span><span class="p">():</span>
+                                <span class="k">if</span> <span class="n">road</span><span class="o">.</span><span class="n">may_have_tile</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+                                    <span class="n">tile</span> <span class="o">=</span> <span class="n">road</span><span class="o">.</span><span class="n">get_tile</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+                                    <span class="k">if</span> <span class="n">tile</span><span class="p">:</span>
+                                        <span class="k">break</span>
+                        <span class="c"># 壁を取得</span>
+                        <span class="k">if</span> <span class="n">tile</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                            <span class="n">tile</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get_wall</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">tile</span><span class="p">:</span>
                             <span class="k">break</span>
 
+                <span class="c"># 道を取得</span>
                 <span class="k">if</span> <span class="n">tile</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">road</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">roads</span><span class="o">.</span><span class="n">get_all</span><span class="p">():</span>
                         <span class="k">if</span> <span class="n">road</span><span class="o">.</span><span class="n">may_have_tile</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
@@ -156,12 +189,16 @@
                             <span class="k">if</span> <span class="n">tile</span><span class="p">:</span>
                                 <span class="k">break</span>
 
+                <span class="c"># 水路を取得</span>
+                <span class="k">if</span> <span class="n">tile</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">tile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">waterway</span><span class="o">.</span><span class="n">get_tile</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+
                 <span class="k">if</span> <span class="n">tile</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">dungeon_map</span><span class="p">[</span><span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">col</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tile</span><span class="p">)</span>
                     <span class="n">line</span> <span class="o">=</span> <span class="n">line</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">tile</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">dungeon_map</span><span class="p">[</span><span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">col</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dungeon_map</span><span class="p">[</span><span class="n">row</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">col</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="n">line</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
             <span class="n">floor</span> <span class="o">=</span> <span class="n">floor</span> <span class="o">+</span> <span class="n">line</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">dungeon_string</span> <span class="o">=</span> <span class="n">floor</span>
@@ -211,13 +248,16 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li><a href="../index.html">src  documentation</a> &raquo;</li>
           <li><a href="index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2015, Author.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

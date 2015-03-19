@@ -25,7 +25,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="src  documentation" href="index.html" /> 
+    <link rel="top" title="src  documentation" href="index.html" />
+    <link rel="next" title="dungeon_generator Module" href="dungeon_generator.html" />
+    <link rel="prev" title="Util Module" href="Util.html" /> 
   </head>
   <body>
     <div class="related">
@@ -34,6 +36,15 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dungeon_generator.html" title="dungeon_generator Module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Util.html" title="Util Module"
+             accesskey="P">previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -43,8 +54,57 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="waterway-module">
-<h1>Waterway Module<a class="headerlink" href="#waterway-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-Waterway">
+<span id="waterway-module"></span><h1>Waterway Module<a class="headerlink" href="#module-Waterway" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Waterway.Waterway">
+<em class="property">class </em><tt class="descclassname">Waterway.</tt><tt class="descname">Waterway</tt><big>(</big><em>x</em>, <em>y</em>, <em>width</em>, <em>height</em>, <em>config</em><big>)</big><a class="reference internal" href="_modules/Waterway.html#Waterway"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Waterway.Waterway" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="Rect.html#Rect.Rect" title="Rect.Rect"><tt class="xref py py-class docutils literal"><span class="pre">Rect.Rect</span></tt></a></p>
+<p>Waterway in dungeon.</p>
+<p>Randomly pop water tile in dungeon.
+Water to pop divided into pond and tributary.</p>
+<dl class="method">
+<dt id="Waterway.Waterway.get_tile">
+<tt class="descname">get_tile</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/Waterway.html#Waterway.get_tile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Waterway.Waterway.get_tile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a tile from Waterway.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; potision x.</li>
+<li><strong>y</strong> &#8211; potision y.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Tile class.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Return tile. if it does not exist, return None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Waterway.Waterway.get_tiles">
+<tt class="descname">get_tiles</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Waterway.html#Waterway.get_tiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Waterway.Waterway.get_tiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get tile collection from Waterway.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Return tile of list. if it does not exist, return empty list.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -53,6 +113,12 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Util.html"
+                        title="previous chapter">Util Module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dungeon_generator.html"
+                        title="next chapter">dungeon_generator Module</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/Waterway.txt"
@@ -81,6 +147,15 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="dungeon_generator.html" title="dungeon_generator Module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Util.html" title="Util Module"
+             >previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>
     </div>

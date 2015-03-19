@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Rooms module &mdash; src  documentation</title>
+    <title>Rooms Module &mdash; src  documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="src  documentation" href="index.html" />
-    <link rel="next" title="Tile module" href="Tile.html" />
-    <link rel="prev" title="RoomSizeGenerator module" href="RoomSizeGenerator.html" /> 
+    <link rel="next" title="Tile Module" href="Tile.html" />
+    <link rel="prev" title="RoomSizeGenerator Module" href="RoomSizeGenerator.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="Tile.html" title="Tile module"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Tile.html" title="Tile Module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="RoomSizeGenerator.html" title="RoomSizeGenerator module"
+          <a href="RoomSizeGenerator.html" title="RoomSizeGenerator Module"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>
@@ -51,8 +54,102 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="rooms-module">
-<h1>Rooms module<a class="headerlink" href="#rooms-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-Rooms">
+<span id="rooms-module"></span><h1>Rooms Module<a class="headerlink" href="#module-Rooms" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Rooms.Rooms">
+<em class="property">class </em><tt class="descclassname">Rooms.</tt><tt class="descname">Rooms</tt><a class="reference internal" href="_modules/Rooms.html#Rooms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Rooms.Rooms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Collection of room.</p>
+<dl class="method">
+<dt id="Rooms.Rooms.add">
+<tt class="descname">add</tt><big>(</big><em>room</em><big>)</big><a class="reference internal" href="_modules/Rooms.html#Rooms.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Rooms.Rooms.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a room to collection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>room</strong> &#8211; room class.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Rooms.Rooms.combine_roads">
+<tt class="descname">combine_roads</tt><big>(</big><em>roads</em><big>)</big><a class="reference internal" href="_modules/Rooms.html#Rooms.combine_roads"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Rooms.Rooms.combine_roads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combine room and road. All room checks.</p>
+<p>When has door, the room records each direction road id.
+:param roads: List of road.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Rooms.Rooms.delete">
+<tt class="descname">delete</tt><big>(</big><em>id</em><big>)</big><a class="reference internal" href="_modules/Rooms.html#Rooms.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Rooms.Rooms.delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a room from collection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; unique key of the room.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Rooms.Rooms.get">
+<tt class="descname">get</tt><big>(</big><em>id</em><big>)</big><a class="reference internal" href="_modules/Rooms.html#Rooms.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Rooms.Rooms.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a room from collection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> &#8211; unique key of the room.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Room class</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Return room. if it does not exist, return None.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Rooms.Rooms.get_all">
+<tt class="descname">get_all</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Rooms.html#Rooms.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Rooms.Rooms.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all rooms from collection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of Room.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Rooms.Rooms.get_copy_all">
+<tt class="descname">get_copy_all</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Rooms.html#Rooms.get_copy_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Rooms.Rooms.get_copy_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all copy of rooms from collection.
+When performing a destructive operation , use this.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">List of Room.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -63,10 +160,10 @@
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="RoomSizeGenerator.html"
-                        title="previous chapter">RoomSizeGenerator module</a></p>
+                        title="previous chapter">RoomSizeGenerator Module</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="Tile.html"
-                        title="next chapter">Tile module</a></p>
+                        title="next chapter">Tile Module</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/Rooms.txt"
@@ -96,10 +193,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="Tile.html" title="Tile module"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Tile.html" title="Tile Module"
              >next</a> |</li>
         <li class="right" >
-          <a href="RoomSizeGenerator.html" title="RoomSizeGenerator module"
+          <a href="RoomSizeGenerator.html" title="RoomSizeGenerator Module"
              >previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>

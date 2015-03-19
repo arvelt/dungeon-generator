@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Road module &mdash; src  documentation</title>
+    <title>Road Module &mdash; src  documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,8 +26,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="src  documentation" href="index.html" />
-    <link rel="next" title="Roads module" href="Roads.html" />
-    <link rel="prev" title="Rect module" href="Rect.html" /> 
+    <link rel="next" title="Roads Module" href="Roads.html" />
+    <link rel="prev" title="Rect Module" href="Rect.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,10 +37,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="Roads.html" title="Roads module"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Roads.html" title="Roads Module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="Rect.html" title="Rect module"
+          <a href="Rect.html" title="Rect Module"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>
@@ -51,8 +54,99 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="road-module">
-<h1>Road module<a class="headerlink" href="#road-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-Road">
+<span id="road-module"></span><h1>Road Module<a class="headerlink" href="#module-Road" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Road.Road">
+<em class="property">class </em><tt class="descclassname">Road.</tt><tt class="descname">Road</tt><big>(</big><em>from_door</em>, <em>to_door</em><big>)</big><a class="reference internal" href="_modules/Road.html#Road"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Road.Road" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Road from door to door.
+Once instantiated, it is filled with Tile.</p>
+<dl class="method">
+<dt id="Road.Road.get_tile">
+<tt class="descname">get_tile</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/Road.html#Road.get_tile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Road.Road.get_tile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a tile from Road.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; potision x.</li>
+<li><strong>y</strong> &#8211; potision y.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Tile class.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Return tile. if it does not exist, return None.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Road.Road.get_tiles">
+<tt class="descname">get_tiles</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Road.html#Road.get_tiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Road.Road.get_tiles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all tiles from Road.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List of Tile .</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Return tiles. if it does not exist, return empty list.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Road.Road.may_have_tile">
+<tt class="descname">may_have_tile</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="reference internal" href="_modules/Road.html#Road.may_have_tile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Road.Road.may_have_tile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether there is a possibility of holding the tile.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; potision x.</li>
+<li><strong>y</strong> &#8211; potision y.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Booean</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Return True, if there is a possibility. Otherwise Fasle.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Road.Road.set_tile">
+<tt class="descname">set_tile</tt><big>(</big><em>x</em>, <em>y</em>, <em>new_tile</em><big>)</big><a class="reference internal" href="_modules/Road.html#Road.set_tile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Road.Road.set_tile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set a tile to Road.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> &#8211; potision x.</li>
+<li><strong>y</strong> &#8211; potision y.</li>
+<li><strong>new_tile</strong> &#8211; new Tile</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -63,10 +157,10 @@
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="Rect.html"
-                        title="previous chapter">Rect module</a></p>
+                        title="previous chapter">Rect Module</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="Roads.html"
-                        title="next chapter">Roads module</a></p>
+                        title="next chapter">Roads Module</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/Road.txt"
@@ -96,10 +190,13 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="Roads.html" title="Roads module"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Roads.html" title="Roads Module"
              >next</a> |</li>
         <li class="right" >
-          <a href="Rect.html" title="Rect module"
+          <a href="Rect.html" title="Rect Module"
              >previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>
