@@ -5,12 +5,11 @@ class Tile(object):
         All unit of member value is squares, not coordinate.
     """
 
-    DEFAULT = 'T'
+    DEFAULT = '_'
     WALL = '+'
-    WAY = 'L'
-    DOOR = 'D'
-    PARTING_LINE = 'A'
-
+    WAY = '#'
+    DOOR = '~'
+    WATER = '^'
 
     def __init__(self, x, y, kind = None):
         """

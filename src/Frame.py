@@ -5,6 +5,7 @@ from Room import Room
 from Rooms import Rooms
 from Road import Road
 from Roads import Roads
+from Waterway import Waterway
 from Util import Util
 from RoomSearcher import RoomSearcher
 from RoomSizeGenerator import RoomSizeGenerator
@@ -17,13 +18,14 @@ class Frame(Rect):
     def __init__(self, width, height, config):
         super(Frame, self).__init__(1, 1, width, height)
         self.config = config
-        self.rooms = Rooms()
         self._pop_rooms()
-        self.roads = Roads()
         self._pop_roads()
+        self._pop_waterway()
         self._make_map()
 
     def _pop_rooms(self):
+        self.rooms = Rooms()
+
         # RoomSizeGeneratorで取得したサイズを元に部屋を作成する
         room_generator = RoomSizeGenerator(self.width, self.height, self.config)
         sizes = room_generator.get_room_sizes()
@@ -32,6 +34,8 @@ class Frame(Rect):
             self.rooms.add(room)
 
     def _pop_roads(self):
+        self.roads = Roads()
+
         # RoomSearcherで取得した部屋から部屋への扉の組み合わせから道を作成する
         rooms = self.rooms.get_all()
         searcher = RoomSearcher()
@@ -91,6 +95,9 @@ class Frame(Rect):
                 return True
         return False
 
+    def _pop_waterway(self):
+        self.waterway = Waterway(self.x, self.y, self.width, self.height, self.config)
+
     def _make_map(self):
         x = self.x
         y = self.y
@@ -131,12 +138,16 @@ class Frame(Rect):
                             if tile:
                                 break
 
+                # 水路を取得
+                if tile is None:
+                    tile = self.waterway.get_tile(col, row)
+
                 if tile:
                     self.dungeon_map[row-1][col-1] = str(tile)
                     line = line + str(tile)
                 else:
-                    self.dungeon_map[row-1][col-1] = str(0)
-                    line = line + str(0)
+                    self.dungeon_map[row-1][col-1] = str(' ')
+                    line = line + str(' ')
             floor = floor + line + '\n'
 
         self.dungeon_string = floor
