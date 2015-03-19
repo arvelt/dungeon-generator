@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -6,14 +8,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Frame module &mdash; src  documentation</title>
+    <title>Frame Module &mdash; src  documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '',
         VERSION:     '',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -24,8 +26,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="src  documentation" href="index.html" />
-    <link rel="next" title="Rect module" href="Rect.html" />
-    <link rel="prev" title="Door module" href="Door.html" /> 
+    <link rel="next" title="Rect Module" href="Rect.html" />
+    <link rel="prev" title="Door Module" href="Door.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,10 +37,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="Rect.html" title="Rect module"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Rect.html" title="Rect Module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="Door.html" title="Door module"
+          <a href="Door.html" title="Door Module"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>
@@ -49,8 +54,49 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="frame-module">
-<h1>Frame module<a class="headerlink" href="#frame-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-Frame">
+<span id="frame-module"></span><h1>Frame Module<a class="headerlink" href="#module-Frame" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="Frame.Frame">
+<em class="property">class </em><tt class="descclassname">Frame.</tt><tt class="descname">Frame</tt><big>(</big><em>width</em>, <em>height</em>, <em>config</em><big>)</big><a class="reference internal" href="_modules/Frame.html#Frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="Rect.html#Rect.Rect" title="Rect.Rect"><tt class="xref py py-class docutils literal"><span class="pre">Rect.Rect</span></tt></a></p>
+<p>The display frame shape.
+Upper left is the origin.
+The origin starts (1, 1).</p>
+<dl class="method">
+<dt id="Frame.Frame.to_array">
+<tt class="descname">to_array</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Frame.html#Frame.to_array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame.to_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a two-dimensional array of dungeon map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">array</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Two-dimensional array.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Frame.Frame.to_string">
+<tt class="descname">to_string</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Frame.html#Frame.to_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Frame.Frame.to_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a human-readable dungeon map.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Fixed-length string with a newline.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
@@ -61,10 +107,10 @@
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
   <p class="topless"><a href="Door.html"
-                        title="previous chapter">Door module</a></p>
+                        title="previous chapter">Door Module</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="Rect.html"
-                        title="next chapter">Rect module</a></p>
+                        title="next chapter">Rect Module</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/Frame.txt"
@@ -94,17 +140,20 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="Rect.html" title="Rect module"
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="Rect.html" title="Rect Module"
              >next</a> |</li>
         <li class="right" >
-          <a href="Door.html" title="Door module"
+          <a href="Door.html" title="Door Module"
              >previous</a> |</li>
         <li><a href="index.html">src  documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2015, Author.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

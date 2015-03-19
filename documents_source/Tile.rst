@@ -1,4 +1,4 @@
-Tile module
+Tile Module
 ===========
 
 .. automodule:: Tile

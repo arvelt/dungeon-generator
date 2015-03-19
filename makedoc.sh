@@ -2,8 +2,8 @@
 # git submodule add -b gh-pages `git remote -v|grep fetch|awk '{print$2}'` docs
 
 # first time
-sphinx-apidoc -F -o ./documents_source ./src
-#sphinx-apidoc -f -o ./documents_source ./src
+#sphinx-apidoc -F -o ./documents_source ./src
+sphinx-apidoc -f -o ./documents_source ./src
 sphinx-build -a ./documents_source ./publish
 
 # 生成したドキュメントをgh-pagesブランチにpushする

@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Rooms &mdash; src  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="src  documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">src  documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for Rooms</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: UTF-8 -*-</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<div class="viewcode-block" id="Rooms"><a class="viewcode-back" href="../Rooms.html#Rooms.Rooms">[docs]</a><span class="k">class</span> <span class="nc">Rooms</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Collection of room.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="Rooms.add"><a class="viewcode-back" href="../Rooms.html#Rooms.Rooms.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a room to collection.</span>
+
+<span class="sd">        :param room: room class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">room</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Rooms.get"><a class="viewcode-back" href="../Rooms.html#Rooms.Rooms.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a room from collection.</span>
+
+<span class="sd">        :param id: unique key of the room.</span>
+<span class="sd">        :rtype: Room class</span>
+<span class="sd">        :return: Return room. if it does not exist, return None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="nb">id</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">room</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="Rooms.get_all"><a class="viewcode-back" href="../Rooms.html#Rooms.Rooms.get_all">[docs]</a>    <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get all rooms from collection.</span>
+
+<span class="sd">        :rtype: List</span>
+<span class="sd">        :return: List of Room.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span>
+</div>
+<div class="viewcode-block" id="Rooms.delete"><a class="viewcode-back" href="../Rooms.html#Rooms.Rooms.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get a room from collection.</span>
+
+<span class="sd">        :param id: unique key of the room.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span><span class="p">[:]:</span>
+            <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="nb">id</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">room</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Rooms.combine_roads"><a class="viewcode-back" href="../Rooms.html#Rooms.Rooms.combine_roads">[docs]</a>    <span class="k">def</span> <span class="nf">combine_roads</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">roads</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Combine room and road. All room checks.</span>
+
+<span class="sd">        When has door, the room records each direction road id.</span>
+<span class="sd">        :param roads: List of road.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># 全ての部屋と全ての道を探索し、部屋につながっている道があればその道のIDを設定する</span>
+        <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">road</span> <span class="ow">in</span> <span class="n">roads</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">room</span><span class="o">.</span><span class="n">has_door</span><span class="p">(</span><span class="n">road</span><span class="o">.</span><span class="n">from_door</span><span class="p">)</span> <span class="ow">or</span> <span class="n">room</span><span class="o">.</span><span class="n">has_door</span><span class="p">(</span><span class="n">road</span><span class="o">.</span><span class="n">to_door</span><span class="p">):</span>
+                    <span class="n">from_door</span> <span class="o">=</span> <span class="n">road</span><span class="o">.</span><span class="n">from_door</span>
+                    <span class="n">to_door</span> <span class="o">=</span> <span class="n">road</span><span class="o">.</span><span class="n">to_door</span>
+
+                    <span class="n">north_door</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get_north_door</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">north_door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">from_door</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">north_door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">from_door</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="ow">or</span> \
+                        <span class="p">(</span><span class="n">north_door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">to_door</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">north_door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">to_door</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+                        <span class="n">room</span><span class="o">.</span><span class="n">has_road</span> <span class="o">=</span> <span class="bp">True</span>
+                        <span class="n">room</span><span class="o">.</span><span class="n">north_road_id</span> <span class="o">=</span> <span class="n">road</span><span class="o">.</span><span class="n">id</span>
+
+                    <span class="n">south_door</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get_south_door</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">south_door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">from_door</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">south_door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">from_door</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="ow">or</span> \
+                        <span class="p">(</span><span class="n">south_door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">to_door</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">south_door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">to_door</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+                        <span class="n">room</span><span class="o">.</span><span class="n">has_road</span> <span class="o">=</span> <span class="bp">True</span>
+                        <span class="n">room</span><span class="o">.</span><span class="n">south_road_id</span> <span class="o">=</span> <span class="n">road</span><span class="o">.</span><span class="n">id</span>
+
+                    <span class="n">east_door</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get_east_door</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">east_door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">from_door</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">east_door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">from_door</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="ow">or</span> \
+                        <span class="p">(</span><span class="n">east_door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">to_door</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">east_door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">to_door</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+                        <span class="n">room</span><span class="o">.</span><span class="n">has_road</span> <span class="o">=</span> <span class="bp">True</span>
+                        <span class="n">room</span><span class="o">.</span><span class="n">east_road_id</span> <span class="o">=</span> <span class="n">road</span><span class="o">.</span><span class="n">id</span>
+
+                    <span class="n">west_door</span> <span class="o">=</span> <span class="n">room</span><span class="o">.</span><span class="n">get_west_door</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">west_door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">from_door</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">west_door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">from_door</span><span class="o">.</span><span class="n">y</span><span class="p">)</span> <span class="ow">or</span> \
+                        <span class="p">(</span><span class="n">west_door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">to_door</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">west_door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">to_door</span><span class="o">.</span><span class="n">y</span><span class="p">):</span>
+                        <span class="n">room</span><span class="o">.</span><span class="n">has_road</span> <span class="o">=</span> <span class="bp">True</span>
+                        <span class="n">room</span><span class="o">.</span><span class="n">west_road_id</span> <span class="o">=</span> <span class="n">road</span><span class="o">.</span><span class="n">id</span>
+</div>
+<div class="viewcode-block" id="Rooms.get_copy_all"><a class="viewcode-back" href="../Rooms.html#Rooms.Rooms.get_copy_all">[docs]</a>    <span class="k">def</span> <span class="nf">get_copy_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get all copy of rooms from collection.</span>
+<span class="sd">            When performing a destructive operation , use this.</span>
+
+<span class="sd">        :rtype: List</span>
+<span class="sd">        :return: List of Room.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rooms</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">room</span><span class="p">)</span> <span class="k">for</span> <span class="n">room</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">rooms</span><span class="p">])</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">src  documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Author.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

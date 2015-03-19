@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Room &mdash; src  documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="src  documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">src  documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for Room</h1><div class="highlight"><pre>
+<span class="c"># -*- coding: UTF-8 -*-</span>
+<span class="kn">from</span> <span class="nn">Rect</span> <span class="kn">import</span> <span class="n">Rect</span>
+<span class="kn">from</span> <span class="nn">Tile</span> <span class="kn">import</span> <span class="n">Tile</span>
+<span class="kn">from</span> <span class="nn">Door</span> <span class="kn">import</span> <span class="n">Door</span>
+<span class="kn">import</span> <span class="nn">uuid</span><span class="o">,</span> <span class="nn">random</span>
+
+<div class="viewcode-block" id="Room"><a class="viewcode-back" href="../Room.html#Room.Room">[docs]</a><span class="k">class</span> <span class="nc">Room</span><span class="p">(</span><span class="n">Rect</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Room in dungeon.</span>
+<span class="sd">        Once instantiated, it is filled with Tile.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">tmp_kind</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Room</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tiles</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doors</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">walls</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">has_road</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="sd">&quot;&quot;&quot; Whther the at least one of the road, or not.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">north_road_id</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="sd">&quot;&quot;&quot; The road id on north side. If not exist, None.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">south_road_id</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="sd">&quot;&quot;&quot; The road id on south side. If not exist, None.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">east_road_id</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="sd">&quot;&quot;&quot; The road id on east side. If not exist, None.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">west_road_id</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="sd">&quot;&quot;&quot; The road id on west side. If not exist, None.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fill_tiles</span><span class="p">(</span><span class="n">tmp_kind</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_make_door</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wrap_walls</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_fill_tiles</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmp_kind</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tiles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tile</span><span class="p">(</span><span class="n">col</span> <span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">tmp_kind</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_wrap_walls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># ４隅が重複するが問題ないので気にしなくて良い</span>
+
+        <span class="c"># 上辺</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">walls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tile</span><span class="p">(</span><span class="n">col</span> <span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">Tile</span><span class="o">.</span><span class="n">WALL</span><span class="p">))</span>
+
+        <span class="c"># 下辺</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">walls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tile</span><span class="p">(</span><span class="n">col</span> <span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">Tile</span><span class="o">.</span><span class="n">WALL</span><span class="p">))</span>
+
+        <span class="c"># 左辺</span>
+        <span class="n">west_door</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_west_door</span><span class="p">()</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">walls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tile</span><span class="p">(</span><span class="n">col</span> <span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">Tile</span><span class="o">.</span><span class="n">WALL</span><span class="p">))</span>
+
+        <span class="c"># 右辺</span>
+        <span class="n">east_door</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_east_door</span><span class="p">()</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">walls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Tile</span><span class="p">(</span><span class="n">col</span> <span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">Tile</span><span class="o">.</span><span class="n">WALL</span><span class="p">))</span>
+
+<div class="viewcode-block" id="Room.get_tile"><a class="viewcode-back" href="../Room.html#Room.Room.get_tile">[docs]</a>    <span class="k">def</span> <span class="nf">get_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get a tile from Room.</span>
+
+<span class="sd">        :param x: potision x.</span>
+<span class="sd">        :param y: potision y.</span>
+<span class="sd">        :rtype: Tile class.</span>
+<span class="sd">        :return: Return tile. if it does not exist, return None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tiles</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tile</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">tile</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">tile</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="Room.set_tile"><a class="viewcode-back" href="../Room.html#Room.Room.set_tile">[docs]</a>    <span class="k">def</span> <span class="nf">set_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">new_tile</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Set a tile to Room.</span>
+
+<span class="sd">        :param x: potision x.</span>
+<span class="sd">        :param y: potision y.</span>
+<span class="sd">        :param new_tile: new Tile</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">tile</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tiles</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">tile</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">tile</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">tiles</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_tile</span>
+</div>
+<div class="viewcode-block" id="Room.has_tile"><a class="viewcode-back" href="../Room.html#Room.Room.has_tile">[docs]</a>    <span class="k">def</span> <span class="nf">has_tile</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Whether holds the tile.</span>
+
+<span class="sd">        :param x: potision x.</span>
+<span class="sd">        :param y: potision y.</span>
+<span class="sd">        :rtype: Booean</span>
+<span class="sd">        :return: Return True, if holds the tile. Otherwise Fasle.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> \
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span>  <span class="o">&lt;=</span> <span class="n">y</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="Room.get_door"><a class="viewcode-back" href="../Room.html#Room.Room.get_door">[docs]</a>    <span class="k">def</span> <span class="nf">get_door</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get a door from Room.</span>
+
+<span class="sd">        :param x: potision x.</span>
+<span class="sd">        :param y: potision y.</span>
+<span class="sd">        :rtype: Door class.</span>
+<span class="sd">        :return: Return door. if it does not exist, return None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">door</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">door</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="Room.has_door"><a class="viewcode-back" href="../Room.html#Room.Room.has_door">[docs]</a>    <span class="k">def</span> <span class="nf">has_door</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">door</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Whether holds the door.</span>
+
+<span class="sd">        :param x: potision x.</span>
+<span class="sd">        :param y: potision y.</span>
+<span class="sd">        :rtype: Booean</span>
+<span class="sd">        :return: Return True, if holds the tile. Otherwise Fasle.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">door</span><span class="o">.</span><span class="n">kind</span> <span class="o">!=</span> <span class="n">Tile</span><span class="o">.</span><span class="n">DOOR</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">for</span> <span class="n">room_door</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">room_door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">door</span><span class="o">.</span><span class="n">x</span> <span class="ow">and</span> <span class="n">room_door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">door</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+</div>
+<div class="viewcode-block" id="Room.get_wall"><a class="viewcode-back" href="../Room.html#Room.Room.get_wall">[docs]</a>    <span class="k">def</span> <span class="nf">get_wall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get a wall from Room.</span>
+
+<span class="sd">        :param x: potision x.</span>
+<span class="sd">        :param y: potision y.</span>
+<span class="sd">        :rtype: Tile class.</span>
+<span class="sd">        :return: Return tile. if it does not exist, return None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">wall</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">walls</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">wall</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="n">x</span> <span class="ow">and</span> <span class="n">wall</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="n">y</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">wall</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
+    <span class="k">def</span> <span class="nf">_make_door</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c">#上辺</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span>
+        <span class="n">door</span> <span class="o">=</span> <span class="n">Door</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">Door</span><span class="o">.</span><span class="n">NORTH</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tile</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">door</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">door</span><span class="p">)</span>
+
+        <span class="c">#下辺</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span>
+        <span class="n">door</span> <span class="o">=</span> <span class="n">Door</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">Door</span><span class="o">.</span><span class="n">SOUTH</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tile</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">door</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">door</span><span class="p">)</span>
+
+        <span class="c">#右辺</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">door</span> <span class="o">=</span> <span class="n">Door</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">Door</span><span class="o">.</span><span class="n">EAST</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tile</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">door</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">door</span><span class="p">)</span>
+
+        <span class="c">#左辺</span>
+        <span class="n">dx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">door</span> <span class="o">=</span> <span class="n">Door</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">Door</span><span class="o">.</span><span class="n">WEST</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tile</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">door</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">door</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Room.get_north_door"><a class="viewcode-back" href="../Room.html#Room.Room.get_north_door">[docs]</a>    <span class="k">def</span> <span class="nf">get_north_door</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get a door on the north side.</span>
+
+<span class="sd">        :rtype: Door</span>
+<span class="sd">        :return: Return Door.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">door</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">door</span>
+</div>
+<div class="viewcode-block" id="Room.get_south_door"><a class="viewcode-back" href="../Room.html#Room.Room.get_south_door">[docs]</a>    <span class="k">def</span> <span class="nf">get_south_door</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get a door on the south side.</span>
+
+<span class="sd">        :rtype: Door</span>
+<span class="sd">        :return: Return Door.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">door</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">door</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ay</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">door</span>
+</div>
+<div class="viewcode-block" id="Room.get_east_door"><a class="viewcode-back" href="../Room.html#Room.Room.get_east_door">[docs]</a>    <span class="k">def</span> <span class="nf">get_east_door</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get a door on the east side.</span>
+
+<span class="sd">        :rtype: Door</span>
+<span class="sd">        :return: Return Door.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">door</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">door</span>
+</div>
+<div class="viewcode-block" id="Room.get_west_door"><a class="viewcode-back" href="../Room.html#Room.Room.get_west_door">[docs]</a>    <span class="k">def</span> <span class="nf">get_west_door</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Get a door on the west side.</span>
+
+<span class="sd">        :rtype: Door</span>
+<span class="sd">        :return: Return Door.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">door</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doors</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">door</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">door</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">src  documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Author.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

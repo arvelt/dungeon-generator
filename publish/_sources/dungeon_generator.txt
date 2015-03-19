@@ -1,4 +1,4 @@
-dungeon_generator module
+dungeon_generator Module
 ========================
 
 .. automodule:: dungeon_generator

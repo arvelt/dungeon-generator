@@ -1,4 +1,4 @@
-Frame module
+Frame Module
 ============
 
 .. automodule:: Frame
