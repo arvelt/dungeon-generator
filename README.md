@@ -4,8 +4,25 @@
 ![alt tag](https://raw.github.com/arvelt/dungeon-generator-python/master/examples/demo.gif)
 
 ##Usage
-See ``examples/human_readble.py`` or ``examples/program_readble.py``.
+WIP
+```
+$ pip install dungeongenerator
+```
 
+```
+#Ideal
+#import dungeongenrator from Dungeon
+#dungeon = new Dungeon()
 
-##API document  
+#Reality
+from dungeongenerator import dungeon_generator
+dungeon = dungeon_generator.Dungeon()
+
+dungeon.to_string()
+```
+
+##License
+MIT
+
+##Inside API document  
 http://arvelt.github.io/dungeon-generator-python/index.html
