@@ -1,4 +1,4 @@
 [submodule "docs"]
 	path = docs
-	url = https://arvelt@github.com/arvelt/dungeon-generator-python
+	url = https://arvelt@github.com/arvelt/dungeon-generator
 	branch = gh-pages
