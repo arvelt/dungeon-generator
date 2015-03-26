@@ -278,7 +278,7 @@ class RoomSearcher(object):
         for destination in destinations:
             bx = destination.get('x')
             by = destination.get('y')
-            distance = math.sqrt( (bx - ax) * (bx - ax) + (by - ay) * (by - ay))
+            distance = (bx - ax) * (bx - ax) + (by - ay) * (by - ay)
 
             #マス目は左上原点なので、Y座標が逆になっているものとして計算する。
             #右側面を正の値、左側面を負の値、上方が0度、下方が180/-180度となるものとする。

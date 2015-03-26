@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import sys, os, math, pprint
-sys.path.append(os.path.abspath('./src'))
+sys.path.append(os.path.abspath('./dungeon'))
 
 from RoomSearcher import RoomSearcher
 from Room import Room
@@ -40,13 +40,13 @@ def test_RoomSearcher__caluclate_room_distanse():
     assert radians == math.radians(135)
 
     distance = result[1].get('distance')
-    assert distance == float(3)
+    assert distance == float(9)
     distance = result[3].get('distance')
-    assert distance == float(3)
+    assert distance == float(9)
     distance = result[4].get('distance')
-    assert distance == float(3)
+    assert distance == float(9)
     distance = result[6].get('distance')
-    assert distance == float(3)
+    assert distance == float(9)
 
 def test_RoomSearcher__get_nearest_room():
     UR_short1 = {'id': '1', 'distance':3, 'angle':math.radians(44)} # top

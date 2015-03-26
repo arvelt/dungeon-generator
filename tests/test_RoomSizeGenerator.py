@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import sys, os
-sys.path.append(os.path.abspath('./src'))
+sys.path.append(os.path.abspath('./dungeon'))
 
 from RoomSizeGenerator import RoomSizeGenerator, SizeDuplicateChecker
 
