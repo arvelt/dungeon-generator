@@ -16,7 +16,7 @@ def find_scripts(scripts_path):
 import os
 import sys
 
-libdir = "dungeongenerator"
+libdir = "dungeon"
 #bindir = os.path.join(libdir, "bin")
 
 sys.path.insert(0, libdir)
@@ -28,7 +28,6 @@ setup_options = info.INFO
 setup_options["version"] = version.VERSION
 setup_options.update(dict(
     install_requires = open('requirements.txt').read().splitlines(),
-    scripts          = ['dungeongenerator/dungeon_generator.py'],
     packages         = find_packages(libdir),
     package_dir      = {"": libdir},
 ))

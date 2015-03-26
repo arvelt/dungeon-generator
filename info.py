@@ -1,6 +1,6 @@
 # package information.
 INFO = dict(
-    name = "dungeongenerator",
+    name = "dungeon-generator",
     description = "Dungeon generator cli tool for rouge-like.",
     author = "Keisuke Ota",
     author_email = "arvelt.s@gmail.com",

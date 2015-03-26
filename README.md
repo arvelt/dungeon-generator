@@ -6,19 +6,24 @@
 ##Usage
 WIP
 ```
-$ pip install dungeongenerator
+$ pip install dungeon-generator
 ```
 
 ```
-#Ideal
-#import dungeongenrator from Dungeon
-#dungeon = new Dungeon()
+from dungeon import Generator
+import random
 
-#Reality
-from dungeongenerator import dungeon_generator
-dungeon = dungeon_generator.Dungeon()
+config = {
+    'row_size': 32,
+    'col_size': 32,
+    'room_number' : random.randint(3,10),
+    'amount_water': 7,
+}
+generatoed_dungeon = Generator()
+print dungeon.to_string()
 
-dungeon.to_string()
+# When use in the program.
+print dungeon.to_array()
 ```
 
 ##License
