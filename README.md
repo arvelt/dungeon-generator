@@ -4,7 +4,6 @@
 ![alt tag](https://raw.github.com/arvelt/dungeon-generator-python/master/examples/demo.gif)
 
 ##Usage
-WIP
 ```
 $ pip install dungeon-generator
 ```
