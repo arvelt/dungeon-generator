@@ -1,4 +1,4 @@
-#Dungeon generator [![Build Status](https://travis-ci.org/arvelt/dungeon-generator-python.svg?branch=master)](https://travis-ci.org/arvelt/dungeon-generator-python)
+#Dungeon generator [![Build Status](https://travis-ci.org/arvelt/dungeon-generator.svg?branch=master)](https://travis-ci.org/arvelt/dungeon-generator)
 
 ##Demo  
 ![alt tag](https://raw.github.com/arvelt/dungeon-generator-python/master/examples/demo.gif)
