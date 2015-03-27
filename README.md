@@ -19,10 +19,10 @@ config = {
     'amount_water': 7,
 }
 generatoed_dungeon = Generator()
-print dungeon.to_string()
+print generatoed_dungeon.to_string()
 
 # When use in the program.
-print dungeon.to_array()
+print generatoed_dungeon.to_array()
 ```
 
 ##License

@@ -1,2 +1,2 @@
 __all__ = ['Generator']
-from dungeon.DungeonGenerator import Generator
+from .DungeonGenerator import Generator
