@@ -1,7 +1,7 @@
 #Dungeon generator [![Build Status](https://travis-ci.org/arvelt/dungeon-generator.svg?branch=master)](https://travis-ci.org/arvelt/dungeon-generator)
 
 ##Demo  
-![alt tag](https://raw.github.com/arvelt/dungeon-generator-python/master/examples/demo.gif)
+![alt tag](https://raw.github.com/arvelt/dungeon-generator/master/examples/demo.gif)
 
 ##Usage
 ```
@@ -29,4 +29,4 @@ print generatoed_dungeon.to_array()
 MIT
 
 ##Inside API document  
-http://arvelt.github.io/dungeon-generator-python/index.html
+http://arvelt.github.io/dungeon-generator/index.html
