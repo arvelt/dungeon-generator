@@ -1,0 +1,14 @@
+Metadata-Version: 1.1
+Name: dungeon-generator
+Version: 0.0.1
+Summary: Dungeon generator cli tool for rouge-like.
+Home-page: https://github.com/arvelt/dungeon-generator
+Author: Keisuke Ota
+Author-email: arvelt.s@gmail.com
+License: MIT License
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3
+Classifier: License :: OSI Approved :: MIT License
