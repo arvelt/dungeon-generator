@@ -18,7 +18,7 @@ config = {
     'room_number' : random.randint(3,10),
     'amount_water': 7,
 }
-generatoed_dungeon = Generator()
+generatoed_dungeon = Generator({'config':config})
 print generatoed_dungeon.to_string()
 
 # When use in the program.
