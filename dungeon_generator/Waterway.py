@@ -92,10 +92,12 @@ class Waterway(Rect):
         # 縦か横かの目安を決めて、時々ずらしながら川を沸かせる
         # config.amount_water が多いほど川は増える amount_waterは最大10
 
-        amount_water = self.config.get('amount_water', 3)
+        amount_water = self.config.get('amount_water', 0)
         if amount_water == 0:
             return
-        if amount_water > 10:
+        if amount_water < 0:
+            return
+        if 10 < amount_water:
             amount_water = 10
 
         _cols = []

@@ -143,8 +143,11 @@ class Frame(Rect):
                     tile = self.waterway.get_tile(col, row)
 
                 if tile:
-                    self.dungeon_map[row-1][col-1] = str(tile)
-                    line = line + str(tile)
+                    _tile = str(tile)
+                    if tile.kind == tile.DOOR and self.config.get('debug', False) == False:
+                        _tile = tile.DEFAULT
+                    self.dungeon_map[row-1][col-1] = _tile
+                    line = line + _tile
                 else:
                     self.dungeon_map[row-1][col-1] = str(' ')
                     line = line + str(' ')
