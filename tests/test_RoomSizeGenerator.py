@@ -2,7 +2,7 @@
 import sys, os
 sys.path.append(os.path.abspath('./dungeon'))
 
-from RoomSizeGenerator import RoomSizeGenerator, SizeDuplicateChecker
+from dungeon_generator.RoomSizeGenerator import RoomSizeGenerator, SizeDuplicateChecker
 
 
 #

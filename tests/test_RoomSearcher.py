@@ -2,7 +2,7 @@
 import sys, os, math, pprint
 sys.path.append(os.path.abspath('./dungeon'))
 
-from RoomSearcher import RoomSearcher
+from dungeon_generator.RoomSearcher import RoomSearcher
 from Room import Room
 
 def test_RoomSearcher__caluclate_room_distanse():
